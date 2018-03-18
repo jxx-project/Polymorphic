@@ -1,0 +1,51 @@
+#! /bin/sh
+#
+# configure
+#
+# Configuration script for Polymorphic
+#
+# Invoke configure --help for help.
+#
+
+showhelp()
+{
+cat << ENDHELP
+usage: configure {options}
+Configure the Polymorphic C++ Header Library.
+
+Options:
+  --help
+    Display this help screen.
+
+  --prefix=<install_prefix>
+    Use the given install directory for make install.
+    Default is /usr/local.
+
+ENDHELP
+}
+
+# parse arguments
+while [ $# -ge 1 ]; do
+	case "$1" in
+	--prefix=*)
+		prefix="`echo ${1} | awk '{print substr($0,10)}'`" ;;
+
+	--help)
+		showhelp
+		exit 0
+		;;
+
+	*)
+		showhelp
+		exit 1
+		;;
+	esac
+
+ 	shift
+done
+
+if [ -z "$prefix" ] ; then
+	prefix=/usr/local
+fi
+
+mkdir -p build && (cd build && cmake .. -DCMAKE_INSTALL_PREFIX="${prefix}") && echo "Configured"
