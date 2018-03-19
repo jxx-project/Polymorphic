@@ -45,18 +45,19 @@ template< typename T, typename Allocator = std::allocator<T> >
 class List
 {
 public:
+	typedef std::list<T, Allocator> DelegateType;
 	typedef T value_type;	
 	typedef Allocator allocator_type;
 	typedef T& reference;	
 	typedef const T& const_reference;	
-	typedef typename std::list<T, Allocator>::pointer pointer;
-	typedef typename std::list<T, Allocator>::const_pointer const_pointer ;
-	typedef typename std::list<T, Allocator>::iterator iterator;
-	typedef typename std::list<T, Allocator>::const_iterator const_iterator ;
-	typedef typename std::list<T, Allocator>::reverse_iterator reverse_iterator;
-	typedef typename std::list<T, Allocator>::const_reverse_iterator const_reverse_iterator;
-	typedef typename std::list<T, Allocator>::difference_type difference_type;
-	typedef typename std::list<T, Allocator>::size_type size_type;
+	typedef typename DelegateType::pointer pointer;
+	typedef typename DelegateType::const_pointer const_pointer ;
+	typedef typename DelegateType::iterator iterator;
+	typedef typename DelegateType::const_iterator const_iterator ;
+	typedef typename DelegateType::reverse_iterator reverse_iterator;
+	typedef typename DelegateType::const_reverse_iterator const_reverse_iterator;
+	typedef typename DelegateType::difference_type difference_type;
+	typedef typename DelegateType::size_type size_type;
 
 	/// Forwarded to std::list<T>::list(const allocator_type& allocator = allocator_type()).
 	explicit List(const allocator_type& allocator = allocator_type()) : delegate(allocator)
@@ -85,7 +86,7 @@ public:
 	}
 
 	/// Copy constructor.
-	List(const List& other, const allocator_type& allocator = allocator_type()) : delegate(other.delegate, allocator)
+	List(const List& other, const allocator_type& allocator) : delegate(other.delegate, allocator)
 	{
 	}
 
@@ -95,12 +96,32 @@ public:
 	}
 
 	/// Move constructor.
-	List(List&& other, const allocator_type& allocator = allocator_type()) : delegate(std::move(other.delegate), allocator)
+	List(List&& other, const allocator_type& allocator) : delegate(std::move(other.delegate), allocator)
 	{
 	}
 
 	/// Forwarded to std::list<T>::list(std::initializer_list<value_type> initializerList, const allocator_type& allocator = allocator_type()).
 	List(std::initializer_list<value_type> initializerList, const allocator_type& allocator = allocator_type()) : delegate(initializerList, allocator)
+	{
+	}
+
+	/// Copy construct from std::list<T>.
+	List(const DelegateType& other) : delegate(other)
+	{
+	}
+
+	/// Copy construct from std::list<T> with allocator.
+	List(const DelegateType& other, const allocator_type& allocator) : delegate(other, allocator)
+	{
+	}
+
+	/// Move construct from std::list<T>.
+	List(DelegateType&& other) : delegate(std::move(other))
+	{
+	}
+
+	/// Move construct from std::list<T> with allocator.
+	List(DelegateType&& other, const allocator_type& allocator) : delegate(std::move(other), allocator)
 	{
 	}
 
@@ -129,13 +150,45 @@ public:
 		delegate = initializerList;
 		return *this;
 	}
-	
+
+	/// Copy assignment from std::list<T>.
+	List& operator=(const DelegateType& other)
+	{
+		delegate = other;
+		return *this;
+	}
+
+	/// Move assignment from std::list<T>.
+	List& operator=(DelegateType&& other)
+	{
+		delegate = std::move(other);
+		return *this;
+	}
+
+	/// Implicit type conversion into std::list<T> reference.
+	operator DelegateType&()
+	{
+		return delegate;
+	}
+
+	/// Implicit type conversion into const std::list<T> reference.
+	operator const DelegateType&() const
+	{
+		return delegate;
+	}
+
+	/// Implicit type conversion into std::list<T> rvalue reference.
+	operator DelegateType&&()
+	{
+		return std::move(delegate);
+	}
+
 	/// Forwarded to std::list<T>::begin().
 	iterator begin() noexcept
 	{
 		return delegate.begin();
 	}
-	
+
 	/// Forwarded to std::list<T>::begin() const.
 	const_iterator begin() const noexcept
 	{
@@ -147,7 +200,7 @@ public:
 	{
 		return delegate.end();
 	}
-	
+
 	/// Forwarded to std::list<T>::end() const.
 	const_iterator end() const noexcept
 	{
@@ -159,7 +212,7 @@ public:
 	{
 		return delegate.rbegin();
 	}
-	
+
 	/// Forwarded to std::list<T>::rbegin() const.
 	const_reverse_iterator rbegin() const noexcept
 	{
@@ -171,7 +224,7 @@ public:
 	{
 		return delegate.rend();
 	}
-	
+
 	/// Forwarded to std::list<T>::rend() const.
 	const_reverse_iterator rend() const noexcept
 	{
@@ -201,13 +254,13 @@ public:
 	{
 		return delegate.crend();
 	}
-	
+
 	/// Forwarded to std::list<T>::empty().
 	bool empty() const noexcept
 	{
 		return delegate.empty();
 	}
-	
+
 	/// Forwarded to std::list<T>::size().
 	size_type size() const noexcept
 	{
@@ -225,7 +278,7 @@ public:
 	{
 		return delegate.front();
 	}
-	
+
 	/// Forwarded to std::list<T>::front(size_type n) const.
 	const_reference front() const
 	{
@@ -237,7 +290,7 @@ public:
 	{
 		return delegate.back();
 	}
-	
+
 	/// Forwarded to std::list<T>::back(size_type n) const.
 	const_reference back() const
 	{
@@ -275,7 +328,7 @@ public:
 	{
 		delegate.push_front(value);
 	}
-	
+
 	/// Forwarded to std::list<T>::push_front(value_type&& value).
 	void push_front(value_type&& value)
 	{
@@ -300,7 +353,7 @@ public:
 	{
 		delegate.push_back(value);
 	}
-	
+
 	/// Forwarded to std::list<T>::push_back(value_type&& value).
 	void push_back(value_type&& value)
 	{
@@ -350,13 +403,13 @@ public:
 	{
 		return delegate.insert(position, initializerList);
 	}
-	
+
 	/// Forwarded to std::list<T>::erase(const_iterator position).
 	iterator erase(const_iterator position)
 	{
 		return delegate.erase(position);
 	}
-	
+
 	/// Forwarded to std::list<T>::erase(const_iterator first, const_iterator last).
 	iterator erase(const_iterator first, const_iterator last)
 	{
@@ -367,30 +420,30 @@ public:
 	void swap(List& other) {
 		delegate.swap(other.list);
 	}
-	
+
 	/// Forwarded to std::list<T>::resize(size_type n).
 	void resize(size_type n)
 	{
 		delegate.resize(n);
 	}
-	
+
 	/// Forwarded to std::list<T>::resize(size_type n, const value_type& value).
 	void resize(size_type n, const value_type& value)
 	{
 		delegate.resize(n, value);
 	}
-	
+
 	/// Forwarded to std::list<T>::clear().
 	void clear() noexcept {
 		delegate.clear();
 	}
-	
+
 	/// Forwarded to std::list<T>::splice(const_iterator position, list& other).
 	void splice(const_iterator position, List& other)
 	{
 		delegate.splice(position, other.delegate);
 	}
-	
+
 	/// Forwarded to std::list<T>::splice(const_iterator position, list&& other).
 	void splice(const_iterator position, List&& other)
 	{
@@ -402,7 +455,7 @@ public:
 	{
 		delegate.splice(position, other.delegate, i);
 	}
-	
+
 	/// Forwarded to std::list<T>::splice(const_iterator position, list&& other, const_iterator i).
 	void splice(const_iterator position, List&& other, const_iterator i)
 	{
@@ -414,7 +467,7 @@ public:
 	{
 		delegate.splice(position, other.delegate, first, last);
 	}
-	
+
 	/// Forwarded to std::list<T>::splice(const_iterator position, list&& other, const_iterator first, const_iterator last).
 	void splice(const_iterator position, List&& other, const_iterator first, const_iterator last)
 	{
@@ -450,7 +503,7 @@ public:
 	{
 		delegate.merge(other.delegate);
 	}
-	
+
 	/// Forwarded to std::list<T>::merge(List&& other).
 	void merge(List&& other)
 	{
@@ -463,14 +516,14 @@ public:
 	{
 		delegate.merge(other.delegate, compare);
 	}
-	
+
 	/// Forwarded to std::list<T>::merge(List&& other, Compare compare).
 	template<typename Compare>
 	void merge(List&& other, Compare compare)
 	{
 		delegate.merge(std::move(other.delegate), compare);
 	}
-	
+
 	/// Forwarded to std::list<T>::sort().
 	void sort()
 	{
@@ -489,15 +542,15 @@ public:
 	{
 		delegate.reverse();
 	}
-	
+
 	/// Forwarded to std::list<T>::get_allocator() const noexcept.
 	allocator_type get_allocator() const noexcept
 	{
 		return delegate.get_allocator();
 	}
-	
+
 private:
-	std::list<T, Allocator> delegate;
+	DelegateType delegate;
 
 	friend bool operator== <T, Allocator> (const List& lhs, const List& rhs);
 	friend bool operator!= <T, Allocator> (const List& lhs, const List& rhs);

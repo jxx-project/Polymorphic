@@ -45,6 +45,7 @@ template< typename Key, typename T, typename Hash = std::hash<Key>, typename Pre
 class UnorderedMap
 {
 public:
+	typedef std::unordered_map<Key, T, Hash, Predicate, Allocator> DelegateType;
 	typedef Key key_type;	
 	typedef T unordered_mapped_type;	
 	typedef std::pair<const key_type, unordered_mapped_type> value_type;
@@ -53,14 +54,14 @@ public:
 	typedef Allocator allocator_type;
 	typedef T& reference;	
 	typedef const T& const_reference;	
-	typedef typename std::unordered_map<Key, T, Hash, Predicate, Allocator>::pointer pointer;
-	typedef typename std::unordered_map<Key, T, Hash, Predicate, Allocator>::const_pointer const_pointer ;
-	typedef typename std::unordered_map<Key, T, Hash, Predicate, Allocator>::iterator iterator;
-	typedef typename std::unordered_map<Key, T, Hash, Predicate, Allocator>::const_iterator const_iterator ;
-	typedef typename std::unordered_map<Key, T, Hash, Predicate, Allocator>::local_iterator local_iterator;
-	typedef typename std::unordered_map<Key, T, Hash, Predicate, Allocator>::const_local_iterator const_local_iterator;
-	typedef typename std::unordered_map<Key, T, Hash, Predicate, Allocator>::difference_type difference_type;
-	typedef typename std::unordered_map<Key, T, Hash, Predicate, Allocator>::size_type size_type;
+	typedef typename DelegateType::pointer pointer;
+	typedef typename DelegateType::const_pointer const_pointer ;
+	typedef typename DelegateType::iterator iterator;
+	typedef typename DelegateType::const_iterator const_iterator ;
+	typedef typename DelegateType::local_iterator local_iterator;
+	typedef typename DelegateType::const_local_iterator const_local_iterator;
+	typedef typename DelegateType::difference_type difference_type;
+	typedef typename DelegateType::size_type size_type;
 
 	/// Forwarded to std::unordered_map<Key, T>::unordered_map() using default minInitialBuckets.
 	UnorderedMap() : delegate()
@@ -72,7 +73,7 @@ public:
 	{
 	}
 
-	/// Forwarded to std::unordered_map<Key, T>::unordered_map(const allocator_type& alloc = allocator_type()).
+	/// Forwarded to std::unordered_map<Key, T>::unordered_map(const allocator_type& alloc).
 	explicit UnorderedMap(const allocator_type& allocator) : delegate(allocator)
 	{
 	}
@@ -95,7 +96,7 @@ public:
 	}
 
 	/// Copy constructor.
-	UnorderedMap(const UnorderedMap& other, const allocator_type& allocator = allocator_type()) : delegate(other.delegate, allocator)
+	UnorderedMap(const UnorderedMap& other, const allocator_type& allocator) : delegate(other.delegate, allocator)
 	{
 	}
 
@@ -105,7 +106,7 @@ public:
 	}
 
 	/// Move constructor.
-	UnorderedMap(UnorderedMap&& other, const allocator_type& allocator = allocator_type()) : delegate(std::move(other.delegate), allocator)
+	UnorderedMap(UnorderedMap&& other, const allocator_type& allocator) : delegate(std::move(other.delegate), allocator)
 	{
 	}
 
@@ -119,7 +120,27 @@ public:
 	{
 	}
 
-	/// Virtual destructor permitting derived classes to be deleted safely via a UnorderedMap pointer.
+	/// Copy construct from std::unordered_map<T>.
+	UnorderedMap(const DelegateType& other) : delegate(other)
+	{
+	}
+
+	/// Copy construct from std::unordered_map<T> with allocator.
+	UnorderedMap(const DelegateType& other, const allocator_type& allocator) : delegate(other, allocator)
+	{
+	}
+
+	/// Move construct from std::unordered_map<T>.
+	UnorderedMap(DelegateType&& other) : delegate(std::move(other))
+	{
+	}
+
+	/// Move construct from std::unordered_map<T> with allocator.
+	UnorderedMap(DelegateType&& other, const allocator_type& allocator) : delegate(std::move(other), allocator)
+	{
+	}
+
+	/// Virtual destructor permitting derived classes to be deleted safely via an UnorderedMap pointer.
 	virtual ~UnorderedMap()
 	{
 	}
@@ -144,13 +165,45 @@ public:
 		delegate = initializerList;
 		return *this;
 	}
-	
+
+	/// Copy assignment from std::unordered_map<T>.
+	UnorderedMap& operator=(const DelegateType& other)
+	{
+		delegate = other;
+		return *this;
+	}
+
+	/// Move assignment from std::unordered_map<T>.
+	UnorderedMap& operator=(DelegateType&& other)
+	{
+		delegate = std::move(other);
+		return *this;
+	}
+
+	/// Implicit type conversion into std::unordered_map<T> reference.
+	operator DelegateType&()
+	{
+		return delegate;
+	}
+
+	/// Implicit type conversion into const std::unordered_map<T> reference.
+	operator const DelegateType&() const
+	{
+		return delegate;
+	}
+
+	/// Implicit type conversion into std::unordered_map<T> rvalue reference.
+	operator DelegateType&&()
+	{
+		return std::move(delegate);
+	}
+
 	/// Forwarded to std::unordered_map<Key, T>::begin().
 	iterator begin() noexcept
 	{
 		return delegate.begin();
 	}
-	
+
 	/// Forwarded to std::unordered_map<Key, T>::begin() const.
 	const_iterator begin() const noexcept
 	{
@@ -162,7 +215,7 @@ public:
 	{
 		return delegate.end();
 	}
-	
+
 	/// Forwarded to std::unordered_map<Key, T>::end() const.
 	const_iterator end() const noexcept
 	{
@@ -186,7 +239,7 @@ public:
 	{
 		return delegate.empty();
 	}
-	
+
 	/// Forwarded to std::unordered_map<Key, T>::size().
 	size_type size() const noexcept
 	{
@@ -204,7 +257,7 @@ public:
 	{
 		return delegate[key];
 	}
-	
+
 	/// Forwarded to std::unordered_map<Key, T>::operator[](key_type&& key).
 	unordered_mapped_type& operator[](key_type&& key)
 	{
@@ -216,7 +269,7 @@ public:
 	{
 		return delegate.at(key);
 	}
-	
+
 	/// Forwarded to std::unordered_map<Key, T>::at(key_type&& key).
 	const unordered_mapped_type& at(key_type&& key) const
 	{
@@ -228,7 +281,7 @@ public:
 	{
 		return delegate.insert(value);
 	}
-	
+
 	/// Forwarded to std::unordered_map<Key, T>::insert(Pair&& value).
 	template<typename Pair>
 	std::pair<iterator, bool> insert(Pair&& value)
@@ -241,7 +294,7 @@ public:
 	{
 		return delegate.insert(position, value);
 	}
-	
+
 	/// Forwarded to std::unordered_map<Key, T>::insert(const_iterator position, Pair&& value).
 	template<typename Pair>
 	iterator insert(const_iterator position, Pair&& value)
@@ -284,12 +337,12 @@ public:
 	void swap(UnorderedMap& other) {
 		delegate.swap(other.unordered_map);
 	}
-	
+
 	/// Forwarded to std::unordered_map<Key, T>::clear().
 	void clear() noexcept {
 		delegate.clear();
 	}
-	
+
 	/// Forwarded to std::unordered_map<Key, T>::emplace(const_iterator position, Args&&... args).
 	template<typename... Args>
 	std::pair<iterator, bool> emplace(Args&&... args)
@@ -309,7 +362,7 @@ public:
 	{
 		return delegate.find(key);
 	}
-	
+
 	/// Forwarded to std::unordered_map<Key, T>::find(const key_type& key) const.
 	const_iterator find(const key_type& key) const
 	{
@@ -327,7 +380,7 @@ public:
 	{
 		return delegate.equal_range(key);
 	}
-	
+
 	/// Forwarded to std::unordered_map<Key, T>::equal_range(const key_type& key) const.
 	std::pair<const_iterator, const_iterator> equal_range(const key_type& key) const
 	{
@@ -339,75 +392,75 @@ public:
 	{
 		return delegate.bucket_count();
 	}
-	
+
 	/// Forwarded to std::unordered_map<Key, T>::max_bucket_count().
 	size_type max_bucket_count() const noexcept
 	{
 		return delegate.max_bucket_count();
 	}
-	
+
 	/// Forwarded to std::unordered_map<Key, T>::bucket_size(size_type bucketNumber).
 	size_type bucket_size(size_type bucketNumber) const
 	{
 		return delegate.bucket_size(bucketNumber);
 	}
-	
+
 	/// Forwarded to std::unordered_map<Key, T>::bucket(const key_type& key) const.
 	size_type bucket(const key_type& key) const
 	{
 		return delegate.bucket(key);
 	}
-	
+
 	/// Forwarded to std::unordered_map<Key, T>::load_factor().
 	float load_factor() const noexcept
 	{
 		return delegate.load_factor();
 	}
-	
+
 	/// Forwarded to std::unordered_map<Key, T>::max_load_factor().
 	float max_load_factor() const noexcept
 	{
 		return delegate.max_load_factor();
 	}
-	
+
 	/// Forwarded to std::unordered_map<Key, T>::max_load_factor(float loadFactor).
 	void max_load_factor(float loadFactor)
 	{
 		delegate.max_load_factor(loadFactor);
 	}
-	
+
 	/// Forwarded to std::unordered_map<Key, T>::rehash(size_type n).
 	void rehash(size_type n)
 	{
 		delegate.rehash(n);
 	}
-	
+
 	/// Forwarded to std::unordered_map<Key, T>::reserve(size_type n).
 	void reserve(size_type n)
 	{
 		delegate.reserve(n);
 	}
-	
+
 	/// Forwarded to std::unordered_map<Key, T>::hash_function().
 	hasher hash_function() const
 	{
 		return delegate.hash_function();
 	}
-	
+
 	/// Forwarded to std::unordered_map<Key, T>::key_eq().
 	key_equal key_eq() const
 	{
 		return delegate.key_eq();
 	}
-	
+
 	/// Forwarded to std::unordered_map<Key, T>::get_allocator() const noexcept.
 	allocator_type get_allocator() const noexcept
 	{
 		return delegate.get_allocator();
 	}
-	
+
 private:
-	std::unordered_map<Key, T, Hash, Predicate, Allocator> delegate;
+	DelegateType delegate;
 
 	friend bool operator== <Key, T, Hash, Predicate, Allocator> (const UnorderedMap& lhs, const UnorderedMap& rhs);
 	friend bool operator!= <Key, T, Hash, Predicate, Allocator> (const UnorderedMap& lhs, const UnorderedMap& rhs);

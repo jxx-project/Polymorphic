@@ -45,18 +45,19 @@ template< typename T, typename Allocator = std::allocator<T> >
 class Vector
 {
 public:
+	typedef std::vector<T, Allocator> DelegateType;
 	typedef T value_type;	
 	typedef Allocator allocator_type;
 	typedef T& reference;	
 	typedef const T& const_reference;	
-	typedef typename std::vector<T, Allocator>::pointer pointer;
-	typedef typename std::vector<T, Allocator>::const_pointer const_pointer ;
-	typedef typename std::vector<T, Allocator>::iterator iterator;
-	typedef typename std::vector<T, Allocator>::const_iterator const_iterator ;
-	typedef typename std::vector<T, Allocator>::reverse_iterator reverse_iterator;
-	typedef typename std::vector<T, Allocator>::const_reverse_iterator const_reverse_iterator;
-	typedef typename std::vector<T, Allocator>::difference_type difference_type;
-	typedef typename std::vector<T, Allocator>::size_type size_type;
+	typedef typename DelegateType::pointer pointer;
+	typedef typename DelegateType::const_pointer const_pointer ;
+	typedef typename DelegateType::iterator iterator;
+	typedef typename DelegateType::const_iterator const_iterator ;
+	typedef typename DelegateType::reverse_iterator reverse_iterator;
+	typedef typename DelegateType::const_reverse_iterator const_reverse_iterator;
+	typedef typename DelegateType::difference_type difference_type;
+	typedef typename DelegateType::size_type size_type;
 
 	/// Forwarded to std::vector<T>::vector(const allocator_type& allocator = allocator_type()).
 	explicit Vector(const allocator_type& allocator = allocator_type()) : delegate(allocator)
@@ -85,7 +86,7 @@ public:
 	}
 
 	/// Copy constructor.
-	Vector(const Vector& other, const allocator_type& allocator = allocator_type()) : delegate(other.delegate, allocator)
+	Vector(const Vector& other, const allocator_type& allocator) : delegate(other.delegate, allocator)
 	{
 	}
 
@@ -95,12 +96,32 @@ public:
 	}
 
 	/// Move constructor.
-	Vector(Vector&& other, const allocator_type& allocator = allocator_type()) : delegate(std::move(other.delegate), allocator)
+	Vector(Vector&& other, const allocator_type& allocator) : delegate(std::move(other.delegate), allocator)
 	{
 	}
 
 	/// Forwarded to std::vector<T>::vector(std::initializer_list<value_type> initializerList, const allocator_type& allocator = allocator_type()).
 	Vector(std::initializer_list<value_type> initializerList, const allocator_type& allocator = allocator_type()) : delegate(initializerList, allocator)
+	{
+	}
+
+	/// Copy construct from std::vector<T>.
+	Vector(const DelegateType& other) : delegate(other)
+	{
+	}
+
+	/// Copy construct from std::vector<T> with allocator.
+	Vector(const DelegateType& other, const allocator_type& allocator) : delegate(other, allocator)
+	{
+	}
+
+	/// Move construct from std::vector<T>.
+	Vector(DelegateType&& other) : delegate(std::move(other))
+	{
+	}
+
+	/// Move construct from std::vector<T> with allocator.
+	Vector(DelegateType&& other, const allocator_type& allocator) : delegate(std::move(other), allocator)
 	{
 	}
 
@@ -129,13 +150,45 @@ public:
 		delegate = initializerList;
 		return *this;
 	}
-	
+
+	/// Copy assignment from std::vector<T>.
+	Vector& operator=(const DelegateType& other)
+	{
+		delegate = other;
+		return *this;
+	}
+
+	/// Move assignment from std::vector<T>.
+	Vector& operator=(DelegateType&& other)
+	{
+		delegate = std::move(other);
+		return *this;
+	}
+
+	/// Implicit type conversion into std::vector<T> reference.
+	operator DelegateType&()
+	{
+		return delegate;
+	}
+
+	/// Implicit type conversion into const std::vector<T> reference.
+	operator const DelegateType&() const
+	{
+		return delegate;
+	}
+
+	/// Implicit type conversion into std::vector<T> rvalue reference.
+	operator DelegateType&&()
+	{
+		return std::move(delegate);
+	}
+
 	/// Forwarded to std::vector<T>::begin().
 	iterator begin() noexcept
 	{
 		return delegate.begin();
 	}
-	
+
 	/// Forwarded to std::vector<T>::begin() const.
 	const_iterator begin() const noexcept
 	{
@@ -147,7 +200,7 @@ public:
 	{
 		return delegate.end();
 	}
-	
+
 	/// Forwarded to std::vector<T>::end() const.
 	const_iterator end() const noexcept
 	{
@@ -159,7 +212,7 @@ public:
 	{
 		return delegate.rbegin();
 	}
-	
+
 	/// Forwarded to std::vector<T>::rbegin() const.
 	const_reverse_iterator rbegin() const noexcept
 	{
@@ -171,7 +224,7 @@ public:
 	{
 		return delegate.rend();
 	}
-	
+
 	/// Forwarded to std::vector<T>::rend() const.
 	const_reverse_iterator rend() const noexcept
 	{
@@ -201,13 +254,13 @@ public:
 	{
 		return delegate.crend();
 	}
-	
+
 	/// Forwarded to std::vector<T>::empty().
 	bool empty() const noexcept
 	{
 		return delegate.empty();
 	}
-	
+
 	/// Forwarded to std::vector<T>::size().
 	size_type size() const noexcept
 	{
@@ -225,13 +278,13 @@ public:
 	{
 		delegate.resize(n);
 	}
-	
+
 	/// Forwarded to std::vector<T>::resize(size_type n, const value_type& value).
 	void resize(size_type n, const value_type& value)
 	{
 		delegate.resize(n, value);
 	}
-	
+
 	/// Forwarded to std::vector<T>::capacity().
 	size_type capacity() const noexcept
 	{
@@ -243,19 +296,19 @@ public:
 	{
 		delegate.reserve(n);
 	}
-	
+
 	/// Forwarded to std::vector<T>::shrink_to_fit().
 	void shrink_to_fit()
 	{
 		delegate.shrink_to_fit();
 	}
-	
+
 	/// Forwarded to std::vector<T>::operator[](size_type n).
 	reference operator[](size_type n)
 	{
 		return delegate[n];
 	}
-	
+
 	/// Forwarded to std::vector<T>::operator[](size_type n) const.
 	const_reference operator[](size_type n) const
 	{
@@ -267,7 +320,7 @@ public:
 	{
 		return delegate.at(n);
 	}
-	
+
 	/// Forwarded to std::vector<T>::at(size_type n) const.
 	const_reference at(size_type n) const
 	{
@@ -279,7 +332,7 @@ public:
 	{
 		return delegate.front();
 	}
-	
+
 	/// Forwarded to std::vector<T>::front(size_type n) const.
 	const_reference front() const
 	{
@@ -291,7 +344,7 @@ public:
 	{
 		return delegate.back();
 	}
-	
+
 	/// Forwarded to std::vector<T>::back(size_type n) const.
 	const_reference back() const
 	{
@@ -303,7 +356,7 @@ public:
 	{
 		return delegate.data();
 	}
-	
+
 	/// Forwarded to std::vector<T>::data(size_type n) const.
 	const value_type data() const
 	{
@@ -334,7 +387,7 @@ public:
 	{
 		delegate.push_back(value);
 	}
-	
+
 	/// Forwarded to std::vector<T>::push_back(value_type&& value).
 	void push_back(value_type&& value)
 	{
@@ -377,13 +430,13 @@ public:
 	{
 		return delegate.insert(position, initializerList);
 	}
-	
+
 	/// Forwarded to std::vector<T>::erase(const_iterator position).
 	iterator erase(const_iterator position)
 	{
 		return delegate.erase(position);
 	}
-	
+
 	/// Forwarded to std::vector<T>::erase(const_iterator first, const_iterator last).
 	iterator erase(const_iterator first, const_iterator last)
 	{
@@ -394,12 +447,12 @@ public:
 	void swap(Vector& other) {
 		delegate.swap(other.vector);
 	}
-	
+
 	/// Forwarded to std::vector<T>::clear().
 	void clear() noexcept {
 		delegate.clear();
 	}
-	
+
 	/// Forwarded to std::vector<T>::emplace(const_iterator position, Args&&... args).
 	template<typename... Args>
 	iterator emplace(const_iterator position, Args&&... args)
@@ -419,9 +472,9 @@ public:
 	{
 		return delegate.get_allocator();
 	}
-	
+
 private:
-	std::vector<T, Allocator> delegate;
+	DelegateType delegate;
 
 	friend bool operator== <T, Allocator> (const Vector& lhs, const Vector& rhs);
 	friend bool operator!= <T, Allocator> (const Vector& lhs, const Vector& rhs);
@@ -445,18 +498,19 @@ template<typename Allocator>
 class Vector<bool, Allocator>
 {
 public:
+	typedef std::vector<bool, Allocator> DelegateType;
 	typedef bool value_type;	
 	typedef Allocator allocator_type;
-	typedef typename std::vector<bool, Allocator>::reference reference;	
-	typedef typename std::vector<bool, Allocator>::const_reference const_reference;	
-	typedef typename std::vector<bool, Allocator>::pointer pointer;
-	typedef typename std::vector<bool, Allocator>::const_pointer const_pointer ;
-	typedef typename std::vector<bool, Allocator>::iterator iterator;
-	typedef typename std::vector<bool, Allocator>::const_iterator const_iterator ;
-	typedef typename std::vector<bool, Allocator>::reverse_iterator reverse_iterator;
-	typedef typename std::vector<bool, Allocator>::const_reverse_iterator const_reverse_iterator;
-	typedef typename std::vector<bool, Allocator>::difference_type difference_type;
-	typedef typename std::vector<bool, Allocator>::size_type size_type;
+	typedef typename DelegateType::reference reference;	
+	typedef typename DelegateType::const_reference const_reference;	
+	typedef typename DelegateType::pointer pointer;
+	typedef typename DelegateType::const_pointer const_pointer ;
+	typedef typename DelegateType::iterator iterator;
+	typedef typename DelegateType::const_iterator const_iterator ;
+	typedef typename DelegateType::reverse_iterator reverse_iterator;
+	typedef typename DelegateType::const_reverse_iterator const_reverse_iterator;
+	typedef typename DelegateType::difference_type difference_type;
+	typedef typename DelegateType::size_type size_type;
 
 	/// Forwarded to std::vector<bool>::vector(const allocator_type& allocator = allocator_type()).
 	explicit Vector(const allocator_type& allocator = allocator_type()) : delegate(allocator)
@@ -485,7 +539,7 @@ public:
 	}
 
 	/// Copy constructor.
-	Vector(const Vector& other, const allocator_type& allocator = allocator_type()) : delegate(other.delegate, allocator)
+	Vector(const Vector& other, const allocator_type& allocator) : delegate(other.delegate, allocator)
 	{
 	}
 
@@ -495,12 +549,32 @@ public:
 	}
 
 	/// Move constructor.
-	Vector(Vector&& other, const allocator_type& allocator = allocator_type()) : delegate(std::move(other.delegate), allocator)
+	Vector(Vector&& other, const allocator_type& allocator) : delegate(std::move(other.delegate), allocator)
 	{
 	}
 
 	/// Forwarded to std::vector<bool>::vector(std::initializer_list<value_type> initializerList, const allocator_type& allocator = allocator_type()).
 	Vector(std::initializer_list<value_type> initializerList, const allocator_type& allocator = allocator_type()) : delegate(initializerList, allocator)
+	{
+	}
+
+	/// Copy construct from std::vector<bool>.
+	Vector(const DelegateType& other) : delegate(other)
+	{
+	}
+
+	/// Copy construct from std::vector<bool> with allocator.
+	Vector(const DelegateType& other, const allocator_type& allocator) : delegate(other, allocator)
+	{
+	}
+
+	/// Move construct from std::vector<bool>.
+	Vector(DelegateType&& other) : delegate(std::move(other))
+	{
+	}
+
+	/// Move construct from std::vector<bool> with allocator.
+	Vector(DelegateType&& other, const allocator_type& allocator) : delegate(std::move(other), allocator)
 	{
 	}
 
@@ -528,13 +602,45 @@ public:
 		delegate = initializerList;
 		return *this;
 	}
-	
+
+	/// Copy assignment from std::vector<bool>.
+	Vector& operator=(const DelegateType& other)
+	{
+		delegate = other;
+		return *this;
+	}
+
+	/// Move assignment from std::vector<bool>.
+	Vector& operator=(DelegateType&& other)
+	{
+		delegate = std::move(other);
+		return *this;
+	}
+
+	/// Implicit type conversion into std::vector<bool> reference.
+	operator DelegateType&()
+	{
+		return delegate;
+	}
+
+	/// Implicit type conversion into const std::vector<bool> reference.
+	operator const DelegateType&() const
+	{
+		return delegate;
+	}
+
+	/// Implicit type conversion into std::vector<bool> rvalue reference.
+	operator DelegateType&&()
+	{
+		return std::move(delegate);
+	}
+
 	/// Forwarded to std::vector<bool>::begin().
 	iterator begin() noexcept
 	{
 		return delegate.begin();
 	}
-	
+
 	/// Forwarded to std::vector<bool>::begin() const.
 	const_iterator begin() const noexcept
 	{
@@ -546,7 +652,7 @@ public:
 	{
 		return delegate.end();
 	}
-	
+
 	/// Forwarded to std::vector<bool>::end() const.
 	const_iterator end() const noexcept
 	{
@@ -558,7 +664,7 @@ public:
 	{
 		return delegate.rbegin();
 	}
-	
+
 	/// Forwarded to std::vector<bool>::rbegin() const.
 	const_reverse_iterator rbegin() const noexcept
 	{
@@ -570,7 +676,7 @@ public:
 	{
 		return delegate.rend();
 	}
-	
+
 	/// Forwarded to std::vector<bool>::rend() const.
 	const_reverse_iterator rend() const noexcept
 	{
@@ -600,13 +706,13 @@ public:
 	{
 		return delegate.crend();
 	}
-	
+
 	/// Forwarded to std::vector<bool>::empty().
 	bool empty() const noexcept
 	{
 		return delegate.empty();
 	}
-	
+
 	/// Forwarded to std::vector<bool>::size().
 	size_type size() const noexcept
 	{
@@ -624,13 +730,13 @@ public:
 	{
 		delegate.resize(n);
 	}
-	
+
 	/// Forwarded to std::vector<bool>::resize(size_type n, const value_type& value).
 	void resize(size_type n, const value_type& value)
 	{
 		delegate.resize(n, value);
 	}
-	
+
 	/// Forwarded to std::vector<bool>::capacity().
 	size_type capacity() const noexcept
 	{
@@ -642,19 +748,19 @@ public:
 	{
 		delegate.reserve(n);
 	}
-	
+
 	/// Forwarded to std::vector<bool>::shrink_to_fit().
 	void shrink_to_fit()
 	{
 		delegate.shrink_to_fit();
 	}
-	
+
 	/// Forwarded to std::vector<bool>::operator[](size_type n).
 	reference operator[](size_type n)
 	{
 		return delegate[n];
 	}
-	
+
 	/// Forwarded to std::vector<bool>::operator[](size_type n) const.
 	const_reference operator[](size_type n) const
 	{
@@ -666,7 +772,7 @@ public:
 	{
 		return delegate.at(n);
 	}
-	
+
 	/// Forwarded to std::vector<bool>::at(size_type n) const.
 	const_reference at(size_type n) const
 	{
@@ -678,7 +784,7 @@ public:
 	{
 		return delegate.front();
 	}
-	
+
 	/// Forwarded to std::vector<bool>::front(size_type n) const.
 	const_reference front() const
 	{
@@ -690,7 +796,7 @@ public:
 	{
 		return delegate.back();
 	}
-	
+
 	/// Forwarded to std::vector<bool>::back(size_type n) const.
 	const_reference back() const
 	{
@@ -702,7 +808,7 @@ public:
 	{
 		return delegate.data();
 	}
-	
+
 	/// Forwarded to std::vector<bool>::data(size_type n) const.
 	const value_type data() const
 	{
@@ -733,7 +839,7 @@ public:
 	{
 		delegate.push_back(value);
 	}
-	
+
 	/// Forwarded to std::vector<bool>::push_back(value_type&& value).
 	void push_back(value_type&& value)
 	{
@@ -776,13 +882,13 @@ public:
 	{
 		return delegate.insert(position, initializerList);
 	}
-	
+
 	/// Forwarded to std::vector<bool>::erase(const_iterator position).
 	iterator erase(const_iterator position)
 	{
 		return delegate.erase(position);
 	}
-	
+
 	/// Forwarded to std::vector<bool>::erase(const_iterator first, const_iterator last).
 	iterator erase(const_iterator first, const_iterator last)
 	{
@@ -797,14 +903,14 @@ public:
 	/// Forwarded to std::vector<bool>::swap(reference lhs, reference rhs).
 	static void swap(reference lhs, reference rhs) noexcept
 	{
-		std::vector<bool, Allocator>::swap(lhs, rhs);
+		DelegateType::swap(lhs, rhs);
 	}
-	
+
 	/// Forwarded to std::vector<bool>::clear().
 	void clear() noexcept {
 		delegate.clear();
 	}
-	
+
 	/// Forwarded to std::vector<bool>::insert(const_iterator position, const bool& arg).
 	iterator emplace(const_iterator position, const bool& arg)
 	{
@@ -822,9 +928,9 @@ public:
 	{
 		return delegate.get_allocator();
 	}
-	
+
 private:
-	std::vector<bool, Allocator> delegate;
+	DelegateType delegate;
 
 	friend bool operator== <bool, Allocator> (const Vector& lhs, const Vector& rhs);
 	friend bool operator!= <bool, Allocator> (const Vector& lhs, const Vector& rhs);

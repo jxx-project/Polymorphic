@@ -45,29 +45,30 @@ template< typename Key, typename T, typename Compare = std::less<Key>, typename 
 class Map
 {
 public:
+	typedef std::map<Key, T, Compare, Allocator> DelegateType;
 	typedef Key key_type;	
 	typedef T mapped_type;	
 	typedef std::pair<const key_type, mapped_type> value_type;
 	typedef Compare key_compare;
-	typedef typename std::map<Key, T, Compare, Allocator>::value_compare value_compare;
+	typedef typename DelegateType::value_compare value_compare;
 	typedef Allocator allocator_type;
 	typedef T& reference;	
 	typedef const T& const_reference;	
-	typedef typename std::map<Key, T, Compare, Allocator>::pointer pointer;
-	typedef typename std::map<Key, T, Compare, Allocator>::const_pointer const_pointer ;
-	typedef typename std::map<Key, T, Compare, Allocator>::iterator iterator;
-	typedef typename std::map<Key, T, Compare, Allocator>::const_iterator const_iterator ;
-	typedef typename std::map<Key, T, Compare, Allocator>::reverse_iterator reverse_iterator;
-	typedef typename std::map<Key, T, Compare, Allocator>::const_reverse_iterator const_reverse_iterator;
-	typedef typename std::map<Key, T, Compare, Allocator>::difference_type difference_type;
-	typedef typename std::map<Key, T, Compare, Allocator>::size_type size_type;
+	typedef typename DelegateType::pointer pointer;
+	typedef typename DelegateType::const_pointer const_pointer ;
+	typedef typename DelegateType::iterator iterator;
+	typedef typename DelegateType::const_iterator const_iterator ;
+	typedef typename DelegateType::reverse_iterator reverse_iterator;
+	typedef typename DelegateType::const_reverse_iterator const_reverse_iterator;
+	typedef typename DelegateType::difference_type difference_type;
+	typedef typename DelegateType::size_type size_type;
 
 	/// Forwarded to std::map<Key, T>::map(const key_compare& compare = key_compare(), const allocator_type& allocator = allocator_type()).
 	explicit Map(const key_compare& compare = key_compare(), const allocator_type& allocator = allocator_type()) : delegate(compare, allocator)
 	{
 	}
 
-	/// Forwarded to std::map<Key, T>::map(const allocator_type& alloc = allocator_type()).
+	/// Forwarded to std::map<Key, T>::map(const allocator_type& alloc).
 	explicit Map(const allocator_type& allocator) : delegate(allocator)
 	{
 	}
@@ -84,7 +85,7 @@ public:
 	}
 
 	/// Copy constructor.
-	Map(const Map& other, const allocator_type& allocator = allocator_type()) : delegate(other.delegate, allocator)
+	Map(const Map& other, const allocator_type& allocator) : delegate(other.delegate, allocator)
 	{
 	}
 
@@ -94,13 +95,33 @@ public:
 	}
 
 	/// Move constructor.
-	Map(Map&& other, const allocator_type& allocator = allocator_type()) :
+	Map(Map&& other, const allocator_type& allocator) :
 			delegate(std::move(other.delegate), allocator)
 	{
 	}
 
 	/// Forwarded to std::map<Key, T>::map(std::initializer_list<value_type> initializerList, const key_compare& compare = key_compare(), const allocator_type& allocator = allocator_type()).
 	Map(std::initializer_list<value_type> initializerList, const key_compare& compare = key_compare(), const allocator_type& allocator = allocator_type()) : delegate(initializerList, compare, allocator)
+	{
+	}
+
+	/// Copy construct from std::map<T>.
+	Map(const DelegateType& other) : delegate(other)
+	{
+	}
+
+	/// Copy construct from std::map<T> with allocator.
+	Map(const DelegateType& other, const allocator_type& allocator) : delegate(other, allocator)
+	{
+	}
+
+	/// Move construct from std::map<T>.
+	Map(DelegateType&& other) : delegate(std::move(other))
+	{
+	}
+
+	/// Move construct from std::map<T> with allocator.
+	Map(DelegateType&& other, const allocator_type& allocator) : delegate(std::move(other), allocator)
 	{
 	}
 
@@ -129,13 +150,45 @@ public:
 		delegate = initializerList;
 		return *this;
 	}
-	
+
+	/// Copy assignment from std::map<T>.
+	Map& operator=(const DelegateType& other)
+	{
+		delegate = other;
+		return *this;
+	}
+
+	/// Move assignment from std::map<T>.
+	Map& operator=(DelegateType&& other)
+	{
+		delegate = std::move(other);
+		return *this;
+	}
+
+	/// Implicit type conversion into std::map<T> reference.
+	operator DelegateType&()
+	{
+		return delegate;
+	}
+
+	/// Implicit type conversion into const std::map<T> reference.
+	operator const DelegateType&() const
+	{
+		return delegate;
+	}
+
+	/// Implicit type conversion into std::map<T> rvalue reference.
+	operator DelegateType&&()
+	{
+		return std::move(delegate);
+	}
+
 	/// Forwarded to std::map<Key, T>::begin().
 	iterator begin() noexcept
 	{
 		return delegate.begin();
 	}
-	
+
 	/// Forwarded to std::map<Key, T>::begin() const.
 	const_iterator begin() const noexcept
 	{
@@ -147,7 +200,7 @@ public:
 	{
 		return delegate.end();
 	}
-	
+
 	/// Forwarded to std::map<Key, T>::end() const.
 	const_iterator end() const noexcept
 	{
@@ -159,7 +212,7 @@ public:
 	{
 		return delegate.rbegin();
 	}
-	
+
 	/// Forwarded to std::map<Key, T>::rbegin() const.
 	const_reverse_iterator rbegin() const noexcept
 	{
@@ -171,7 +224,7 @@ public:
 	{
 		return delegate.rend();
 	}
-	
+
 	/// Forwarded to std::map<Key, T>::rend() const.
 	const_reverse_iterator rend() const noexcept
 	{
@@ -201,13 +254,13 @@ public:
 	{
 		return delegate.crend();
 	}
-	
+
 	/// Forwarded to std::map<Key, T>::empty().
 	bool empty() const noexcept
 	{
 		return delegate.empty();
 	}
-	
+
 	/// Forwarded to std::map<Key, T>::size().
 	size_type size() const noexcept
 	{
@@ -225,7 +278,7 @@ public:
 	{
 		return delegate[key];
 	}
-	
+
 	/// Forwarded to std::map<Key, T>::operator[](key_type&& key).
 	mapped_type& operator[](key_type&& key)
 	{
@@ -237,7 +290,7 @@ public:
 	{
 		return delegate.at(key);
 	}
-	
+
 	/// Forwarded to std::map<Key, T>::at(key_type&& key).
 	const mapped_type& at(key_type&& key) const
 	{
@@ -249,7 +302,7 @@ public:
 	{
 		return delegate.insert(value);
 	}
-	
+
 	/// Forwarded to std::map<Key, T>::insert(Pair&& value).
 	template<typename Pair>
 	std::pair<iterator, bool> insert(Pair&& value)
@@ -262,7 +315,7 @@ public:
 	{
 		return delegate.insert(position, value);
 	}
-	
+
 	/// Forwarded to std::map<Key, T>::insert(const_iterator position, Pair&& value).
 	template<typename Pair>
 	iterator insert(const_iterator position, Pair&& value)
@@ -305,12 +358,12 @@ public:
 	void swap(Map& other) {
 		delegate.swap(other.map);
 	}
-	
+
 	/// Forwarded to std::map<Key, T>::clear().
 	void clear() noexcept {
 		delegate.clear();
 	}
-	
+
 	/// Forwarded to std::map<Key, T>::emplace(const_iterator position, Args&&... args).
 	template<typename... Args>
 	std::pair<iterator, bool> emplace(Args&&... args)
@@ -330,7 +383,7 @@ public:
 	{
 		return delegate.find(key);
 	}
-	
+
 	/// Forwarded to std::map<Key, T>::find(const key_type& key) const.
 	const_iterator find(const key_type& key) const
 	{
@@ -348,7 +401,7 @@ public:
 	{
 		return delegate.lower_bound(key);
 	}
-	
+
 	/// Forwarded to std::map<Key, T>::lower_bound(const key_type& key) const.
 	const_iterator lower_bound(const key_type& key) const
 	{
@@ -360,7 +413,7 @@ public:
 	{
 		return delegate.upper_bound(key);
 	}
-	
+
 	/// Forwarded to std::map<Key, T>::upper_bound(const key_type& key) const.
 	const_iterator upper_bound(const key_type& key) const
 	{
@@ -372,7 +425,7 @@ public:
 	{
 		return delegate.equal_range(key);
 	}
-	
+
 	/// Forwarded to std::map<Key, T>::equal_range(const key_type& key) const.
 	std::pair<const_iterator, const_iterator> equal_range(const key_type& key) const
 	{
@@ -395,9 +448,9 @@ public:
 	{
 		return delegate.get_allocator();
 	}
-	
+
 private:
-	std::map<Key, T, Compare, Allocator> delegate;
+	DelegateType delegate;
 
 	friend bool operator== <Key, T, Compare, Allocator> (const Map& lhs, const Map& rhs);
 	friend bool operator!= <Key, T, Compare, Allocator> (const Map& lhs, const Map& rhs);
