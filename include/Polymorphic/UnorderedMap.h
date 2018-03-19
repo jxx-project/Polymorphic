@@ -47,8 +47,8 @@ class UnorderedMap
 public:
 	typedef std::unordered_map<Key, T, Hash, Predicate, Allocator> DelegateType;
 	typedef Key key_type;	
-	typedef T unordered_mapped_type;	
-	typedef std::pair<const key_type, unordered_mapped_type> value_type;
+	typedef T mapped_type;	
+	typedef std::pair<const key_type, mapped_type> value_type;
 	typedef Hash hasher;
 	typedef Predicate key_equal;
 	typedef Allocator allocator_type;
@@ -253,25 +253,25 @@ public:
 	}
 
 	/// Forwarded to std::unordered_map<Key, T>::operator[](const key_type& key).
-	unordered_mapped_type& operator[](const key_type& key)
+	mapped_type& operator[](const key_type& key)
 	{
 		return delegate[key];
 	}
 
 	/// Forwarded to std::unordered_map<Key, T>::operator[](key_type&& key).
-	unordered_mapped_type& operator[](key_type&& key)
+	mapped_type& operator[](key_type&& key)
 	{
 		return delegate[std::move(key)];
 	}
 
 	/// Forwarded to std::unordered_map<Key, T>::at(const key_type& key).
-	unordered_mapped_type& at(const key_type& key)
+	mapped_type& at(const key_type& key)
 	{
 		return delegate.at(key);
 	}
 
 	/// Forwarded to std::unordered_map<Key, T>::at(const key_type& key) const.
-	const unordered_mapped_type& at(const key_type& key) const
+	const mapped_type& at(const key_type& key) const
 	{
 		return delegate.at(key);
 	}
