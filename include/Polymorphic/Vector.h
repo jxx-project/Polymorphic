@@ -36,7 +36,7 @@ bool operator>=(const Vector<T, Allocator>& lhs, const Vector<T, Allocator>& rhs
 template<typename T, typename Allocator>
 void swap(const Vector<T, Allocator>& lhs, const Vector<T, Allocator>& rhs);
 
-/// Polymorphic decorator aggregating std::vector<T> with the sole purpose of adding a virtual destructor..
+/// Polymorphic decorator composing std::vector<T> with the sole purpose of adding a virtual destructor..
 ///
 /// Classes derived from Polymorphic::Vector<T> can be safely used as targets of smart pointers.
 /// Note: forwarding member functions are *not* declared virtual! They are not meant to be overriden
@@ -464,7 +464,7 @@ public:
 	template<class... Args>
 	void emplace_back(Args&&... args)
 	{
-		return delegate.emplace_pack(std::forward<Args>(args)...);
+		return delegate.emplace_back(std::forward<Args>(args)...);
 	}
 
 	/// Forwarded to std::vector<T>::get_allocator() const noexcept.
@@ -485,14 +485,14 @@ private:
 	friend void Polymorphic::swap<T, Allocator>(const Vector& lhs, const Vector& rhs);
 };
 
-/// Polymorphic decorator aggregating std::vector<bool> with the sole purpose of adding a virtual destructor..
+/// Polymorphic decorator composing std::vector<bool> with the sole purpose of adding a virtual destructor..
 ///
 /// Classes derived from Polymorphic::Vector<bool> can be safely used as targets of smart pointers.
 /// Note: forwarding member functions are *not* declared virtual! They are not meant to be overriden
 /// in subclasses. Add new behavior using new virtual members instead.
 ///
 /// For convenience this wrapper forwards member funtions emplace and emplace_back to insert and
-/// push_pack, respectively, as emplace and emplace_back are not required to be provided by C++11
+/// push_back, respectively, as emplace and emplace_back are not required to be provided by C++11
 /// std::vector<bool> implementations.
 template<typename Allocator>
 class Vector<bool, Allocator>

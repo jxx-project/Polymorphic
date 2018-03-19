@@ -36,7 +36,7 @@ bool operator>=(const UnorderedMultimap<Key, T, Hash, Predicate, Allocator>& lhs
 template<typename Key, typename T, typename Hash, typename Predicate, typename Allocator>
 void swap(const UnorderedMultimap<Key, T, Hash, Predicate, Allocator>& lhs, const UnorderedMultimap<Key, T, Hash, Predicate, Allocator>& rhs);
 
-/// Polymorphic decorator aggregating std::unordered_multimap<Key, T> with the sole purpose of adding a virtual destructor..
+/// Polymorphic decorator composing std::unordered_multimap<Key, T> with the sole purpose of adding a virtual destructor..
 ///
 /// Classes derived from Polymorphic::UnorderedMultimap<Key, T> can be safely used as targets of smart pointers.
 /// Note: forwarding member functions are *not* declared virtual! They are not meant to be overriden

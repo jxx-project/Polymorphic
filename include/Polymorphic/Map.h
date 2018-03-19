@@ -36,7 +36,7 @@ bool operator>=(const Map<Key, T, Compare, Allocator>& lhs, const Map<Key, T, Co
 template<typename Key, typename T, typename Compare, typename Allocator>
 void swap(const Map<Key, T, Compare, Allocator>& lhs, const Map<Key, T, Compare, Allocator>& rhs);
 
-/// Polymorphic decorator aggregating std::map<Key, T> with the sole purpose of adding a virtual destructor..
+/// Polymorphic decorator composing std::map<Key, T> with the sole purpose of adding a virtual destructor..
 ///
 /// Classes derived from Polymorphic::Map<Key, T> can be safely used as targets of smart pointers.
 /// Note: forwarding member functions are *not* declared virtual! They are not meant to be overriden

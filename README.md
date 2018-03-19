@@ -4,7 +4,7 @@
 
 C++ containers like `std::vector`, `std::list`, `std::map`, `std::unordered_map` are non-polymorphic by design, first of all by relying on template member functions. These can't be virtual and therefore not overridden in a polymorphic way.
 
-This first limitation wouldn't need to stop us from adding new behaviour (i.e. new member functions) to container subclasses in a polymorphic way, while still exposing the well known non-polymorphic container interfaces. Just refrain from overriding the non-virtuals!
+This first limitation wouldn't necessarily stop us from adding new behaviour (i.e. new member functions) to container subclasses in a polymorphic way, while still exposing the well known non-polymorphic container interfaces. Just refrain from overriding the non-virtuals!
 
 Another limitation, their lack of virtual destructors, is a show stopper. We can easily subclass C++ containers directly. When such an object is deleted via a base class pointer, however, bad things happen, ranging from memory leaks to heap corruption.
 
@@ -12,11 +12,11 @@ Another limitation, their lack of virtual destructors, is a show stopper. We can
 
 is very simple but effective. They
 
- * aggregate C++ container class templates with the same set of template parameters,
+ * compose C++ container class template delegates with the same set of template parameters,
  * provide 1-by-1 forwarding non-virtual inline members and member templates, reference type conversions, constructors, assignment operators, and
  * add a virtual destructor!
 
-## Modern C++
+## Modern C++ features
 
  * Can be used almost interchangeably with C++11 standard containers.
  * Implicit conversions allow transparent substitution of one for the other alomst everywhere, except as pointer targets.

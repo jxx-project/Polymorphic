@@ -36,7 +36,7 @@ bool operator>=(const List<T, Allocator>& lhs, const List<T, Allocator>& rhs);
 template<typename T, typename Allocator>
 void swap(const List<T, Allocator>& lhs, const List<T, Allocator>& rhs);
 
-/// Polymorphic decorator aggregating std::list<T> with the sole purpose of adding a virtual destructor..
+/// Polymorphic decorator composing std::list<T> with the sole purpose of adding a virtual destructor..
 ///
 /// Classes derived from Polymorphic::List<T> can be safely used as targets of smart pointers.
 /// Note: forwarding member functions are *not* declared virtual! They are not meant to be overriden

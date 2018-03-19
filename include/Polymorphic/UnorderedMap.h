@@ -36,7 +36,7 @@ bool operator>=(const UnorderedMap<Key, T, Hash, Predicate, Allocator>& lhs, con
 template<typename Key, typename T, typename Hash, typename Predicate, typename Allocator>
 void swap(const UnorderedMap<Key, T, Hash, Predicate, Allocator>& lhs, const UnorderedMap<Key, T, Hash, Predicate, Allocator>& rhs);
 
-/// Polymorphic decorator aggregating std::unordered_map<Key, T> with the sole purpose of adding a virtual destructor..
+/// Polymorphic decorator composing std::unordered_map<Key, T> with the sole purpose of adding a virtual destructor..
 ///
 /// Classes derived from Polymorphic::UnorderedMap<Key, T> can be safely used as targets of smart pointers.
 /// Note: forwarding member functions are *not* declared virtual! They are not meant to be overriden

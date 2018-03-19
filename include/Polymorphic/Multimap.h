@@ -36,7 +36,7 @@ bool operator>=(const Multimap<Key, T, Compare, Allocator>& lhs, const Multimap<
 template<typename Key, typename T, typename Compare, typename Allocator>
 void swap(const Multimap<Key, T, Compare, Allocator>& lhs, const Multimap<Key, T, Compare, Allocator>& rhs);
 
-/// Polymorphic decorator aggregating std::multimap<Key, T> with the sole purpose of adding a virtual destructor..
+/// Polymorphic decorator composing std::multimap<Key, T> with the sole purpose of adding a virtual destructor..
 ///
 /// Classes derived from Polymorphic::Multimap<Key, T> can be safely used as targets of smart pointers.
 /// Note: forwarding member functions are *not* declared virtual! They are not meant to be overriden
