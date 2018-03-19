@@ -1,12 +1,12 @@
-# Polymorphic - Safely derive from C++ standard containers
+# Polymorphic — safely derive from C++ standard containers
 
 ## Problem
 
-C++ containers like `std::vector`, `std::list`, `std::map`, `std::unordered_map` are non-polymorphic by design, first of all by relying on template member functions. These can't be virtual and therefore not overridden in a polymorphic way.
+C++ containers like `std::vector`, `std::list`, `std::map`, `std::unordered_map` are non-polymorphic by design, first of all by relying on template member functions. These cannot be virtual and therefore cannot be overridden in a polymorphic way.
 
 This first limitation wouldn't necessarily stop us from adding new behaviour (i.e. new member functions) to container subclasses in a polymorphic way, while still exposing the well known non-polymorphic container interfaces. Just refrain from overriding the non-virtuals!
 
-Another limitation, their lack of virtual destructors, is a show stopper. We can easily subclass C++ containers directly. When such an object is deleted via a base class pointer, however, bad things happen, ranging from memory leaks to heap corruption.
+Another limitation, standard containers' lack of virtual destructors, is a show stopper. We can easily subclass C++ containers directly. When such an object is deleted via a base class pointer, however, bad things happen, ranging from memory leaks to heap corruption.
 
 ## The idea behind Polymorphic decorators
 
@@ -19,10 +19,10 @@ is very simple but effective. They
 ## Modern C++ features
 
  * Can be used almost interchangeably with C++11 standard containers.
- * Implicit conversions allow transparent substitution of one for the other alomst everywhere, except as pointer targets.
+ * Implicit conversions allow transparent substitution of one for the other almost everywhere, except as pointer targets.
  * Move semantics, rvalue references.
 
-Decorator pattern is cool and old school. Typing hundrets of forwarding members is neither cool nor fun, but a one time task. Fortunately, C++ library standards, while evolving, do not alter signatures of existing public container members.
+Decorator pattern is cool and old school. Typing hundreds of forwarding members is neither cool nor fun, but a one time task. Fortunately, C++ library standards, while evolving, do not alter signatures of existing public container members.
 
 ## Performance impact
 
