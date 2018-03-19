@@ -1,14 +1,42 @@
-# Polymorphic -- Safe subclassing of C++ containers
+# Polymorphic - Safely derive from C++ standard containers
 
-C++ containers like `std::vector`, `std::list`, `std::map`, `std::unordered_map` are non-polymorphic by design, first by relying on template member functions. These can't be virtual and therefore not overridden in a polymorphic way. Last but not least by not having virtual destructors.
+## Problem
 
-The first limitation, however, doesn't need to stop us from adding new behaviour (i.e. new meber functions) to container subclasses in a polymorphic way, while still exposing the well known container interfaces. Just don't override the non-virtuals. The second limitation is a show stopper, though. Nothings stops us from subclassing C++ containers directly. When such an object is deleted via a base class pointer, however, bad things happen, ranging from memory leaks to heap corruption.
+C++ containers like `std::vector`, `std::list`, `std::map`, `std::unordered_map` are non-polymorphic by design, first of all by relying on template member functions. These can't be virtual and therefore not overridden in a polymorphic way.
 
-The idea behind the Polymorphic decorators is very simple but effective. They
+This first limitation wouldn't need to stop us from adding new behaviour (i.e. new member functions) to container subclasses in a polymorphic way, while still exposing the well known non-polymorphic container interfaces. Just refrain from overriding the non-virtuals!
+
+Another limitation, their lack of virtual destructors, is a show stopper. We can easily subclass C++ containers directly. When such an object is deleted via a base class pointer, however, bad things happen, ranging from memory leaks to heap corruption.
+
+## The idea behind Polymorphic decorators
+
+is very simple but effective. They
 
  * aggregate C++ container class templates with the same set of template parameters,
- * provide 1-by-1 non-virtual inline members and templates forwarding to the aggregated containers. That's a lot of typing, but not exciting, and finally
+ * provide 1-by-1 forwarding non-virtual inline members and member templates, reference type conversions, constructors, assignment operators, and
  * add a virtual destructor!
+
+## Modern C++
+
+ * Can be used almost interchangeably with C++11 standard containers.
+ * Implicit conversions allow transparent substitution of one for the other alomst everywhere, except as pointer targets.
+ * Move semantics, rvalue references.
+
+Decorator pattern is cool and old school. Typing hundrets of forwarding members is neither cool nor fun, but a one time task. Fortunately, C++ library standards, while evolving, do not alter signatures of existing public container members.
+
+## Performance impact
+
+### Read and update
+
+None, assuming compilers manage to collapse inline decorator members into the delegate container operations.
+
+### Create and delete
+
+Adds the cost for setting the hidden vtable pointer per decorator instance on creation, and the check for subclass destructors on deletion.
+
+### Memory footprint
+
+Adds one hidden vtable pointer per decorator instance, compared to the raw container.
 
 ## License
 
