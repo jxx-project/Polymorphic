@@ -291,10 +291,10 @@ public:
 		return delegate.at(key);
 	}
 
-	/// Forwarded to std::map<Key, T>::at(key_type&& key).
-	const mapped_type& at(key_type&& key) const
+	/// Forwarded to std::map<Key, T>::at(const key_type& key) const.
+	const mapped_type& at(const key_type& key) const
 	{
-		return delegate.at(std::move(key));
+		return delegate.at(key);
 	}
 
 	/// Forwarded to std::map<Key, T>::insert(const value_type& value).

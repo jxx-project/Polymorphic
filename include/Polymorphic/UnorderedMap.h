@@ -270,10 +270,10 @@ public:
 		return delegate.at(key);
 	}
 
-	/// Forwarded to std::unordered_map<Key, T>::at(key_type&& key).
-	const unordered_mapped_type& at(key_type&& key) const
+	/// Forwarded to std::unordered_map<Key, T>::at(const key_type& key) const.
+	const unordered_mapped_type& at(const key_type& key) const
 	{
-		return delegate.at(std::move(key));
+		return delegate.at(key);
 	}
 
 	/// Forwarded to std::unordered_map<Key, T>::insert(const value_type& value).
