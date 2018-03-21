@@ -46,14 +46,14 @@ class UnorderedMultimap
 {
 public:
 	typedef std::unordered_multimap<Key, T, Hash, Predicate, Allocator> DelegateType;
-	typedef Key key_type;	
-	typedef T mapped_type;	
+	typedef Key key_type;
+	typedef T mapped_type;
 	typedef std::pair<const key_type, mapped_type> value_type;
 	typedef Hash hasher;
 	typedef Predicate key_equal;
 	typedef Allocator allocator_type;
-	typedef T& reference;	
-	typedef const T& const_reference;	
+	typedef value_type& reference;
+	typedef const value_type& const_reference;
 	typedef typename DelegateType::pointer pointer;
 	typedef typename DelegateType::const_pointer const_pointer ;
 	typedef typename DelegateType::iterator iterator;
@@ -145,21 +145,21 @@ public:
 	{
 	}
 
-	/// Copy assignment operator	
+	/// Copy assignment operator
 	UnorderedMultimap& operator=(const UnorderedMultimap& other)
 	{
 		delegate = other.delegate;
 		return *this;
 	}
 
-	/// Move assignment operator	
+	/// Move assignment operator
 	UnorderedMultimap& operator=(UnorderedMultimap&& other)
 	{
 		delegate = std::move(other.delegate);
 		return *this;
 	}
 
-	/// Initializer list assignment operator	
+	/// Initializer list assignment operator
 	UnorderedMultimap& operator=(std::initializer_list<value_type> initializerList)
 	{
 		delegate = initializerList;
@@ -260,7 +260,7 @@ public:
 
 	/// Forwarded to std::unordered_multimap<Key, T>::insert(Pair&& value).
 	template<typename Pair>
-	std::pair<iterator, bool> insert(Pair&& value)
+	iterator insert(Pair&& value)
 	{
 		return delegate.insert(std::move(value));
 	}
@@ -311,7 +311,7 @@ public:
 
 	/// Forwarded to std::unordered_multimap<Key, T>::swap(std::unordered_multimap<bool>& other).
 	void swap(UnorderedMultimap& other) {
-		delegate.swap(other.unordered_multimap);
+		delegate.swap(other.delegate);
 	}
 
 	/// Forwarded to std::unordered_multimap<Key, T>::clear().
@@ -321,7 +321,7 @@ public:
 
 	/// Forwarded to std::unordered_multimap<Key, T>::emplace(const_iterator position, Args&&... args).
 	template<typename... Args>
-	std::pair<iterator, bool> emplace(Args&&... args)
+	iterator emplace(Args&&... args)
 	{
 		return delegate.emplace(std::forward<Args>(args)...);
 	}
@@ -451,49 +451,49 @@ private:
 template<typename Key, typename T, typename Hash, typename Predicate, typename Allocator>
 bool operator==(const UnorderedMultimap<Key, T, Hash, Predicate, Allocator>& lhs, const UnorderedMultimap<Key, T, Hash, Predicate, Allocator>& rhs)
 {
-	return lhs.unordered_multimap == rhs.unordered_multimap;
+	return lhs.delegate == rhs.delegate;
 }
 
 /// Forwarded to operator!=(const std::unordered_multimap<Key, T, Hash, Predicate, Allocator>& lhs, const std::unordered_multimap<Key, T, Hash, Predicate, Allocator>& rhs).
 template<typename Key, typename T, typename Hash, typename Predicate, typename Allocator>
 bool operator!=(const UnorderedMultimap<Key, T, Hash, Predicate, Allocator>& lhs, const UnorderedMultimap<Key, T, Hash, Predicate, Allocator>& rhs)
 {
-	return lhs.unordered_multimap != rhs.unordered_multimap;
+	return lhs.delegate != rhs.delegate;
 }
 
 /// Forwarded to operator<(const std::unordered_multimap<Key, T, Hash, Predicate, Allocator>& lhs, const std::unordered_multimap<Key, T, Hash, Predicate, Allocator>& rhs).
 template<typename Key, typename T, typename Hash, typename Predicate, typename Allocator>
 bool operator<(const UnorderedMultimap<Key, T, Hash, Predicate, Allocator>& lhs, const UnorderedMultimap<Key, T, Hash, Predicate, Allocator>& rhs)
 {
-	return lhs.unordered_multimap < rhs.unordered_multimap;
+	return lhs.delegate < rhs.delegate;
 }
 
 /// Forwarded to operator<=(const std::unordered_multimap<Key, T, Hash, Predicate, Allocator>& lhs, const std::unordered_multimap<Key, T, Hash, Predicate, Allocator>& rhs).
 template<typename Key, typename T, typename Hash, typename Predicate, typename Allocator>
 bool operator<=(const UnorderedMultimap<Key, T, Hash, Predicate, Allocator>& lhs, const UnorderedMultimap<Key, T, Hash, Predicate, Allocator>& rhs)
 {
-	return lhs.unordered_multimap <= rhs.unordered_multimap;
+	return lhs.delegate <= rhs.delegate;
 }
 
 /// Forwarded to operator>(const std::unordered_multimap<Key, T, Hash, Predicate, Allocator>& lhs, const std::unordered_multimap<Key, T, Hash, Predicate, Allocator>& rhs).
 template<typename Key, typename T, typename Hash, typename Predicate, typename Allocator>
 bool operator>(const UnorderedMultimap<Key, T, Hash, Predicate, Allocator>& lhs, const UnorderedMultimap<Key, T, Hash, Predicate, Allocator>& rhs)
 {
-	return lhs.unordered_multimap > rhs.unordered_multimap;
+	return lhs.delegate > rhs.delegate;
 }
 
 /// Forwarded to operator>=(const std::unordered_multimap<Key, T, Hash, Predicate, Allocator>& lhs, const std::unordered_multimap<Key, T, Hash, Predicate, Allocator>& rhs).
 template<typename Key, typename T, typename Hash, typename Predicate, typename Allocator>
 bool operator>=(const UnorderedMultimap<Key, T, Hash, Predicate, Allocator>& lhs, const UnorderedMultimap<Key, T, Hash, Predicate, Allocator>& rhs)
 {
-	return lhs.unordered_multimap >= rhs.unordered_multimap;
+	return lhs.delegate >= rhs.delegate;
 }
 
 /// Forwarded to swap(const std::unordered_multimap<Key, T, Hash, Predicate, Allocator>& lhs, const std::unordered_multimap<Key, T, Hash, Predicate, Allocator>& rhs).
 template<typename Key, typename T, typename Hash, typename Predicate, typename Allocator>
 void swap(const UnorderedMultimap<Key, T, Hash, Predicate, Allocator>& lhs, const UnorderedMultimap<Key, T, Hash, Predicate, Allocator>& rhs)
 {
-	swap(lhs.unordered_multimap, rhs.unordered_multimap);
+	swap(lhs.delegate, rhs.delegate);
 }
 
 } // namespace Polymorphic

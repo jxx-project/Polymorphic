@@ -18,9 +18,11 @@ if(CMAKE_COMPILER_IS_GNUCXX)
 	set(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} -std=c++11)
 endif()
 
-add_subdirectory (test)
+include_directories(include)
 
-enable_testing ()
+add_subdirectory(test)
+
+enable_testing()
 add_test(NAME VectorTest COMMAND vectorTest)
 add_test(NAME ListTest COMMAND listTest)
 add_test(NAME MapTest COMMAND mapTest)

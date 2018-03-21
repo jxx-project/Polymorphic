@@ -46,10 +46,10 @@ class List
 {
 public:
 	typedef std::list<T, Allocator> DelegateType;
-	typedef T value_type;	
+	typedef T value_type;
 	typedef Allocator allocator_type;
-	typedef T& reference;	
-	typedef const T& const_reference;	
+	typedef value_type& reference;
+	typedef const value_type& const_reference;
 	typedef typename DelegateType::pointer pointer;
 	typedef typename DelegateType::const_pointer const_pointer ;
 	typedef typename DelegateType::iterator iterator;
@@ -130,21 +130,21 @@ public:
 	{
 	}
 
-	/// Copy assignment operator	
+	/// Copy assignment operator
 	List& operator=(const List& other)
 	{
 		delegate = other.delegate;
 		return *this;
 	}
 
-	/// Move assignment operator	
+	/// Move assignment operator
 	List& operator=(List&& other)
 	{
 		delegate = std::move(other.delegate);
 		return *this;
 	}
 
-	/// Initializer list assignment operator	
+	/// Initializer list assignment operator
 	List& operator=(std::initializer_list<value_type> initializerList)
 	{
 		delegate = initializerList;
@@ -418,7 +418,7 @@ public:
 
 	/// Forwarded to std::list<T>::swap(std::list<bool>& other).
 	void swap(List& other) {
-		delegate.swap(other.list);
+		delegate.swap(other.delegate);
 	}
 
 	/// Forwarded to std::list<T>::resize(size_type n).
@@ -565,49 +565,49 @@ private:
 template<typename T, typename Allocator>
 bool operator==(const List<T, Allocator>& lhs, const List<T, Allocator>& rhs)
 {
-	return lhs.list == rhs.list;
+	return lhs.delegate == rhs.delegate;
 }
 
 /// Forwarded to operator!=(const std::list<T, Allocator>& lhs, const std::list<T, Allocator>& rhs).
 template<typename T, typename Allocator>
 bool operator!=(const List<T, Allocator>& lhs, const List<T, Allocator>& rhs)
 {
-	return lhs.list != rhs.list;
+	return lhs.delegate != rhs.delegate;
 }
 
 /// Forwarded to operator<(const std::list<T, Allocator>& lhs, const std::list<T, Allocator>& rhs).
 template<typename T, typename Allocator>
 bool operator<(const List<T, Allocator>& lhs, const List<T, Allocator>& rhs)
 {
-	return lhs.list < rhs.list;
+	return lhs.delegate < rhs.delegate;
 }
 
 /// Forwarded to operator<=(const std::list<T, Allocator>& lhs, const std::list<T, Allocator>& rhs).
 template<typename T, typename Allocator>
 bool operator<=(const List<T, Allocator>& lhs, const List<T, Allocator>& rhs)
 {
-	return lhs.list <= rhs.list;
+	return lhs.delegate <= rhs.delegate;
 }
 
 /// Forwarded to operator>(const std::list<T, Allocator>& lhs, const std::list<T, Allocator>& rhs).
 template<typename T, typename Allocator>
 bool operator>(const List<T, Allocator>& lhs, const List<T, Allocator>& rhs)
 {
-	return lhs.list > rhs.list;
+	return lhs.delegate > rhs.delegate;
 }
 
 /// Forwarded to operator>=(const std::list<T, Allocator>& lhs, const std::list<T, Allocator>& rhs).
 template<typename T, typename Allocator>
 bool operator>=(const List<T, Allocator>& lhs, const List<T, Allocator>& rhs)
 {
-	return lhs.list >= rhs.list;
+	return lhs.delegate >= rhs.delegate;
 }
 
 /// Forwarded to swap(const std::list<T, Allocator>& lhs, const std::list<T, Allocator>& rhs).
 template<typename T, typename Allocator>
 void swap(const List<T, Allocator>& lhs, const List<T, Allocator>& rhs)
 {
-	swap(lhs.list, rhs.list);
+	swap(lhs.delegate, rhs.delegate);
 }
 
 } // namespace Polymorphic

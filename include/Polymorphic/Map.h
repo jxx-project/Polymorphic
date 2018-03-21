@@ -46,14 +46,14 @@ class Map
 {
 public:
 	typedef std::map<Key, T, Compare, Allocator> DelegateType;
-	typedef Key key_type;	
-	typedef T mapped_type;	
+	typedef Key key_type;
+	typedef T mapped_type;
 	typedef std::pair<const key_type, mapped_type> value_type;
 	typedef Compare key_compare;
 	typedef typename DelegateType::value_compare value_compare;
 	typedef Allocator allocator_type;
-	typedef T& reference;	
-	typedef const T& const_reference;	
+	typedef value_type& reference;
+	typedef const value_type& const_reference;
 	typedef typename DelegateType::pointer pointer;
 	typedef typename DelegateType::const_pointer const_pointer ;
 	typedef typename DelegateType::iterator iterator;
@@ -130,21 +130,21 @@ public:
 	{
 	}
 
-	/// Copy assignment operator	
+	/// Copy assignment operator
 	Map& operator=(const Map& other)
 	{
 		delegate = other.delegate;
 		return *this;
 	}
 
-	/// Move assignment operator	
+	/// Move assignment operator
 	Map& operator=(Map&& other)
 	{
 		delegate = std::move(other.delegate);
 		return *this;
 	}
 
-	/// Initializer list assignment operator	
+	/// Initializer list assignment operator
 	Map& operator=(std::initializer_list<value_type> initializerList)
 	{
 		delegate = initializerList;
@@ -356,7 +356,7 @@ public:
 
 	/// Forwarded to std::map<Key, T>::swap(std::map<bool>& other).
 	void swap(Map& other) {
-		delegate.swap(other.map);
+		delegate.swap(other.delegate);
 	}
 
 	/// Forwarded to std::map<Key, T>::clear().
@@ -465,49 +465,49 @@ private:
 template<typename Key, typename T, typename Compare, typename Allocator>
 bool operator==(const Map<Key, T, Compare, Allocator>& lhs, const Map<Key, T, Compare, Allocator>& rhs)
 {
-	return lhs.map == rhs.map;
+	return lhs.delegate == rhs.delegate;
 }
 
 /// Forwarded to operator!=(const std::map<Key, T, Compare, Allocator>& lhs, const std::map<Key, T, Compare, Allocator>& rhs).
 template<typename Key, typename T, typename Compare, typename Allocator>
 bool operator!=(const Map<Key, T, Compare, Allocator>& lhs, const Map<Key, T, Compare, Allocator>& rhs)
 {
-	return lhs.map != rhs.map;
+	return lhs.delegate != rhs.delegate;
 }
 
 /// Forwarded to operator<(const std::map<Key, T, Compare, Allocator>& lhs, const std::map<Key, T, Compare, Allocator>& rhs).
 template<typename Key, typename T, typename Compare, typename Allocator>
 bool operator<(const Map<Key, T, Compare, Allocator>& lhs, const Map<Key, T, Compare, Allocator>& rhs)
 {
-	return lhs.map < rhs.map;
+	return lhs.delegate < rhs.delegate;
 }
 
 /// Forwarded to operator<=(const std::map<Key, T, Compare, Allocator>& lhs, const std::map<Key, T, Compare, Allocator>& rhs).
 template<typename Key, typename T, typename Compare, typename Allocator>
 bool operator<=(const Map<Key, T, Compare, Allocator>& lhs, const Map<Key, T, Compare, Allocator>& rhs)
 {
-	return lhs.map <= rhs.map;
+	return lhs.delegate <= rhs.delegate;
 }
 
 /// Forwarded to operator>(const std::map<Key, T, Compare, Allocator>& lhs, const std::map<Key, T, Compare, Allocator>& rhs).
 template<typename Key, typename T, typename Compare, typename Allocator>
 bool operator>(const Map<Key, T, Compare, Allocator>& lhs, const Map<Key, T, Compare, Allocator>& rhs)
 {
-	return lhs.map > rhs.map;
+	return lhs.delegate > rhs.delegate;
 }
 
 /// Forwarded to operator>=(const std::map<Key, T, Compare, Allocator>& lhs, const std::map<Key, T, Compare, Allocator>& rhs).
 template<typename Key, typename T, typename Compare, typename Allocator>
 bool operator>=(const Map<Key, T, Compare, Allocator>& lhs, const Map<Key, T, Compare, Allocator>& rhs)
 {
-	return lhs.map >= rhs.map;
+	return lhs.delegate >= rhs.delegate;
 }
 
 /// Forwarded to swap(const std::map<Key, T, Compare, Allocator>& lhs, const std::map<Key, T, Compare, Allocator>& rhs).
 template<typename Key, typename T, typename Compare, typename Allocator>
 void swap(const Map<Key, T, Compare, Allocator>& lhs, const Map<Key, T, Compare, Allocator>& rhs)
 {
-	swap(lhs.map, rhs.map);
+	swap(lhs.delegate, rhs.delegate);
 }
 
 } // namespace Polymorphic

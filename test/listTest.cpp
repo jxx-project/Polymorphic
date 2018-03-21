@@ -5,12 +5,12 @@
 //
 
 
+#include "Polymorphic/List.h"
 #include "StdListTestSuite.h"
 #include <iostream>
-#include <list>
 
 int main(int args, char* argv[])
 {
 	std::cout << "Testing C++-11 standard list interface ..." << std::endl;
-	return StdListTestSuite<std::list, int>().run() ? 0 : 1;
+	return StdListTestSuite<Polymorphic::List, int>().run() ? 0 : 1;
 }

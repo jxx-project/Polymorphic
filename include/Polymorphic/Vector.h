@@ -46,10 +46,10 @@ class Vector
 {
 public:
 	typedef std::vector<T, Allocator> DelegateType;
-	typedef T value_type;	
+	typedef T value_type;
 	typedef Allocator allocator_type;
-	typedef T& reference;	
-	typedef const T& const_reference;	
+	typedef value_type& reference;
+	typedef const value_type& const_reference;
 	typedef typename DelegateType::pointer pointer;
 	typedef typename DelegateType::const_pointer const_pointer ;
 	typedef typename DelegateType::iterator iterator;
@@ -130,21 +130,21 @@ public:
 	{
 	}
 
-	/// Copy assignment operator	
+	/// Copy assignment operator
 	Vector& operator=(const Vector& other)
 	{
 		delegate = other.delegate;
 		return *this;
 	}
 
-	/// Move assignment operator	
+	/// Move assignment operator
 	Vector& operator=(Vector&& other)
 	{
 		delegate = std::move(other.delegate);
 		return *this;
 	}
 
-	/// Initializer list assignment operator	
+	/// Initializer list assignment operator
 	Vector& operator=(std::initializer_list<value_type> initializerList)
 	{
 		delegate = initializerList;
@@ -358,7 +358,7 @@ public:
 	}
 
 	/// Forwarded to std::vector<T>::data(size_type n) const.
-	const value_type data() const
+	const value_type* data() const
 	{
 		return delegate.data();
 	}
@@ -445,7 +445,7 @@ public:
 
 	/// Forwarded to std::vector<T>::swap(std::vector<bool>& other).
 	void swap(Vector& other) {
-		delegate.swap(other.vector);
+		delegate.swap(other.delegate);
 	}
 
 	/// Forwarded to std::vector<T>::clear().
@@ -499,10 +499,10 @@ class Vector<bool, Allocator>
 {
 public:
 	typedef std::vector<bool, Allocator> DelegateType;
-	typedef bool value_type;	
+	typedef bool value_type;
 	typedef Allocator allocator_type;
-	typedef typename DelegateType::reference reference;	
-	typedef typename DelegateType::const_reference const_reference;	
+	typedef typename DelegateType::reference reference;
+	typedef typename DelegateType::const_reference const_reference;
 	typedef typename DelegateType::pointer pointer;
 	typedef typename DelegateType::const_pointer const_pointer ;
 	typedef typename DelegateType::iterator iterator;
@@ -582,21 +582,21 @@ public:
 	virtual ~Vector() {
 	}
 
-	/// Copy assignment operator	
+	/// Copy assignment operator
 	Vector& operator=(const Vector& other)
 	{
 		delegate = other.delegate;
 		return *this;
 	}
 
-	/// Move assignment operator	
+	/// Move assignment operator
 	Vector& operator=(Vector&& other)
 	{
 		delegate = std::move(other.delegate);
 		return *this;
 	}
 
-	/// Initializer list assignment operator	
+	/// Initializer list assignment operator
 	Vector& operator=(std::initializer_list<value_type> initializerList)
 	{
 		delegate = initializerList;
@@ -803,18 +803,6 @@ public:
 		return delegate.back();
 	}
 
-	/// Forwarded to std::vector<bool>::data().
-	value_type* data()
-	{
-		return delegate.data();
-	}
-
-	/// Forwarded to std::vector<bool>::data(size_type n) const.
-	const value_type data() const
-	{
-		return delegate.data();
-	}
-
 	/// Forwarded to std::vector<bool>::assign(InputIterator first, InputIterator last).
 	template<typename InputIterator>
 	void assign(InputIterator first, InputIterator last)
@@ -897,7 +885,7 @@ public:
 
 	/// Forwarded to std::vector<bool>::swap(std::vector<bool>& other).
 	void swap(Vector& other) {
-		delegate.swap(other.vector);
+		delegate.swap(other.delegate);
 	}
 
 	/// Forwarded to std::vector<bool>::swap(reference lhs, reference rhs).
@@ -912,13 +900,13 @@ public:
 	}
 
 	/// Forwarded to std::vector<bool>::insert(const_iterator position, const bool& arg).
-	iterator emplace(const_iterator position, const bool& arg)
+	iterator emplace(const_iterator position, const bool& arg = bool())
 	{
 		return delegate.insert(position, arg);
 	}
 
 	/// Forwarded to std::vector<bool>::push_back(const bool& arg).
-	void emplace_back(const bool& arg)
+	void emplace_back(const bool& arg = bool())
 	{
 		return delegate.push_back(arg);
 	}
@@ -945,49 +933,49 @@ private:
 template<typename T, typename Allocator>
 bool operator==(const Vector<T, Allocator>& lhs, const Vector<T, Allocator>& rhs)
 {
-	return lhs.vector == rhs.vector;
+	return lhs.delegate == rhs.delegate;
 }
 
 /// Forwarded to operator!=(const std::vector<T, Allocator>& lhs, const std::vector<T, Allocator>& rhs).
 template<typename T, typename Allocator>
 bool operator!=(const Vector<T, Allocator>& lhs, const Vector<T, Allocator>& rhs)
 {
-	return lhs.vector != rhs.vector;
+	return lhs.delegate != rhs.delegate;
 }
 
 /// Forwarded to operator<(const std::vector<T, Allocator>& lhs, const std::vector<T, Allocator>& rhs).
 template<typename T, typename Allocator>
 bool operator<(const Vector<T, Allocator>& lhs, const Vector<T, Allocator>& rhs)
 {
-	return lhs.vector < rhs.vector;
+	return lhs.delegate < rhs.delegate;
 }
 
 /// Forwarded to operator<=(const std::vector<T, Allocator>& lhs, const std::vector<T, Allocator>& rhs).
 template<typename T, typename Allocator>
 bool operator<=(const Vector<T, Allocator>& lhs, const Vector<T, Allocator>& rhs)
 {
-	return lhs.vector <= rhs.vector;
+	return lhs.delegate <= rhs.delegate;
 }
 
 /// Forwarded to operator>(const std::vector<T, Allocator>& lhs, const std::vector<T, Allocator>& rhs).
 template<typename T, typename Allocator>
 bool operator>(const Vector<T, Allocator>& lhs, const Vector<T, Allocator>& rhs)
 {
-	return lhs.vector > rhs.vector;
+	return lhs.delegate > rhs.delegate;
 }
 
 /// Forwarded to operator>=(const std::vector<T, Allocator>& lhs, const std::vector<T, Allocator>& rhs).
 template<typename T, typename Allocator>
 bool operator>=(const Vector<T, Allocator>& lhs, const Vector<T, Allocator>& rhs)
 {
-	return lhs.vector >= rhs.vector;
+	return lhs.delegate >= rhs.delegate;
 }
 
 /// Forwarded to swap(const std::vector<T, Allocator>& lhs, const std::vector<T, Allocator>& rhs).
 template<typename T, typename Allocator>
 void swap(const Vector<T, Allocator>& lhs, const Vector<T, Allocator>& rhs)
 {
-	swap(lhs.vector, rhs.vector);
+	swap(lhs.delegate, rhs.delegate);
 }
 
 } // namespace Polymorphic
