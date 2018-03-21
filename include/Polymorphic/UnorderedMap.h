@@ -334,12 +334,14 @@ public:
 	}
 
 	/// Forwarded to std::unordered_map<Key, T>::swap(std::unordered_map<bool>& other).
-	void swap(UnorderedMap& other) {
+	void swap(UnorderedMap& other)
+	{
 		delegate.swap(other.delegate);
 	}
 
 	/// Forwarded to std::unordered_map<Key, T>::clear().
-	void clear() noexcept {
+	void clear() noexcept
+	{
 		delegate.clear();
 	}
 

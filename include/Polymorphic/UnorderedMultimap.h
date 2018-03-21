@@ -310,12 +310,14 @@ public:
 	}
 
 	/// Forwarded to std::unordered_multimap<Key, T>::swap(std::unordered_multimap<bool>& other).
-	void swap(UnorderedMultimap& other) {
+	void swap(UnorderedMultimap& other)
+	{
 		delegate.swap(other.delegate);
 	}
 
 	/// Forwarded to std::unordered_multimap<Key, T>::clear().
-	void clear() noexcept {
+	void clear() noexcept
+	{
 		delegate.clear();
 	}
 

@@ -355,12 +355,14 @@ public:
 	}
 
 	/// Forwarded to std::map<Key, T>::swap(std::map<bool>& other).
-	void swap(Map& other) {
+	void swap(Map& other)
+	{
 		delegate.swap(other.delegate);
 	}
 
 	/// Forwarded to std::map<Key, T>::clear().
-	void clear() noexcept {
+	void clear() noexcept
+	{
 		delegate.clear();
 	}
 

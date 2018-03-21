@@ -417,7 +417,8 @@ public:
 	}
 
 	/// Forwarded to std::list<T>::swap(std::list<bool>& other).
-	void swap(List& other) {
+	void swap(List& other)
+	{
 		delegate.swap(other.delegate);
 	}
 
@@ -434,7 +435,8 @@ public:
 	}
 
 	/// Forwarded to std::list<T>::clear().
-	void clear() noexcept {
+	void clear() noexcept
+	{
 		delegate.clear();
 	}
 
@@ -482,7 +484,8 @@ public:
 
 	/// Forwarded to std::list<T>::remove_if(Predicate predicate).
 	template<typename Predicate>
-	void remove_if(Predicate predicate) {
+	void remove_if(Predicate predicate)
+	{
 		delegate.remove_if(predicate);
 	}
 
@@ -494,7 +497,8 @@ public:
 
 	/// Forwarded to std::list<T>::unique(BinaryPredicate predicate).
 	template<typename BinaryPredicate>
-	void unique(BinaryPredicate predicate) {
+	void unique(BinaryPredicate predicate)
+	{
 		delegate.unique(predicate);
 	}
 

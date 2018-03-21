@@ -331,12 +331,14 @@ public:
 	}
 
 	/// Forwarded to std::multimap<Key, T>::swap(std::multimap<bool>& other).
-	void swap(Multimap& other) {
+	void swap(Multimap& other)
+	{
 		delegate.swap(other.delegate);
 	}
 
 	/// Forwarded to std::multimap<Key, T>::clear().
-	void clear() noexcept {
+	void clear() noexcept
+	{
 		delegate.clear();
 	}
 

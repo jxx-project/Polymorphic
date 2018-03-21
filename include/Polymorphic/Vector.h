@@ -444,12 +444,14 @@ public:
 	}
 
 	/// Forwarded to std::vector<T>::swap(std::vector<bool>& other).
-	void swap(Vector& other) {
+	void swap(Vector& other)
+	{
 		delegate.swap(other.delegate);
 	}
 
 	/// Forwarded to std::vector<T>::clear().
-	void clear() noexcept {
+	void clear() noexcept
+	{
 		delegate.clear();
 	}
 
@@ -579,7 +581,8 @@ public:
 	}
 
 	/// Virtual destructor
-	virtual ~Vector() {
+	virtual ~Vector()
+	{
 	}
 
 	/// Copy assignment operator
@@ -884,7 +887,8 @@ public:
 	}
 
 	/// Forwarded to std::vector<bool>::swap(std::vector<bool>& other).
-	void swap(Vector& other) {
+	void swap(Vector& other)
+	{
 		delegate.swap(other.delegate);
 	}
 
@@ -895,7 +899,8 @@ public:
 	}
 
 	/// Forwarded to std::vector<bool>::clear().
-	void clear() noexcept {
+	void clear() noexcept
+	{
 		delegate.clear();
 	}
 
