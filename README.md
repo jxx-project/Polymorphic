@@ -38,6 +38,36 @@ Adds the cost for setting the hidden vtable pointer per decorator instance on cr
 
 Adds one hidden vtable pointer per decorator instance, compared to the raw container.
 
+## Testing
+
+The Polymorphic package is harnessed with a set of test suite templates located in namespace `Testee`. Main focus is template member signatures and return types, but also includes basic plausibility checks of results.
+
+Using test suite templates solved the "test the tester" dilemma. Running tests against the delegate, i.e. the C++ standard library implementation, helped developing and verifying test suites. Then they are used to verify that decorators are actually providing the same interface.
+
+## How to use
+
+Polymorphic decorators are a headers-only library. You may just copy the `include/Polymorphic` directory into a location found by your build system.
+
+CMakeLists.txt files are only required to build and run the test suites.
+
+### Linux
+
+```
+./configure
+make
+make test
+```
+
+### Windows
+
+```
+mkdir build
+cd buid
+cmake ..
+```
+
+will create a Visual Studio solution building the test executables.
+
 ## License
 
 Free Software, licensed under the [Boost Software License](https://spdx.org/licenses/BSL-1.0).
