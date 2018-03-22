@@ -5,20 +5,22 @@
 //
 
 
-#ifndef StdListTestSuite_INCLUDED
-#define StdListTestSuite_INCLUDED
+#ifndef Testee_ListTestSuite_INCLUDED
+#define Testee_ListTestSuite_INCLUDED
 
-#include "TestSuite.h"
+#include "Testee/TestSuite.h"
+
+namespace Testee {
 
 /// Test ListType C++-11 standard list interface.
 template<template<typename...> class ListType, typename T>
-class StdListTestSuite : public TestSuite
+class ListTestSuite : public TestSuite
 {
 public:
 	typedef std::initializer_list<T> InitializerListType;
 	typedef std::array<T, 1> ArrayType;
 
-	StdListTestSuite() : TestSuite({
+	ListTestSuite() : TestSuite({
 
 			TestCase("typedefs", [this]
 					 {
@@ -118,97 +120,97 @@ public:
 			TestCase("begin", [this]
 					 {
 						 ListType<T> testee(1);
-						 auto i = testee.begin();
-						 TestCase::assert(std::is_same<typename ListType<T>::iterator, decltype(i)>::value, "type");
-						 TestCase::assert(*i == T(), "result");
+						 auto result = testee.begin();
+						 TestCase::assert(std::is_same<typename ListType<T>::iterator, decltype(result)>::value, "type");
+						 TestCase::assert(*result == T(), "result");
 					 }),
 
 			TestCase("begin const", [this]
 					 {
 						 const ListType<T> testee(1);
-						 auto i = testee.begin();
-						 TestCase::assert(std::is_same<typename ListType<T>::const_iterator, decltype(i)>::value, "type");
-						 TestCase::assert(*i == T(), "result");
+						 auto result = testee.begin();
+						 TestCase::assert(std::is_same<typename ListType<T>::const_iterator, decltype(result)>::value, "type");
+						 TestCase::assert(*result == T(), "result");
 					 }),
 
 			TestCase("end", [this]
 					 {
 						 ListType<T> testee(1);
-						 auto i = testee.end();
-						 TestCase::assert(std::is_same<typename ListType<T>::iterator, decltype(i)>::value, "type");
-						 TestCase::assert(*(--i) == T(), "result");
+						 auto result = testee.end();
+						 TestCase::assert(std::is_same<typename ListType<T>::iterator, decltype(result)>::value, "type");
+						 TestCase::assert(*(--result) == T(), "result");
 					 }),
 
 			TestCase("end const", [this]
 					 {
 						 const ListType<T> testee(1);
-						 auto i = testee.end();
-						 TestCase::assert(std::is_same<typename ListType<T>::const_iterator, decltype(i)>::value, "type");
-						 TestCase::assert(*(--i) == T(), "result");
+						 auto result = testee.end();
+						 TestCase::assert(std::is_same<typename ListType<T>::const_iterator, decltype(result)>::value, "type");
+						 TestCase::assert(*(--result) == T(), "result");
 					 }),
 
 			TestCase("rbegin", [this]
 					 {
 						 ListType<T> testee(1);
-						 auto i = testee.rbegin();
-						 TestCase::assert(std::is_same<typename ListType<T>::reverse_iterator, decltype(i)>::value, "type");
-						 TestCase::assert(*i == T(), "result");
+						 auto result = testee.rbegin();
+						 TestCase::assert(std::is_same<typename ListType<T>::reverse_iterator, decltype(result)>::value, "type");
+						 TestCase::assert(*result == T(), "result");
 					 }),
 
 			TestCase("rbegin const", [this]
 					 {
 						 const ListType<T> testee(1);
-						 auto i = testee.rbegin();
-						 TestCase::assert(std::is_same<typename ListType<T>::const_reverse_iterator, decltype(i)>::value, "type");
-						 TestCase::assert(*i == T(), "result");
+						 auto result = testee.rbegin();
+						 TestCase::assert(std::is_same<typename ListType<T>::const_reverse_iterator, decltype(result)>::value, "type");
+						 TestCase::assert(*result == T(), "result");
 					 }),
 
 			TestCase("rend", [this]
 					 {
 						 ListType<T> testee(1);
-						 auto i = testee.rend();
-						 TestCase::assert(std::is_same<typename ListType<T>::reverse_iterator, decltype(i)>::value, "type");
-						 TestCase::assert(*(--i) == T(), "result");
+						 auto result = testee.rend();
+						 TestCase::assert(std::is_same<typename ListType<T>::reverse_iterator, decltype(result)>::value, "type");
+						 TestCase::assert(*(--result) == T(), "result");
 					 }),
 
 			TestCase("rend const", [this]
 					 {
 						 const ListType<T> testee(1);
-						 auto i = testee.rend();
-						 TestCase::assert(std::is_same<typename ListType<T>::const_reverse_iterator, decltype(i)>::value, "type");
-						 TestCase::assert(*(--i) == T(), "result");
+						 auto result = testee.rend();
+						 TestCase::assert(std::is_same<typename ListType<T>::const_reverse_iterator, decltype(result)>::value, "type");
+						 TestCase::assert(*(--result) == T(), "result");
 					 }),
 
 			TestCase("cbegin", [this]
 					 {
 						 ListType<T> testee(1);
-						 auto i = testee.cbegin();
-						 TestCase::assert(std::is_same<typename ListType<T>::const_iterator, decltype(i)>::value, "type");
-						 TestCase::assert(*i == T(), "result");
+						 auto result = testee.cbegin();
+						 TestCase::assert(std::is_same<typename ListType<T>::const_iterator, decltype(result)>::value, "type");
+						 TestCase::assert(*result == T(), "result");
 					 }),
 
 			TestCase("cend", [this]
 					 {
 						 ListType<T> testee(1);
-						 auto i = testee.cend();
-						 TestCase::assert(std::is_same<typename ListType<T>::const_iterator, decltype(i)>::value, "type");
-						 TestCase::assert(*(--i) == T(), "result");
+						 auto result = testee.cend();
+						 TestCase::assert(std::is_same<typename ListType<T>::const_iterator, decltype(result)>::value, "type");
+						 TestCase::assert(*(--result) == T(), "result");
 					 }),
 
 			TestCase("crbegin", [this]
 					 {
 						 ListType<T> testee(1);
-						 auto i = testee.crbegin();
-						 TestCase::assert(std::is_same<typename ListType<T>::const_reverse_iterator, decltype(i)>::value, "type");
-						 TestCase::assert(*i == T(), "result");
+						 auto result = testee.crbegin();
+						 TestCase::assert(std::is_same<typename ListType<T>::const_reverse_iterator, decltype(result)>::value, "type");
+						 TestCase::assert(*result == T(), "result");
 					 }),
 
 			TestCase("crend", [this]
 					 {
 						 ListType<T> testee(1);
-						 auto i = testee.crend();
-						 TestCase::assert(std::is_same<typename ListType<T>::const_reverse_iterator, decltype(i)>::value, "type");
-						 TestCase::assert(*(--i) == T(), "result");
+						 auto result = testee.crend();
+						 TestCase::assert(std::is_same<typename ListType<T>::const_reverse_iterator, decltype(result)>::value, "type");
+						 TestCase::assert(*(--result) == T(), "result");
 					 }),
 
 			TestCase("empty", [this]
@@ -680,15 +682,16 @@ public:
 	{
 	}
 
-private:
 	static constexpr InitializerListType INITIALIZER_LIST = {T()};
 	static constexpr ArrayType ARRAY = {T()};
 };
 
 template<template<typename...> class ListType, typename T>
-constexpr typename StdListTestSuite<ListType, T>::InitializerListType StdListTestSuite<ListType, T>::INITIALIZER_LIST;
+constexpr typename ListTestSuite<ListType, T>::InitializerListType ListTestSuite<ListType, T>::INITIALIZER_LIST;
 
 template<template<typename...> class ListType, typename T>
-constexpr typename StdListTestSuite<ListType, T>::ArrayType StdListTestSuite<ListType, T>::ARRAY;
+constexpr typename ListTestSuite<ListType, T>::ArrayType ListTestSuite<ListType, T>::ARRAY;
 
-#endif // StdListTestSuite_INCLUDED
+} // namespace Testee
+
+#endif // Testee_ListTestSuite_INCLUDED

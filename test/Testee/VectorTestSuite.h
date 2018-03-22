@@ -5,10 +5,12 @@
 //
 
 
-#ifndef StdVectorTestSuite_INCLUDED
-#define StdVectorTestSuite_INCLUDED
+#ifndef Testee_VectorTestSuite_INCLUDED
+#define Testee_VectorTestSuite_INCLUDED
 
-#include "TestSuite.h"
+#include "Testee/TestSuite.h"
+
+namespace Testee {
 
 // Conditionally enabled test executors handling the std::vector<bool> specialization.
 
@@ -45,13 +47,13 @@ class TestDataConst;
 
 /// Test VectorType C++-11 standard vector interface.
 template< template<typename...> class VectorType, typename T>
-class StdVectorTestSuite : public TestSuite
+class VectorTestSuite : public TestSuite
 {
 public:
 	typedef std::initializer_list<T> InitializerListType;
 	typedef std::array<T, 1> ArrayType;
 
-	StdVectorTestSuite() : TestSuite({
+	VectorTestSuite() : TestSuite({
 
 			TestCase("typedefs", [this]
 					 {
@@ -156,97 +158,97 @@ public:
 			TestCase("begin", [this]
 					 {
 						 VectorType<T> testee(1);
-						 auto i = testee.begin();
-						 TestCase::assert(std::is_same<typename VectorType<T>::iterator, decltype(i)>::value, "type");
-						 TestCase::assert(*i == T(), "result");
+						 auto result = testee.begin();
+						 TestCase::assert(std::is_same<typename VectorType<T>::iterator, decltype(result)>::value, "type");
+						 TestCase::assert(*result == T(), "result");
 					 }),
 
 			TestCase("begin const", [this]
 					 {
 						 const VectorType<T> testee(1);
-						 auto i = testee.begin();
-						 TestCase::assert(std::is_same<typename VectorType<T>::const_iterator, decltype(i)>::value, "type");
-						 TestCase::assert(*i == T(), "result");
+						 auto result = testee.begin();
+						 TestCase::assert(std::is_same<typename VectorType<T>::const_iterator, decltype(result)>::value, "type");
+						 TestCase::assert(*result == T(), "result");
 					 }),
 
 			TestCase("end", [this]
 					 {
 						 VectorType<T> testee(1);
-						 auto i = testee.end();
-						 TestCase::assert(std::is_same<typename VectorType<T>::iterator, decltype(i)>::value, "type");
-						 TestCase::assert(*(--i) == T(), "result");
+						 auto result = testee.end();
+						 TestCase::assert(std::is_same<typename VectorType<T>::iterator, decltype(result)>::value, "type");
+						 TestCase::assert(*(--result) == T(), "result");
 					 }),
 
 			TestCase("end const", [this]
 					 {
 						 const VectorType<T> testee(1);
-						 auto i = testee.end();
-						 TestCase::assert(std::is_same<typename VectorType<T>::const_iterator, decltype(i)>::value, "type");
-						 TestCase::assert(*(--i) == T(), "result");
+						 auto result = testee.end();
+						 TestCase::assert(std::is_same<typename VectorType<T>::const_iterator, decltype(result)>::value, "type");
+						 TestCase::assert(*(--result) == T(), "result");
 					 }),
 
 			TestCase("rbegin", [this]
 					 {
 						 VectorType<T> testee(1);
-						 auto i = testee.rbegin();
-						 TestCase::assert(std::is_same<typename VectorType<T>::reverse_iterator, decltype(i)>::value, "type");
-						 TestCase::assert(*i == T(), "result");
+						 auto result = testee.rbegin();
+						 TestCase::assert(std::is_same<typename VectorType<T>::reverse_iterator, decltype(result)>::value, "type");
+						 TestCase::assert(*result == T(), "result");
 					 }),
 
 			TestCase("rbegin const", [this]
 					 {
 						 const VectorType<T> testee(1);
-						 auto i = testee.rbegin();
-						 TestCase::assert(std::is_same<typename VectorType<T>::const_reverse_iterator, decltype(i)>::value, "type");
-						 TestCase::assert(*i == T(), "result");
+						 auto result = testee.rbegin();
+						 TestCase::assert(std::is_same<typename VectorType<T>::const_reverse_iterator, decltype(result)>::value, "type");
+						 TestCase::assert(*result == T(), "result");
 					 }),
 
 			TestCase("rend", [this]
 					 {
 						 VectorType<T> testee(1);
-						 auto i = testee.rend();
-						 TestCase::assert(std::is_same<typename VectorType<T>::reverse_iterator, decltype(i)>::value, "type");
-						 TestCase::assert(*(--i) == T(), "result");
+						 auto result = testee.rend();
+						 TestCase::assert(std::is_same<typename VectorType<T>::reverse_iterator, decltype(result)>::value, "type");
+						 TestCase::assert(*(--result) == T(), "result");
 					 }),
 
 			TestCase("rend const", [this]
 					 {
 						 const VectorType<T> testee(1);
-						 auto i = testee.rend();
-						 TestCase::assert(std::is_same<typename VectorType<T>::const_reverse_iterator, decltype(i)>::value, "type");
-						 TestCase::assert(*(--i) == T(), "result");
+						 auto result = testee.rend();
+						 TestCase::assert(std::is_same<typename VectorType<T>::const_reverse_iterator, decltype(result)>::value, "type");
+						 TestCase::assert(*(--result) == T(), "result");
 					 }),
 
 			TestCase("cbegin", [this]
 					 {
 						 VectorType<T> testee(1);
-						 auto i = testee.cbegin();
-						 TestCase::assert(std::is_same<typename VectorType<T>::const_iterator, decltype(i)>::value, "type");
-						 TestCase::assert(*i == T(), "result");
+						 auto result = testee.cbegin();
+						 TestCase::assert(std::is_same<typename VectorType<T>::const_iterator, decltype(result)>::value, "type");
+						 TestCase::assert(*result == T(), "result");
 					 }),
 
 			TestCase("cend", [this]
 					 {
 						 VectorType<T> testee(1);
-						 auto i = testee.cend();
-						 TestCase::assert(std::is_same<typename VectorType<T>::const_iterator, decltype(i)>::value, "type");
-						 TestCase::assert(*(--i) == T(), "result");
+						 auto result = testee.cend();
+						 TestCase::assert(std::is_same<typename VectorType<T>::const_iterator, decltype(result)>::value, "type");
+						 TestCase::assert(*(--result) == T(), "result");
 					 }),
 
 			TestCase("crbegin", [this]
 					 {
 						 VectorType<T> testee(1);
-						 auto i = testee.crbegin();
-						 TestCase::assert(std::is_same<typename VectorType<T>::const_reverse_iterator, decltype(i)>::value, "type");
-						 TestCase::assert(*i == T(), "result");
+						 auto result = testee.crbegin();
+						 TestCase::assert(std::is_same<typename VectorType<T>::const_reverse_iterator, decltype(result)>::value, "type");
+						 TestCase::assert(*result == T(), "result");
 					 }),
 
 			TestCase("crend", [this]
 					 {
 						 VectorType<T> testee(1);
-						 auto i = testee.crend();
-						 TestCase::assert(std::is_same<typename VectorType<T>::const_reverse_iterator, decltype(i)>::value, "type");
-						 TestCase::assert(*(--i) == T(), "result");
+						 auto result = testee.crend();
+						 TestCase::assert(std::is_same<typename VectorType<T>::const_reverse_iterator, decltype(result)>::value, "type");
+						 TestCase::assert(*(--result) == T(), "result");
 					 }),
 
 			TestCase("empty", [this]
@@ -548,16 +550,15 @@ public:
 	{
 	}
 
-private:
 	static constexpr InitializerListType INITIALIZER_LIST = {T()};
 	static constexpr ArrayType ARRAY = {T()};
 };
 
 template<template<typename...> class ListType, typename T>
-constexpr typename StdVectorTestSuite<ListType, T>::InitializerListType StdVectorTestSuite<ListType, T>::INITIALIZER_LIST;
+constexpr typename VectorTestSuite<ListType, T>::InitializerListType VectorTestSuite<ListType, T>::INITIALIZER_LIST;
 
 template<template<typename...> class ListType, typename T>
-constexpr typename StdVectorTestSuite<ListType, T>::ArrayType StdVectorTestSuite<ListType, T>::ARRAY;
+constexpr typename VectorTestSuite<ListType, T>::ArrayType VectorTestSuite<ListType, T>::ARRAY;
 
 
 // Conditionally enabled test executors handling the std::vector<bool> specialization.
@@ -814,4 +815,6 @@ public:
 	}
 };
 
-#endif // StdVectorTestSuite_INCLUDED
+} // namespace Testee
+
+#endif // Testee_VectorTestSuite_INCLUDED

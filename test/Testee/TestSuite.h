@@ -12,6 +12,8 @@
 #include <iostream>
 #include <list>
 
+namespace Testee {
+
 class TestSuite
 {
 public:
@@ -40,5 +42,7 @@ public:
 protected:
 	std::list<TestCase> testCases;
 };
+
+} // namespace Testee
 
 #endif // TestSuite_INCLUDED

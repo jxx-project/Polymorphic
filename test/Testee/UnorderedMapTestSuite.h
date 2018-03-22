@@ -5,10 +5,12 @@
 //
 
 
-#ifndef StdUnorderedMapTestSuite_INCLUDED
-#define StdUnorderedMapTestSuite_INCLUDED
+#ifndef UnorderedMapTestSuite_INCLUDED
+#define UnorderedMapTestSuite_INCLUDED
 
-#include "TestSuite.h"
+#include "Testee/TestSuite.h"
+
+namespace Testee {
 
 // Conditionally enabled test executors handling map vs multimap.
 
@@ -27,13 +29,13 @@ class TestAtConst;
 
 /// Test UnorderedMapType C++-11 standard map or multimap interface.
 template<template<typename...> class UnorderedMapType, typename Key, typename T, bool isMultimap = false>
-class StdUnorderedMapTestSuite : public TestSuite
+class UnorderedMapTestSuite : public TestSuite
 {
 public:
 	typedef std::initializer_list< std::pair<const Key, T> > InitializerListType;
 	typedef std::array<std::pair<const Key, T>, 1> ArrayType;
 
-	StdUnorderedMapTestSuite() : TestSuite({
+	UnorderedMapTestSuite() : TestSuite({
 
 			TestCase("typedefs", [this]
 					 {
@@ -131,46 +133,46 @@ public:
 			TestCase("begin", [this]
 					 {
 						 UnorderedMapType<Key, T> testee(INITIALIZER_LIST);
-						 auto i = testee.begin();
-						 TestCase::assert(std::is_same<typename UnorderedMapType<Key, T>::iterator, decltype(i)>::value, "type");
-						 TestCase::assert(*i == typename UnorderedMapType<Key, T>::value_type(), "result");
+						 auto result = testee.begin();
+						 TestCase::assert(std::is_same<typename UnorderedMapType<Key, T>::iterator, decltype(result)>::value, "type");
+						 TestCase::assert(*result == typename UnorderedMapType<Key, T>::value_type(), "result");
 					 }),
 
 			TestCase("begin const", [this]
 					 {
 						 const UnorderedMapType<Key, T> testee(INITIALIZER_LIST);
-						 auto i = testee.begin();
-						 TestCase::assert(std::is_same<typename UnorderedMapType<Key, T>::const_iterator, decltype(i)>::value, "type");
-						 TestCase::assert(*i == typename UnorderedMapType<Key, T>::value_type(), "result");
+						 auto result = testee.begin();
+						 TestCase::assert(std::is_same<typename UnorderedMapType<Key, T>::const_iterator, decltype(result)>::value, "type");
+						 TestCase::assert(*result == typename UnorderedMapType<Key, T>::value_type(), "result");
 					 }),
 
 			TestCase("end", [this]
 					 {
 						 UnorderedMapType<Key, T> testee(INITIALIZER_LIST);
-						 auto i = testee.end();
-						 TestCase::assert(std::is_same<typename UnorderedMapType<Key, T>::iterator, decltype(i)>::value);
+						 auto result = testee.end();
+						 TestCase::assert(std::is_same<typename UnorderedMapType<Key, T>::iterator, decltype(result)>::value);
 					 }),
 
 			TestCase("end const", [this]
 					 {
 						 const UnorderedMapType<Key, T> testee(INITIALIZER_LIST);
-						 auto i = testee.end();
-						 TestCase::assert(std::is_same<typename UnorderedMapType<Key, T>::const_iterator, decltype(i)>::value);
+						 auto result = testee.end();
+						 TestCase::assert(std::is_same<typename UnorderedMapType<Key, T>::const_iterator, decltype(result)>::value);
 					 }),
 
 			TestCase("cbegin", [this]
 					 {
 						 UnorderedMapType<Key, T> testee(INITIALIZER_LIST);
-						 auto i = testee.cbegin();
-						 TestCase::assert(std::is_same<typename UnorderedMapType<Key, T>::const_iterator, decltype(i)>::value, "type");
-						 TestCase::assert(*i == typename UnorderedMapType<Key, T>::value_type(), "result");
+						 auto result = testee.cbegin();
+						 TestCase::assert(std::is_same<typename UnorderedMapType<Key, T>::const_iterator, decltype(result)>::value, "type");
+						 TestCase::assert(*result == typename UnorderedMapType<Key, T>::value_type(), "result");
 					 }),
 
 			TestCase("cend", [this]
 					 {
 						 UnorderedMapType<Key, T> testee(INITIALIZER_LIST);
-						 auto i = testee.cend();
-						 TestCase::assert(std::is_same<typename UnorderedMapType<Key, T>::const_iterator, decltype(i)>::value);
+						 auto result = testee.cend();
+						 TestCase::assert(std::is_same<typename UnorderedMapType<Key, T>::const_iterator, decltype(result)>::value);
 					 }),
 
 			TestCase("empty", [this]
@@ -496,16 +498,15 @@ public:
 	{
 	}
 
-private:
 	static constexpr InitializerListType INITIALIZER_LIST = {std::make_pair(Key(), T())};
 	static constexpr ArrayType ARRAY = {std::make_pair(Key(), T())};
 };
 
 template<template<typename...> class UnorderedMapType, typename Key, typename T, bool isMultimap>
-constexpr typename StdUnorderedMapTestSuite<UnorderedMapType, Key, T, isMultimap>::InitializerListType StdUnorderedMapTestSuite<UnorderedMapType, Key, T, isMultimap>::INITIALIZER_LIST;
+constexpr typename UnorderedMapTestSuite<UnorderedMapType, Key, T, isMultimap>::InitializerListType UnorderedMapTestSuite<UnorderedMapType, Key, T, isMultimap>::INITIALIZER_LIST;
 
 template<template<typename...> class UnorderedMapType, typename Key, typename T, bool isMultimap>
-constexpr typename StdUnorderedMapTestSuite<UnorderedMapType, Key, T, isMultimap>::ArrayType StdUnorderedMapTestSuite<UnorderedMapType, Key, T, isMultimap>::ARRAY;
+constexpr typename UnorderedMapTestSuite<UnorderedMapType, Key, T, isMultimap>::ArrayType UnorderedMapTestSuite<UnorderedMapType, Key, T, isMultimap>::ARRAY;
 
 
 // Conditionally enabled test executors handling map vs multimap.
@@ -516,7 +517,7 @@ class TestSubscriptOperator<UnorderedMapType, Key, T, isMultimap, typename std::
 public:
 	void operator()()
 	{
-		UnorderedMapType<Key, T> testee({std::make_pair(Key(), T())});
+		UnorderedMapType<Key, T> testee(UnorderedMapTestSuite<UnorderedMapType, Key, T, isMultimap>::INITIALIZER_LIST);
 		auto& result = testee[Key()];
 		TestCase::assert(std::is_same<typename UnorderedMapType<Key, T>::mapped_type&, decltype(result)>::value, "type");
 		TestCase::assert(result == T(), "result");
@@ -538,7 +539,7 @@ class TestSubscriptOperatorMove<UnorderedMapType, Key, T, isMultimap, typename s
 public:
 	void operator()() const
 	{
-		UnorderedMapType<Key, T> testee({std::make_pair(Key(), T())});
+		UnorderedMapType<Key, T> testee(UnorderedMapTestSuite<UnorderedMapType, Key, T, isMultimap>::INITIALIZER_LIST);
 		auto& result = testee[std::move(Key())];
 		TestCase::assert(std::is_same<typename UnorderedMapType<Key, T>::mapped_type&, decltype(result)>::value, "type");
 		TestCase::assert(result == T(), "result");
@@ -560,7 +561,7 @@ class TestAt<UnorderedMapType, Key, T, isMultimap, typename std::enable_if<!isMu
 public:
 	void operator()()
 	{
-		UnorderedMapType<Key, T> testee({std::make_pair(Key(), T())});
+		UnorderedMapType<Key, T> testee(UnorderedMapTestSuite<UnorderedMapType, Key, T, isMultimap>::INITIALIZER_LIST);
 		auto& result = testee.at(Key());
 		TestCase::assert(std::is_same<typename UnorderedMapType<Key, T>::mapped_type&, decltype(result)>::value, "type");
 		TestCase::assert(result == T(), "result");
@@ -582,7 +583,7 @@ class TestAtConst<UnorderedMapType, Key, T, isMultimap, typename std::enable_if<
 public:
 	void operator()()
 	{
-		const UnorderedMapType<Key, T> testee({std::make_pair(Key(), T())});
+		const UnorderedMapType<Key, T> testee(UnorderedMapTestSuite<UnorderedMapType, Key, T, isMultimap>::INITIALIZER_LIST);
 		auto& result = testee.at(Key());
 		TestCase::assert(std::is_same<const typename UnorderedMapType<Key, T>::mapped_type&, decltype(result)>::value, "type");
 		TestCase::assert(result == T(), "result");
@@ -598,5 +599,6 @@ public:
 	}
 };
 
+} // namespace Testee
 
-#endif // StdUnorderedMapTestSuite_INCLUDED
+#endif // UnorderedMapTestSuite_INCLUDED

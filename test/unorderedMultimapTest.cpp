@@ -6,14 +6,16 @@
 
 
 #include "Polymorphic/UnorderedMultimap.h"
-#include "StdUnorderedMapTestSuite.h"
+#include "Testee/UnorderedMapTestSuite.h"
 #include <iostream>
-
-template const StdUnorderedMapTestSuite<Polymorphic::UnorderedMultimap, int, int, true>::InitializerListType StdUnorderedMapTestSuite<Polymorphic::UnorderedMultimap, int, int, true>::INITIALIZER_LIST;
-template const StdUnorderedMapTestSuite<Polymorphic::UnorderedMultimap, int, int, true>::ArrayType StdUnorderedMapTestSuite<Polymorphic::UnorderedMultimap, int, int, true>::ARRAY;
 
 int main(int args, char* argv[])
 {
 	std::cout << "Testing C++-11 standard unordered_multimap interface ..." << std::endl;
-	return StdUnorderedMapTestSuite<Polymorphic::UnorderedMultimap, int, int, true>().run() ? 0 : 1;
+	return Testee::UnorderedMapTestSuite<Polymorphic::UnorderedMultimap, int, int, true>().run() ? 0 : 1;
 }
+
+namespace Testee {
+template const UnorderedMapTestSuite<Polymorphic::UnorderedMultimap, int, int, true>::InitializerListType UnorderedMapTestSuite<Polymorphic::UnorderedMultimap, int, int, true>::INITIALIZER_LIST;
+template const UnorderedMapTestSuite<Polymorphic::UnorderedMultimap, int, int, true>::ArrayType UnorderedMapTestSuite<Polymorphic::UnorderedMultimap, int, int, true>::ARRAY;
+} // namespace Testee

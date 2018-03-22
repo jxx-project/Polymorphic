@@ -11,6 +11,8 @@
 #include <functional>
 #include <stdexcept>
 
+namespace Testee {
+
 class TestCase
 {
 public:
@@ -39,5 +41,7 @@ private:
 	std::string name;
 	std::function<void(void)> runner;
 };
+
+} // namespace Testee
 
 #endif // TestCase_INCLUDED

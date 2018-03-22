@@ -5,10 +5,12 @@
 //
 
 
-#ifndef StdMapTestSuite_INCLUDED
-#define StdMapTestSuite_INCLUDED
+#ifndef MapTestSuite_INCLUDED
+#define MapTestSuite_INCLUDED
 
-#include "TestSuite.h"
+#include "Testee/TestSuite.h"
+
+namespace Testee {
 
 // Conditionally enabled test executors handling map vs multimap.
 
@@ -27,13 +29,13 @@ class TestAtConst;
 
 /// Test MapType C++-11 standard map or multimap interface.
 template<template<typename...> class MapType, typename Key, typename T, bool isMultimap = false>
-class StdMapTestSuite : public TestSuite
+class MapTestSuite : public TestSuite
 {
 public:
 	typedef std::initializer_list< std::pair<const Key, T> > InitializerListType;
 	typedef std::array<std::pair<const Key, T>, 1> ArrayType;
 
-	StdMapTestSuite() : TestSuite({
+	MapTestSuite() : TestSuite({
 
 			TestCase("typedefs", [this]
 					 {
@@ -129,97 +131,97 @@ public:
 			TestCase("begin", [this]
 					 {
 						 MapType<Key, T> testee(INITIALIZER_LIST);
-						 auto i = testee.begin();
-						 TestCase::assert(std::is_same<typename MapType<Key, T>::iterator, decltype(i)>::value, "type");
-						 TestCase::assert(*i == typename MapType<Key, T>::value_type(), "result");
+						 auto result = testee.begin();
+						 TestCase::assert(std::is_same<typename MapType<Key, T>::iterator, decltype(result)>::value, "type");
+						 TestCase::assert(*result == typename MapType<Key, T>::value_type(), "result");
 					 }),
 
 			TestCase("begin const", [this]
 					 {
 						 const MapType<Key, T> testee(INITIALIZER_LIST);
-						 auto i = testee.begin();
-						 TestCase::assert(std::is_same<typename MapType<Key, T>::const_iterator, decltype(i)>::value, "type");
-						 TestCase::assert(*i == typename MapType<Key, T>::value_type(), "result");
+						 auto result = testee.begin();
+						 TestCase::assert(std::is_same<typename MapType<Key, T>::const_iterator, decltype(result)>::value, "type");
+						 TestCase::assert(*result == typename MapType<Key, T>::value_type(), "result");
 					 }),
 
 			TestCase("end", [this]
 					 {
 						 MapType<Key, T> testee(INITIALIZER_LIST);
-						 auto i = testee.end();
-						 TestCase::assert(std::is_same<typename MapType<Key, T>::iterator, decltype(i)>::value, "type");
-						 TestCase::assert(*(--i) == typename MapType<Key, T>::value_type(), "result");
+						 auto result = testee.end();
+						 TestCase::assert(std::is_same<typename MapType<Key, T>::iterator, decltype(result)>::value, "type");
+						 TestCase::assert(*(--result) == typename MapType<Key, T>::value_type(), "result");
 					 }),
 
 			TestCase("end const", [this]
 					 {
 						 const MapType<Key, T> testee(INITIALIZER_LIST);
-						 auto i = testee.end();
-						 TestCase::assert(std::is_same<typename MapType<Key, T>::const_iterator, decltype(i)>::value, "type");
-						 TestCase::assert(*(--i) == typename MapType<Key, T>::value_type(), "result");
+						 auto result = testee.end();
+						 TestCase::assert(std::is_same<typename MapType<Key, T>::const_iterator, decltype(result)>::value, "type");
+						 TestCase::assert(*(--result) == typename MapType<Key, T>::value_type(), "result");
 					 }),
 
 			TestCase("rbegin", [this]
 					 {
 						 MapType<Key, T> testee(INITIALIZER_LIST);
-						 auto i = testee.rbegin();
-						 TestCase::assert(std::is_same<typename MapType<Key, T>::reverse_iterator, decltype(i)>::value, "type");
-						 TestCase::assert(*i == typename MapType<Key, T>::value_type(), "result");
+						 auto result = testee.rbegin();
+						 TestCase::assert(std::is_same<typename MapType<Key, T>::reverse_iterator, decltype(result)>::value, "type");
+						 TestCase::assert(*result == typename MapType<Key, T>::value_type(), "result");
 					 }),
 
 			TestCase("rbegin const", [this]
 					 {
 						 const MapType<Key, T> testee(INITIALIZER_LIST);
-						 auto i = testee.rbegin();
-						 TestCase::assert(std::is_same<typename MapType<Key, T>::const_reverse_iterator, decltype(i)>::value, "type");
-						 TestCase::assert(*i == typename MapType<Key, T>::value_type(), "result");
+						 auto result = testee.rbegin();
+						 TestCase::assert(std::is_same<typename MapType<Key, T>::const_reverse_iterator, decltype(result)>::value, "type");
+						 TestCase::assert(*result == typename MapType<Key, T>::value_type(), "result");
 					 }),
 
 			TestCase("rend", [this]
 					 {
 						 MapType<Key, T> testee(INITIALIZER_LIST);
-						 auto i = testee.rend();
-						 TestCase::assert(std::is_same<typename MapType<Key, T>::reverse_iterator, decltype(i)>::value, "type");
-						 TestCase::assert(*(--i) == typename MapType<Key, T>::value_type(), "result");
+						 auto result = testee.rend();
+						 TestCase::assert(std::is_same<typename MapType<Key, T>::reverse_iterator, decltype(result)>::value, "type");
+						 TestCase::assert(*(--result) == typename MapType<Key, T>::value_type(), "result");
 					 }),
 
 			TestCase("rend const", [this]
 					 {
 						 const MapType<Key, T> testee(INITIALIZER_LIST);
-						 auto i = testee.rend();
-						 TestCase::assert(std::is_same<typename MapType<Key, T>::const_reverse_iterator, decltype(i)>::value, "type");
-						 TestCase::assert(*(--i) == typename MapType<Key, T>::value_type(), "result");
+						 auto result = testee.rend();
+						 TestCase::assert(std::is_same<typename MapType<Key, T>::const_reverse_iterator, decltype(result)>::value, "type");
+						 TestCase::assert(*(--result) == typename MapType<Key, T>::value_type(), "result");
 					 }),
 
 			TestCase("cbegin", [this]
 					 {
 						 MapType<Key, T> testee(INITIALIZER_LIST);
-						 auto i = testee.cbegin();
-						 TestCase::assert(std::is_same<typename MapType<Key, T>::const_iterator, decltype(i)>::value, "type");
-						 TestCase::assert(*i == typename MapType<Key, T>::value_type(), "result");
+						 auto result = testee.cbegin();
+						 TestCase::assert(std::is_same<typename MapType<Key, T>::const_iterator, decltype(result)>::value, "type");
+						 TestCase::assert(*result == typename MapType<Key, T>::value_type(), "result");
 					 }),
 
 			TestCase("cend", [this]
 					 {
 						 MapType<Key, T> testee(INITIALIZER_LIST);
-						 auto i = testee.cend();
-						 TestCase::assert(std::is_same<typename MapType<Key, T>::const_iterator, decltype(i)>::value, "type");
-						 TestCase::assert(*(--i) == typename MapType<Key, T>::value_type(), "result");
+						 auto result = testee.cend();
+						 TestCase::assert(std::is_same<typename MapType<Key, T>::const_iterator, decltype(result)>::value, "type");
+						 TestCase::assert(*(--result) == typename MapType<Key, T>::value_type(), "result");
 					 }),
 
 			TestCase("crbegin", [this]
 					 {
 						 MapType<Key, T> testee(INITIALIZER_LIST);
-						 auto i = testee.crbegin();
-						 TestCase::assert(std::is_same<typename MapType<Key, T>::const_reverse_iterator, decltype(i)>::value, "type");
-						 TestCase::assert(*i == typename MapType<Key, T>::value_type(), "result");
+						 auto result = testee.crbegin();
+						 TestCase::assert(std::is_same<typename MapType<Key, T>::const_reverse_iterator, decltype(result)>::value, "type");
+						 TestCase::assert(*result == typename MapType<Key, T>::value_type(), "result");
 					 }),
 
 			TestCase("crend", [this]
 					 {
 						 MapType<Key, T> testee(INITIALIZER_LIST);
-						 auto i = testee.crend();
-						 TestCase::assert(std::is_same<typename MapType<Key, T>::const_reverse_iterator, decltype(i)>::value, "type");
-						 TestCase::assert(*(--i) == typename MapType<Key, T>::value_type(), "result");
+						 auto result = testee.crend();
+						 TestCase::assert(std::is_same<typename MapType<Key, T>::const_reverse_iterator, decltype(result)>::value, "type");
+						 TestCase::assert(*(--result) == typename MapType<Key, T>::value_type(), "result");
 					 }),
 
 			TestCase("empty", [this]
@@ -538,16 +540,15 @@ public:
 	{
 	}
 
-private:
 	static constexpr InitializerListType INITIALIZER_LIST = {std::make_pair(Key(), T())};
 	static constexpr ArrayType ARRAY = {std::make_pair(Key(), T())};
 };
 
 template<template<typename...> class MapType, typename Key, typename T, bool isMultimap>
-constexpr typename StdMapTestSuite<MapType, Key, T, isMultimap>::InitializerListType StdMapTestSuite<MapType, Key, T, isMultimap>::INITIALIZER_LIST;
+constexpr typename MapTestSuite<MapType, Key, T, isMultimap>::InitializerListType MapTestSuite<MapType, Key, T, isMultimap>::INITIALIZER_LIST;
 
 template<template<typename...> class MapType, typename Key, typename T, bool isMultimap>
-constexpr typename StdMapTestSuite<MapType, Key, T, isMultimap>::ArrayType StdMapTestSuite<MapType, Key, T, isMultimap>::ARRAY;
+constexpr typename MapTestSuite<MapType, Key, T, isMultimap>::ArrayType MapTestSuite<MapType, Key, T, isMultimap>::ARRAY;
 
 
 // Conditionally enabled test executors handling map vs multimap.
@@ -558,7 +559,7 @@ class TestSubscriptOperator<MapType, Key, T, isMultimap, typename std::enable_if
 public:
 	void operator()()
 	{
-		MapType<Key, T> testee({std::make_pair(Key(), T())});
+		MapType<Key, T> testee(MapTestSuite<MapType, Key, T, isMultimap>::INITIALIZER_LIST);
 		auto& result = testee[Key()];
 		TestCase::assert(std::is_same<typename MapType<Key, T>::mapped_type&, decltype(result)>::value, "type");
 		TestCase::assert(result == T(), "result");
@@ -580,7 +581,7 @@ class TestSubscriptOperatorMove<MapType, Key, T, isMultimap, typename std::enabl
 public:
 	void operator()() const
 	{
-		MapType<Key, T> testee({std::make_pair(Key(), T())});
+		MapType<Key, T> testee(MapTestSuite<MapType, Key, T, isMultimap>::INITIALIZER_LIST);
 		auto& result = testee[std::move(Key())];
 		TestCase::assert(std::is_same<typename MapType<Key, T>::mapped_type&, decltype(result)>::value, "type");
 		TestCase::assert(result == T(), "result");
@@ -602,7 +603,7 @@ class TestAt<MapType, Key, T, isMultimap, typename std::enable_if<!isMultimap>::
 public:
 	void operator()()
 	{
-		MapType<Key, T> testee({std::make_pair(Key(), T())});
+		MapType<Key, T> testee(MapTestSuite<MapType, Key, T, isMultimap>::INITIALIZER_LIST);
 		auto& result = testee.at(Key());
 		TestCase::assert(std::is_same<typename MapType<Key, T>::mapped_type&, decltype(result)>::value, "type");
 		TestCase::assert(result == T(), "result");
@@ -624,7 +625,7 @@ class TestAtConst<MapType, Key, T, isMultimap, typename std::enable_if<!isMultim
 public:
 	void operator()()
 	{
-		const MapType<Key, T> testee({std::make_pair(Key(), T())});
+		const MapType<Key, T> testee(MapTestSuite<MapType, Key, T, isMultimap>::INITIALIZER_LIST);
 		auto& result = testee.at(Key());
 		TestCase::assert(std::is_same<const typename MapType<Key, T>::mapped_type&, decltype(result)>::value, "type");
 		TestCase::assert(result == T(), "result");
@@ -640,5 +641,6 @@ public:
 	}
 };
 
+} // namespace Testee
 
-#endif // StdMapTestSuite_INCLUDED
+#endif // MapTestSuite_INCLUDED
