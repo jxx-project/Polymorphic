@@ -62,7 +62,7 @@ make test
 
 ```
 mkdir build
-cd buid
+cd build
 cmake ..
 ```
 
