@@ -44,6 +44,12 @@ class TestData;
 template<template<typename...> class VectorType, typename T, typename Enable = void>
 class TestDataConst;
 
+template<template<typename...> class VectorType, typename T, typename Enable = void>
+class TestFlip;
+
+template<template<typename...> class VectorType, typename T, typename Enable = void>
+class TestSwapElements;
+
 
 /// Test VectorType C++-11 standard vector interface.
 template< template<typename...> class VectorType, typename T>
@@ -445,6 +451,8 @@ public:
 						 TestCase::assert(testee.size() == 1, "result");
 					 }),
 
+			TestCase("flip", TestFlip<VectorType, T>()),
+
 			TestCase("swap", [this]
 					 {
 						 VectorType<T> other(3);
@@ -453,6 +461,8 @@ public:
 						 TestCase::assert(other.size() == 1, "other");
 						 TestCase::assert(testee.size() == 3, "testee");
 					 }),
+
+			TestCase("swap elements", TestSwapElements<VectorType, T>()),
 
 			TestCase("clear", [this]
 					 {
@@ -812,6 +822,51 @@ class TestDataConst<VectorType, T, typename std::enable_if<std::is_same<bool, T>
 public:
 	void operator()()
 	{
+	}
+};
+
+
+
+
+template<template<typename...> class VectorType, typename T>
+class TestFlip<VectorType, T, typename std::enable_if<!std::is_same<bool, T>::value>::type>
+{
+public:
+	void operator()()
+	{
+	}
+};
+
+template<template<typename...> class VectorType, typename T>
+class TestFlip<VectorType, T, typename std::enable_if<std::is_same<bool, T>::value>::type>
+{
+public:
+	void operator()()
+	{
+		VectorType<bool> testee({true, false});
+		testee.flip();
+		TestCase::assert(testee.front() == false && testee.back() == true);
+	}
+};
+
+template<template<typename...> class VectorType, typename T>
+class TestSwapElements<VectorType, T, typename std::enable_if<!std::is_same<bool, T>::value>::type>
+{
+public:
+	void operator()()
+	{
+	}
+};
+
+template<template<typename...> class VectorType, typename T>
+class TestSwapElements<VectorType, T, typename std::enable_if<std::is_same<bool, T>::value>::type>
+{
+public:
+	void operator()()
+	{
+		VectorType<bool> testee({true, false});
+		VectorType<T>::swap(testee.front(), testee.back());
+		TestCase::assert(testee.front() == false && testee.back() == true);
 	}
 };
 

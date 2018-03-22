@@ -182,91 +182,91 @@ public:
 		return std::move(delegate);
 	}
 
-	/// Forwarded to std::multimap<Key, T>::begin().
+	/// Forwarded to std::multimap<Key, T>::begin() noexcept.
 	iterator begin() noexcept
 	{
 		return delegate.begin();
 	}
 
-	/// Forwarded to std::multimap<Key, T>::begin() const.
+	/// Forwarded to std::multimap<Key, T>::begin() const noexcept.
 	const_iterator begin() const noexcept
 	{
 		return delegate.begin();
 	}
 
-	/// Forwarded to std::multimap<Key, T>::end().
+	/// Forwarded to std::multimap<Key, T>::end() noexcept.
 	iterator end() noexcept
 	{
 		return delegate.end();
 	}
 
-	/// Forwarded to std::multimap<Key, T>::end() const.
+	/// Forwarded to std::multimap<Key, T>::end() const noexcept.
 	const_iterator end() const noexcept
 	{
 		return delegate.end();
 	}
 
-	/// Forwarded to std::multimap<Key, T>::rbegin().
+	/// Forwarded to std::multimap<Key, T>::rbegin() noexcept.
 	reverse_iterator rbegin() noexcept
 	{
 		return delegate.rbegin();
 	}
 
-	/// Forwarded to std::multimap<Key, T>::rbegin() const.
+	/// Forwarded to std::multimap<Key, T>::rbegin() const noexcept.
 	const_reverse_iterator rbegin() const noexcept
 	{
 		return delegate.rbegin();
 	}
 
-	/// Forwarded to std::multimap<Key, T>::rend().
+	/// Forwarded to std::multimap<Key, T>::rend() noexcept.
 	reverse_iterator rend() noexcept
 	{
 		return delegate.rend();
 	}
 
-	/// Forwarded to std::multimap<Key, T>::rend() const.
+	/// Forwarded to std::multimap<Key, T>::rend() const noexcept.
 	const_reverse_iterator rend() const noexcept
 	{
 		return delegate.rend();
 	}
 
-	/// Forwarded to std::multimap<Key, T>::cbegin() const.
+	/// Forwarded to std::multimap<Key, T>::cbegin() const noexcept.
 	const_iterator cbegin() const noexcept
 	{
 		return delegate.cbegin();
 	}
 
-	/// Forwarded to std::multimap<Key, T>::cend() const.
+	/// Forwarded to std::multimap<Key, T>::cend() const noexcept.
 	const_iterator cend() const noexcept
 	{
 		return delegate.cend();
 	}
 
-	/// Forwarded to std::multimap<Key, T>::crbegin() const.
+	/// Forwarded to std::multimap<Key, T>::crbegin() const noexcept.
 	const_reverse_iterator crbegin() const noexcept
 	{
 		return delegate.crbegin();
 	}
 
-	/// Forwarded to std::multimap<Key, T>::crend() const.
+	/// Forwarded to std::multimap<Key, T>::crend() const noexcept.
 	const_reverse_iterator crend() const noexcept
 	{
 		return delegate.crend();
 	}
 
-	/// Forwarded to std::multimap<Key, T>::empty().
+	/// Forwarded to std::multimap<Key, T>::empty() const noexcept.
 	bool empty() const noexcept
 	{
 		return delegate.empty();
 	}
 
-	/// Forwarded to std::multimap<Key, T>::size().
+	/// Forwarded to std::multimap<Key, T>::size() const noexcept.
 	size_type size() const noexcept
 	{
 		return delegate.size();
 	}
 
-	/// Forwarded to std::multimap<Key, T>::max_size().
+	/// Forwarded to std::multimap<Key, T>::max_size() const noexcept.
 	size_type max_size() const noexcept
 	{
 		return delegate.max_size();
@@ -335,7 +335,7 @@ public:
 		delegate.swap(other.delegate);
 	}
 
-	/// Forwarded to std::multimap<Key, T>::clear().
+	/// Forwarded to std::multimap<Key, T>::clear() noexcept.
 	void clear() noexcept
 	{
 		delegate.clear();
@@ -409,13 +409,13 @@ public:
 		return delegate.equal_range(key);
 	}
 
-	/// Forwarded to std::multimap<Key, T>::key_comp().
+	/// Forwarded to std::multimap<Key, T>::key_comp() const.
 	key_compare key_comp() const
 	{
 		return delegate.key_comp();
 	}
 
-	/// Forwarded to std::multimap<Key, T>::value_comp().
+	/// Forwarded to std::multimap<Key, T>::value_comp() const.
 	value_compare value_comp() const
 	{
 	}

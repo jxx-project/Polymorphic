@@ -183,91 +183,91 @@ public:
 		return std::move(delegate);
 	}
 
-	/// Forwarded to std::vector<T>::begin().
+	/// Forwarded to std::vector<T>::begin() noexcept.
 	iterator begin() noexcept
 	{
 		return delegate.begin();
 	}
 
-	/// Forwarded to std::vector<T>::begin() const.
+	/// Forwarded to std::vector<T>::begin() const noexcept.
 	const_iterator begin() const noexcept
 	{
 		return delegate.begin();
 	}
 
-	/// Forwarded to std::vector<T>::end().
+	/// Forwarded to std::vector<T>::end() noexcept.
 	iterator end() noexcept
 	{
 		return delegate.end();
 	}
 
-	/// Forwarded to std::vector<T>::end() const.
+	/// Forwarded to std::vector<T>::end() const noexcept.
 	const_iterator end() const noexcept
 	{
 		return delegate.end();
 	}
 
-	/// Forwarded to std::vector<T>::rbegin().
+	/// Forwarded to std::vector<T>::rbegin() noexcept.
 	reverse_iterator rbegin() noexcept
 	{
 		return delegate.rbegin();
 	}
 
-	/// Forwarded to std::vector<T>::rbegin() const.
+	/// Forwarded to std::vector<T>::rbegin() const noexcept.
 	const_reverse_iterator rbegin() const noexcept
 	{
 		return delegate.rbegin();
 	}
 
-	/// Forwarded to std::vector<T>::rend().
+	/// Forwarded to std::vector<T>::rend() noexcept.
 	reverse_iterator rend() noexcept
 	{
 		return delegate.rend();
 	}
 
-	/// Forwarded to std::vector<T>::rend() const.
+	/// Forwarded to std::vector<T>::rend() const noexcept.
 	const_reverse_iterator rend() const noexcept
 	{
 		return delegate.rend();
 	}
 
-	/// Forwarded to std::vector<T>::cbegin() const.
+	/// Forwarded to std::vector<T>::cbegin() const noexcept.
 	const_iterator cbegin() const noexcept
 	{
 		return delegate.cbegin();
 	}
 
-	/// Forwarded to std::vector<T>::cend() const.
+	/// Forwarded to std::vector<T>::cend() const noexcept.
 	const_iterator cend() const noexcept
 	{
 		return delegate.cend();
 	}
 
-	/// Forwarded to std::vector<T>::crbegin() const.
+	/// Forwarded to std::vector<T>::crbegin() const noexcept.
 	const_reverse_iterator crbegin() const noexcept
 	{
 		return delegate.crbegin();
 	}
 
-	/// Forwarded to std::vector<T>::crend() const.
+	/// Forwarded to std::vector<T>::crend() const noexcept.
 	const_reverse_iterator crend() const noexcept
 	{
 		return delegate.crend();
 	}
 
-	/// Forwarded to std::vector<T>::empty().
+	/// Forwarded to std::vector<T>::empty() const noexcept.
 	bool empty() const noexcept
 	{
 		return delegate.empty();
 	}
 
-	/// Forwarded to std::vector<T>::size().
+	/// Forwarded to std::vector<T>::size() const noexcept.
 	size_type size() const noexcept
 	{
 		return delegate.size();
 	}
 
-	/// Forwarded to std::vector<T>::max_size().
+	/// Forwarded to std::vector<T>::max_size() const noexcept.
 	size_type max_size() const noexcept
 	{
 		return delegate.max_size();
@@ -285,7 +285,7 @@ public:
 		delegate.resize(n, value);
 	}
 
-	/// Forwarded to std::vector<T>::capacity().
+	/// Forwarded to std::vector<T>::capacity() noexcept.
 	size_type capacity() const noexcept
 	{
 		return delegate.capacity();
@@ -449,7 +449,7 @@ public:
 		delegate.swap(other.delegate);
 	}
 
-	/// Forwarded to std::vector<T>::clear().
+	/// Forwarded to std::vector<T>::clear() noexcept.
 	void clear() noexcept
 	{
 		delegate.clear();
@@ -638,91 +638,91 @@ public:
 		return std::move(delegate);
 	}
 
-	/// Forwarded to std::vector<bool>::begin().
+	/// Forwarded to std::vector<bool>::begin() noexcept.
 	iterator begin() noexcept
 	{
 		return delegate.begin();
 	}
 
-	/// Forwarded to std::vector<bool>::begin() const.
+	/// Forwarded to std::vector<bool>::begin() const noexcept.
 	const_iterator begin() const noexcept
 	{
 		return delegate.begin();
 	}
 
-	/// Forwarded to std::vector<bool>::end().
+	/// Forwarded to std::vector<bool>::end() noexcept.
 	iterator end() noexcept
 	{
 		return delegate.end();
 	}
 
-	/// Forwarded to std::vector<bool>::end() const.
+	/// Forwarded to std::vector<bool>::end() const noexcept.
 	const_iterator end() const noexcept
 	{
 		return delegate.end();
 	}
 
-	/// Forwarded to std::vector<bool>::rbegin().
+	/// Forwarded to std::vector<bool>::rbegin() noexcept.
 	reverse_iterator rbegin() noexcept
 	{
 		return delegate.rbegin();
 	}
 
-	/// Forwarded to std::vector<bool>::rbegin() const.
+	/// Forwarded to std::vector<bool>::rbegin() const noexcept.
 	const_reverse_iterator rbegin() const noexcept
 	{
 		return delegate.rbegin();
 	}
 
-	/// Forwarded to std::vector<bool>::rend().
+	/// Forwarded to std::vector<bool>::rend() noexcept.
 	reverse_iterator rend() noexcept
 	{
 		return delegate.rend();
 	}
 
-	/// Forwarded to std::vector<bool>::rend() const.
+	/// Forwarded to std::vector<bool>::rend() const noexcept.
 	const_reverse_iterator rend() const noexcept
 	{
 		return delegate.rend();
 	}
 
-	/// Forwarded to std::vector<bool>::cbegin() const.
+	/// Forwarded to std::vector<bool>::cbegin() const noexcept.
 	const_iterator cbegin() const noexcept
 	{
 		return delegate.cbegin();
 	}
 
-	/// Forwarded to std::vector<bool>::cend() const.
+	/// Forwarded to std::vector<bool>::cend() const noexcept.
 	const_iterator cend() const noexcept
 	{
 		return delegate.cend();
 	}
 
-	/// Forwarded to std::vector<bool>::crbegin() const.
+	/// Forwarded to std::vector<bool>::crbegin() const noexcept.
 	const_reverse_iterator crbegin() const noexcept
 	{
 		return delegate.crbegin();
 	}
 
-	/// Forwarded to std::vector<bool>::crend() const.
+	/// Forwarded to std::vector<bool>::crend() const noexcept.
 	const_reverse_iterator crend() const noexcept
 	{
 		return delegate.crend();
 	}
 
-	/// Forwarded to std::vector<bool>::empty().
+	/// Forwarded to std::vector<bool>::empty() const noexcept.
 	bool empty() const noexcept
 	{
 		return delegate.empty();
 	}
 
-	/// Forwarded to std::vector<bool>::size().
+	/// Forwarded to std::vector<bool>::size() const noexcept.
 	size_type size() const noexcept
 	{
 		return delegate.size();
 	}
 
-	/// Forwarded to std::vector<bool>::max_size().
+	/// Forwarded to std::vector<bool>::max_size() const noexcept.
 	size_type max_size() const noexcept
 	{
 		return delegate.max_size();
@@ -740,7 +740,7 @@ public:
 		delegate.resize(n, value);
 	}
 
-	/// Forwarded to std::vector<bool>::capacity().
+	/// Forwarded to std::vector<bool>::capacity() const noexcept.
 	size_type capacity() const noexcept
 	{
 		return delegate.capacity();
@@ -886,19 +886,25 @@ public:
 		return delegate.erase(first, last);
 	}
 
+	/// Forwarded to std::vector<bool>::flip() noexcept.
+	void flip() noexcept
+	{
+		delegate.flip();
+	}
+
 	/// Forwarded to std::vector<bool>::swap(std::vector<bool>& other).
 	void swap(Vector& other)
 	{
 		delegate.swap(other.delegate);
 	}
 
-	/// Forwarded to std::vector<bool>::swap(reference lhs, reference rhs).
+	/// Forwarded to std::vector<bool>::swap(reference lhs, reference rhs) noexcept.
 	static void swap(reference lhs, reference rhs) noexcept
 	{
 		DelegateType::swap(lhs, rhs);
 	}
 
-	/// Forwarded to std::vector<bool>::clear().
+	/// Forwarded to std::vector<bool>::clear() noexcept.
 	void clear() noexcept
 	{
 		delegate.clear();

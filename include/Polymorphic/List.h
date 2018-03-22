@@ -183,91 +183,91 @@ public:
 		return std::move(delegate);
 	}
 
-	/// Forwarded to std::list<T>::begin().
+	/// Forwarded to std::list<T>::begin() noexcept.
 	iterator begin() noexcept
 	{
 		return delegate.begin();
 	}
 
-	/// Forwarded to std::list<T>::begin() const.
+	/// Forwarded to std::list<T>::begin() const noexcept.
 	const_iterator begin() const noexcept
 	{
 		return delegate.begin();
 	}
 
-	/// Forwarded to std::list<T>::end().
+	/// Forwarded to std::list<T>::end() noexcept.
 	iterator end() noexcept
 	{
 		return delegate.end();
 	}
 
-	/// Forwarded to std::list<T>::end() const.
+	/// Forwarded to std::list<T>::end() const noexcept.
 	const_iterator end() const noexcept
 	{
 		return delegate.end();
 	}
 
-	/// Forwarded to std::list<T>::rbegin().
+	/// Forwarded to std::list<T>::rbegin() noexcept.
 	reverse_iterator rbegin() noexcept
 	{
 		return delegate.rbegin();
 	}
 
-	/// Forwarded to std::list<T>::rbegin() const.
+	/// Forwarded to std::list<T>::rbegin() const noexcept.
 	const_reverse_iterator rbegin() const noexcept
 	{
 		return delegate.rbegin();
 	}
 
-	/// Forwarded to std::list<T>::rend().
+	/// Forwarded to std::list<T>::rend() noexcept.
 	reverse_iterator rend() noexcept
 	{
 		return delegate.rend();
 	}
 
-	/// Forwarded to std::list<T>::rend() const.
+	/// Forwarded to std::list<T>::rend() const noexcept.
 	const_reverse_iterator rend() const noexcept
 	{
 		return delegate.rend();
 	}
 
-	/// Forwarded to std::list<T>::cbegin() const.
+	/// Forwarded to std::list<T>::cbegin() const noexcept.
 	const_iterator cbegin() const noexcept
 	{
 		return delegate.cbegin();
 	}
 
-	/// Forwarded to std::list<T>::cend() const.
+	/// Forwarded to std::list<T>::cend() const noexcept.
 	const_iterator cend() const noexcept
 	{
 		return delegate.cend();
 	}
 
-	/// Forwarded to std::list<T>::crbegin() const.
+	/// Forwarded to std::list<T>::crbegin() const noexcept.
 	const_reverse_iterator crbegin() const noexcept
 	{
 		return delegate.crbegin();
 	}
 
-	/// Forwarded to std::list<T>::crend() const.
+	/// Forwarded to std::list<T>::crend() const noexcept.
 	const_reverse_iterator crend() const noexcept
 	{
 		return delegate.crend();
 	}
 
-	/// Forwarded to std::list<T>::empty().
+	/// Forwarded to std::list<T>::empty() const noexcept.
 	bool empty() const noexcept
 	{
 		return delegate.empty();
 	}
 
-	/// Forwarded to std::list<T>::size().
+	/// Forwarded to std::list<T>::size() const noexcept.
 	size_type size() const noexcept
 	{
 		return delegate.size();
 	}
 
-	/// Forwarded to std::list<T>::max_size().
+	/// Forwarded to std::list<T>::max_size() const noexcept.
 	size_type max_size() const noexcept
 	{
 		return delegate.max_size();
@@ -434,7 +434,7 @@ public:
 		delegate.resize(n, value);
 	}
 
-	/// Forwarded to std::list<T>::clear().
+	/// Forwarded to std::list<T>::clear() noexcept.
 	void clear() noexcept
 	{
 		delegate.clear();
@@ -541,7 +541,7 @@ public:
 		delegate.sort(compare);
 	}
 
-	/// Forwarded to std::list<T>::reverse().
+	/// Forwarded to std::list<T>::reverse() noexcept.
 	void reverse() noexcept
 	{
 		delegate.reverse();

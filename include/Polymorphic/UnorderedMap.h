@@ -198,55 +198,55 @@ public:
 		return std::move(delegate);
 	}
 
-	/// Forwarded to std::unordered_map<Key, T>::begin().
+	/// Forwarded to std::unordered_map<Key, T>::begin() noexcept.
 	iterator begin() noexcept
 	{
 		return delegate.begin();
 	}
 
-	/// Forwarded to std::unordered_map<Key, T>::begin() const.
+	/// Forwarded to std::unordered_map<Key, T>::begin() const noexcept.
 	const_iterator begin() const noexcept
 	{
 		return delegate.begin();
 	}
 
-	/// Forwarded to std::unordered_map<Key, T>::end().
+	/// Forwarded to std::unordered_map<Key, T>::end() noexcept.
 	iterator end() noexcept
 	{
 		return delegate.end();
 	}
 
-	/// Forwarded to std::unordered_map<Key, T>::end() const.
+	/// Forwarded to std::unordered_map<Key, T>::end() const noexcept.
 	const_iterator end() const noexcept
 	{
 		return delegate.end();
 	}
 
-	/// Forwarded to std::unordered_map<Key, T>::cbegin() const.
+	/// Forwarded to std::unordered_map<Key, T>::cbegin() const noexcept.
 	const_iterator cbegin() const noexcept
 	{
 		return delegate.cbegin();
 	}
 
-	/// Forwarded to std::unordered_map<Key, T>::cend() const.
+	/// Forwarded to std::unordered_map<Key, T>::cend() const noexcept.
 	const_iterator cend() const noexcept
 	{
 		return delegate.cend();
 	}
 
-	/// Forwarded to std::unordered_map<Key, T>::empty().
+	/// Forwarded to std::unordered_map<Key, T>::empty() const noexcept.
 	bool empty() const noexcept
 	{
 		return delegate.empty();
 	}
 
-	/// Forwarded to std::unordered_map<Key, T>::size().
+	/// Forwarded to std::unordered_map<Key, T>::size() const noexcept.
 	size_type size() const noexcept
 	{
 		return delegate.size();
 	}
 
-	/// Forwarded to std::unordered_map<Key, T>::max_size().
+	/// Forwarded to std::unordered_map<Key, T>::max_size() const noexcept.
 	size_type max_size() const noexcept
 	{
 		return delegate.max_size();
@@ -339,7 +339,7 @@ public:
 		delegate.swap(other.delegate);
 	}
 
-	/// Forwarded to std::unordered_map<Key, T>::clear().
+	/// Forwarded to std::unordered_map<Key, T>::clear() noexcept.
 	void clear() noexcept
 	{
 		delegate.clear();
@@ -389,13 +389,13 @@ public:
 		return delegate.equal_range(key);
 	}
 
-	/// Forwarded to std::unordered_map<Key, T>::bucket_count().
+	/// Forwarded to std::unordered_map<Key, T>::bucket_count() const noexcept.
 	size_type bucket_count() const noexcept
 	{
 		return delegate.bucket_count();
 	}
 
-	/// Forwarded to std::unordered_map<Key, T>::max_bucket_count().
+	/// Forwarded to std::unordered_map<Key, T>::max_bucket_count() const noexcept.
 	size_type max_bucket_count() const noexcept
 	{
 		return delegate.max_bucket_count();
@@ -413,13 +413,13 @@ public:
 		return delegate.bucket(key);
 	}
 
-	/// Forwarded to std::unordered_map<Key, T>::load_factor().
+	/// Forwarded to std::unordered_map<Key, T>::load_factor() const noexcept.
 	float load_factor() const noexcept
 	{
 		return delegate.load_factor();
 	}
 
-	/// Forwarded to std::unordered_map<Key, T>::max_load_factor().
+	/// Forwarded to std::unordered_map<Key, T>::max_load_factor() const noexcept.
 	float max_load_factor() const noexcept
 	{
 		return delegate.max_load_factor();
@@ -443,13 +443,13 @@ public:
 		delegate.reserve(n);
 	}
 
-	/// Forwarded to std::unordered_map<Key, T>::hash_function().
+	/// Forwarded to std::unordered_map<Key, T>::hash_function() const.
 	hasher hash_function() const
 	{
 		return delegate.hash_function();
 	}
 
-	/// Forwarded to std::unordered_map<Key, T>::key_eq().
+	/// Forwarded to std::unordered_map<Key, T>::key_eq() const.
 	key_equal key_eq() const
 	{
 		return delegate.key_eq();
