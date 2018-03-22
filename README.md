@@ -42,7 +42,9 @@ Adds one hidden vtable pointer per decorator instance, compared to the raw conta
 
 The Polymorphic package is harnessed with a set of test suite templates located in namespace `Testee`. Main focus is template member signatures and return types, but also includes basic plausibility checks of results.
 
-Using test suite templates solved the "test the tester" dilemma. Running tests against the delegate, i.e. the C++ standard library implementation, helped developing and verifying test suites. Then they are used to verify that decorators are actually providing the same interface.
+Test suites are not based on any particular framework. With test cases being self contained it is amazing how far you can get with template templates, a plain `std::list<TestCase>`, initializer lists and lambda expressions.
+
+On the the other hand, using test suite templates nicely solved the "test the tester" dilemma. Running tests first against the delegates, i.e. the C++ standard library implementations, helped developing and verifying test suites. Finally the results are pointed to the decorators to verify these.
 
 ## How to use
 
