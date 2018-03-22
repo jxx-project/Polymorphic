@@ -95,8 +95,7 @@ public:
 	}
 
 	/// Move constructor.
-	Map(Map&& other, const allocator_type& allocator) :
-			delegate(std::move(other.delegate), allocator)
+	Map(Map&& other, const allocator_type& allocator) : delegate(std::move(other.delegate), allocator)
 	{
 	}
 

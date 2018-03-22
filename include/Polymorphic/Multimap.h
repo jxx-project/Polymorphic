@@ -95,8 +95,7 @@ public:
 	}
 
 	/// Move constructor.
-	Multimap(Multimap&& other, const allocator_type& allocator) :
-			delegate(std::move(other.delegate), allocator)
+	Multimap(Multimap&& other, const allocator_type& allocator) : delegate(std::move(other.delegate), allocator)
 	{
 	}
 
