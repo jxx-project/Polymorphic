@@ -9,15 +9,11 @@
 #include "Testee/VectorTestSuite.h"
 #include <iostream>
 
-#ifndef TESTEE_VECTOR_TYPE
-#define TESTEE_VECTOR_TYPE Polymorphic::Vector
-#endif
-
 int main(int args, char* argv[])
 {
 	std::cout << "Testing C++-11 standard vector interface ..." << std::endl;
-	auto vectorPassed = Testee::VectorTestSuite<TESTEE_VECTOR_TYPE, int>().run();
+	auto vectorPassed = Testee::VectorTestSuite<Polymorphic::Vector, int>().run();
 	std::cout << "Testing C++-11 standard vector<bool> interface ..." << std::endl;
-	auto vectorBoolPassed = Testee::VectorTestSuite<TESTEE_VECTOR_TYPE, bool>().run();
+	auto vectorBoolPassed = Testee::VectorTestSuite<Polymorphic::Vector, bool>().run();
 	return vectorPassed && vectorBoolPassed ? 0 : 1;
 }

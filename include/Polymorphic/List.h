@@ -562,7 +562,7 @@ private:
 	friend bool operator<= <T, Allocator> (const List& lhs, const List& rhs);
 	friend bool operator>  <T, Allocator> (const List& lhs, const List& rhs);
 	friend bool operator>= <T, Allocator> (const List& lhs, const List& rhs);
-	friend void Polymorphic::swap<T, Allocator>(const List& lhs, const List& rhs);
+	friend void Polymorphic::swap<T, Allocator>(const List<T, Allocator>& lhs, const List<T, Allocator>& rhs);
 };
 
 /// Forwarded to operator==(const std::list<T, Allocator>& lhs, const std::list<T, Allocator>& rhs).

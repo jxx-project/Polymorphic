@@ -418,6 +418,7 @@ public:
 	/// Forwarded to std::multimap<Key, T>::value_comp() const.
 	value_compare value_comp() const
 	{
+		return delegate.value_comp();
 	}
 
 	/// Forwarded to std::multimap<Key, T>::get_allocator() const noexcept.
@@ -435,7 +436,7 @@ private:
 	friend bool operator<= <Key, T, Compare, Allocator> (const Multimap& lhs, const Multimap& rhs);
 	friend bool operator>  <Key, T, Compare, Allocator> (const Multimap& lhs, const Multimap& rhs);
 	friend bool operator>= <Key, T, Compare, Allocator> (const Multimap& lhs, const Multimap& rhs);
-	friend void Polymorphic::swap<Key, T, Compare, Allocator>(const Multimap& lhs, const Multimap& rhs);
+	friend void Polymorphic::swap<Key, T, Compare, Allocator>(const Multimap<Key, T, Compare, Allocator>& lhs, const Multimap<Key, T, Compare, Allocator>& rhs);
 };
 
 /// Forwarded to operator==(const std::multimap<Key, T, Compare, Allocator>& lhs, const std::multimap<Key, T, Compare, Allocator>& rhs).

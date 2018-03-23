@@ -52,6 +52,9 @@ Polymorphic decorators are a headers-only library. You may just copy the `includ
 
 CMakeLists.txt files are only required to build and run the test suites.
 
+**Note:** Whth Visual Studio 2013 please use the [Visual C++ Compiler November 2013 CTP](https://www.microsoft.com/en-us/download/details.aspx?id=41151) tool chain in order to get support for `noexcept`.
+
+
 ### Linux
 
 ```

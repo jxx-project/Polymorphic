@@ -446,7 +446,7 @@ private:
 	friend bool operator<= <Key, T, Hash, Predicate, Allocator> (const UnorderedMultimap& lhs, const UnorderedMultimap& rhs);
 	friend bool operator>  <Key, T, Hash, Predicate, Allocator> (const UnorderedMultimap& lhs, const UnorderedMultimap& rhs);
 	friend bool operator>= <Key, T, Hash, Predicate, Allocator> (const UnorderedMultimap& lhs, const UnorderedMultimap& rhs);
-	friend void Polymorphic::swap<Key, T, Hash, Predicate, Allocator>(const UnorderedMultimap& lhs, const UnorderedMultimap& rhs);
+	friend void Polymorphic::swap<Key, T, Hash, Predicate, Allocator>(const UnorderedMultimap<Key, T, Hash, Predicate, Allocator>& lhs, const UnorderedMultimap<Key, T, Hash, Predicate, Allocator>& rhs);
 };
 
 /// Forwarded to operator==(const std::unordered_multimap<Key, T, Hash, Predicate, Allocator>& lhs, const std::unordered_multimap<Key, T, Hash, Predicate, Allocator>& rhs).

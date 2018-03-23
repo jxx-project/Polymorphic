@@ -470,7 +470,7 @@ private:
 	friend bool operator<= <Key, T, Hash, Predicate, Allocator> (const UnorderedMap& lhs, const UnorderedMap& rhs);
 	friend bool operator>  <Key, T, Hash, Predicate, Allocator> (const UnorderedMap& lhs, const UnorderedMap& rhs);
 	friend bool operator>= <Key, T, Hash, Predicate, Allocator> (const UnorderedMap& lhs, const UnorderedMap& rhs);
-	friend void Polymorphic::swap<Key, T, Hash, Predicate, Allocator>(const UnorderedMap& lhs, const UnorderedMap& rhs);
+	friend void Polymorphic::swap<Key, T, Hash, Predicate, Allocator>(const UnorderedMap<Key, T, Hash, Predicate, Allocator>& lhs, const UnorderedMap<Key, T, Hash, Predicate, Allocator>& rhs);
 };
 
 /// Forwarded to operator==(const std::unordered_map<Key, T, Hash, Predicate, Allocator>& lhs, const std::unordered_map<Key, T, Hash, Predicate, Allocator>& rhs).

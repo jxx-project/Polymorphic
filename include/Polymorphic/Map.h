@@ -442,6 +442,7 @@ public:
 	/// Forwarded to std::map<Key, T>::value_comp() const.
 	value_compare value_comp() const
 	{
+		return delegate.value_comp();
 	}
 
 	/// Forwarded to std::map<Key, T>::get_allocator() const noexcept.
@@ -459,7 +460,7 @@ private:
 	friend bool operator<= <Key, T, Compare, Allocator> (const Map& lhs, const Map& rhs);
 	friend bool operator>  <Key, T, Compare, Allocator> (const Map& lhs, const Map& rhs);
 	friend bool operator>= <Key, T, Compare, Allocator> (const Map& lhs, const Map& rhs);
-	friend void Polymorphic::swap<Key, T, Compare, Allocator>(const Map& lhs, const Map& rhs);
+	friend void Polymorphic::swap<Key, T, Compare, Allocator>(const Map<Key, T, Compare, Allocator>& lhs, const Map<Key, T, Compare, Allocator>& rhs);
 };
 
 /// Forwarded to operator==(const std::map<Key, T, Compare, Allocator>& lhs, const std::map<Key, T, Compare, Allocator>& rhs).

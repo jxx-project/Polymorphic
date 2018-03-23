@@ -484,7 +484,7 @@ private:
 	friend bool operator<= <T, Allocator> (const Vector& lhs, const Vector& rhs);
 	friend bool operator>  <T, Allocator> (const Vector& lhs, const Vector& rhs);
 	friend bool operator>= <T, Allocator> (const Vector& lhs, const Vector& rhs);
-	friend void Polymorphic::swap<T, Allocator>(const Vector& lhs, const Vector& rhs);
+	friend void Polymorphic::swap<T, Allocator>(const Vector<T, Allocator>& lhs, const Vector<T, Allocator>& rhs);
 };
 
 /// Polymorphic decorator composing std::vector<bool> with the sole purpose of adding a virtual destructor..
@@ -937,7 +937,7 @@ private:
 	friend bool operator<= <bool, Allocator> (const Vector& lhs, const Vector& rhs);
 	friend bool operator>  <bool, Allocator> (const Vector& lhs, const Vector& rhs);
 	friend bool operator>= <bool, Allocator> (const Vector& lhs, const Vector& rhs);
-	friend void Polymorphic::swap<bool, Allocator>(const Vector& lhs, const Vector& rhs);
+	friend void Polymorphic::swap<bool, Allocator>(const Vector<bool, Allocator>& lhs, const Vector<bool, Allocator>& rhs);
 };
 
 /// Forwarded to operator==(const std::vector<T, Allocator>& lhs, const std::vector<T, Allocator>& rhs).
