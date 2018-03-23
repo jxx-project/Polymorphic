@@ -13,6 +13,12 @@
 
 namespace Testee {
 
+template<typename T>
+T makeDefault()
+{
+	return T();
+}
+
 /// Test ListType C++-11 standard list interface.
 template< template<typename...> class ListType, typename T, typename Allocator = std::allocator<T> >
 class ListTestSuite : public TestSuite
@@ -301,7 +307,7 @@ public:
 			TestCase("push_front copy", [this]
 					 {
 						 ListType<T, Allocator> testee;
-						 T value({});
+						 T value = {};
 						 testee.push_front(value);
 						 TestCase::assert(testee.size() == 1);
 					 }),
@@ -309,7 +315,7 @@ public:
 			TestCase("push_front move", [this]
 					 {
 						 ListType<T, Allocator> testee;
-						 T value({});
+						 T value = {};
 						 testee.push_front(std::move(value));
 						 TestCase::assert(testee.size() == 1);
 					 }),
@@ -331,7 +337,7 @@ public:
 			TestCase("push_back copy", [this]
 					 {
 						 ListType<T, Allocator> testee;
-						 T value({});
+						 T value = {};
 						 testee.push_back(value);
 						 TestCase::assert(testee.size() == 1);
 					 }),
@@ -339,7 +345,7 @@ public:
 			TestCase("push_back move", [this]
 					 {
 						 ListType<T, Allocator> testee;
-						 T value({});
+						 T value = {};
 						 testee.push_back(std::move(value));
 						 TestCase::assert(testee.size() == 1);
 					 }),
@@ -364,7 +370,7 @@ public:
 					 {
 						 ListType<T, Allocator> testee(1);
 						 auto position = testee.begin();
-						 T value({});
+						 T value = {};
 						 auto result = testee.insert(position, value);
 						 TestCase::assert(std::is_same<typename ListType<T, Allocator>::iterator, decltype(result)>::value, "type");
 						 TestCase::assert(testee.size() == 2, "result");
@@ -374,7 +380,7 @@ public:
 					 {
 						 ListType<T, Allocator> testee(1);
 						 auto position = testee.begin();
-						 T value({});
+						 T value = {};
 						 auto result = testee.insert(position, 2, value);
 						 TestCase::assert(std::is_same<typename ListType<T, Allocator>::iterator, decltype(result)>::value, "type");
 						 TestCase::assert(testee.size() == 3, "result");
@@ -393,7 +399,7 @@ public:
 					 {
 						 ListType<T, Allocator> testee(1);
 						 auto position = testee.begin();
-						 T value({});
+						 T value = {};
 						 auto result = testee.insert(position, std::move(value));
 						 TestCase::assert(std::is_same<typename ListType<T, Allocator>::iterator, decltype(result)>::value, "type");
 						 TestCase::assert(testee.size() == 2, "result");
@@ -687,11 +693,11 @@ public:
 	static const ArrayType ARRAY;
 };
 
-template< template< typename...> class ListType, typename T, typename Allocator = std::allocator<T> >
-const typename ListTestSuite<ListType, T, Allocator>::InitializerListType ListTestSuite<ListType, T, Allocator>::INITIALIZER_LIST = {T()};
+template< template< typename...> class ListType, typename T, typename Allocator>
+const typename ListTestSuite<ListType, T, Allocator>::InitializerListType ListTestSuite<ListType, T, Allocator>::INITIALIZER_LIST = {makeDefault<T>()};
 
-template< template<typename...> class ListType, typename T, typename Allocator = std::allocator<T> >
-const typename ListTestSuite<ListType, T, Allocator>::ArrayType ListTestSuite<ListType, T, Allocator>::ARRAY = { T() };
+template< template<typename...> class ListType, typename T, typename Allocator>
+const typename ListTestSuite<ListType, T, Allocator>::ArrayType ListTestSuite<ListType, T, Allocator>::ARRAY = {makeDefault<T>()};
 
 } // namespace Testee
 

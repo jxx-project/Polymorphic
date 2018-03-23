@@ -13,6 +13,12 @@
 
 namespace Testee {
 
+template<typename T>
+T makeDefault()
+{
+	return T();
+}
+
 // Conditionally enabled test executors handling map vs multimap.
 
 template<template<typename...> class UnorderedMapType, typename Key, typename T, bool isMultimap, typename Hash, typename Predicate, typename Allocator, typename Enable = void>
@@ -136,7 +142,7 @@ public:
 						 UnorderedMapType<Key, T, Hash, Predicate, Allocator> testee(INITIALIZER_LIST);
 						 auto result = testee.begin();
 						 TestCase::assert(std::is_same<typename UnorderedMapType<Key, T, Hash, Predicate, Allocator>::iterator, decltype(result)>::value, "type");
-						 TestCase::assert(*result == UnorderedMapType<Key, T, Hash, Predicate, Allocator>::value_type(), "result");
+						 TestCase::assert(*result == makeDefault<typename UnorderedMapType<Key, T, Hash, Predicate, Allocator>::value_type>(), "result");
 					 }),
 
 			TestCase("begin const", [this]
@@ -144,7 +150,7 @@ public:
 						 const UnorderedMapType<Key, T, Hash, Predicate, Allocator> testee(INITIALIZER_LIST);
 						 auto result = testee.begin();
 						 TestCase::assert(std::is_same<typename UnorderedMapType<Key, T, Hash, Predicate, Allocator>::const_iterator, decltype(result)>::value, "type");
-						 TestCase::assert(*result == UnorderedMapType<Key, T, Hash, Predicate, Allocator>::value_type(), "result");
+						 TestCase::assert(*result == makeDefault<typename UnorderedMapType<Key, T, Hash, Predicate, Allocator>::value_type>(), "result");
 					 }),
 
 			TestCase("end", [this]
@@ -166,7 +172,7 @@ public:
 						 UnorderedMapType<Key, T, Hash, Predicate, Allocator> testee(INITIALIZER_LIST);
 						 auto result = testee.cbegin();
 						 TestCase::assert(std::is_same<typename UnorderedMapType<Key, T, Hash, Predicate, Allocator>::const_iterator, decltype(result)>::value, "type");
-						 TestCase::assert(*result == UnorderedMapType<Key, T, Hash, Predicate, Allocator>::value_type(), "result");
+						 TestCase::assert(*result == makeDefault<typename UnorderedMapType<Key, T, Hash, Predicate, Allocator>::value_type>(), "result");
 					 }),
 
 			TestCase("cend", [this]
@@ -340,7 +346,7 @@ public:
 						 UnorderedMapType<Key, T, Hash, Predicate, Allocator> testee(INITIALIZER_LIST);
 						 auto result = testee.find(Key());
 						 TestCase::assert(std::is_same<typename UnorderedMapType<Key, T, Hash, Predicate, Allocator>::iterator, decltype(result)>::value, "type");
-						 TestCase::assert(*result == UnorderedMapType<Key, T, Hash, Predicate, Allocator>::value_type(), "result");
+						 TestCase::assert(*result == makeDefault<typename UnorderedMapType<Key, T, Hash, Predicate, Allocator>::value_type>(), "result");
 					 }),
 
 			TestCase("find const", [this]
@@ -348,7 +354,7 @@ public:
 						 const UnorderedMapType<Key, T, Hash, Predicate, Allocator> testee(INITIALIZER_LIST);
 						 auto result = testee.find(Key());
 						 TestCase::assert(std::is_same<typename UnorderedMapType<Key, T, Hash, Predicate, Allocator>::const_iterator, decltype(result)>::value, "type");
-						 TestCase::assert(*result == UnorderedMapType<Key, T, Hash, Predicate, Allocator>::value_type(), "result");
+						 TestCase::assert(*result == makeDefault<typename UnorderedMapType<Key, T, Hash, Predicate, Allocator>::value_type>(), "result");
 					 }),
 
 			TestCase("count", [this]

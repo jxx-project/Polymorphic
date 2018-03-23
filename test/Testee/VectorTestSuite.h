@@ -13,6 +13,12 @@
 
 namespace Testee {
 
+template<typename T>
+T makeDefault()
+{
+	return T();
+}
+
 // Conditionally enabled test executors handling the std::vector<bool, Allocator> specialization.
 
 template<template<typename...> class VectorType, typename T, typename Allocator, typename Enable = void>
@@ -365,7 +371,7 @@ public:
 			TestCase("push_back copy", [this]
 					 {
 						 VectorType<T, Allocator> testee;
-						 T value({});
+						 T value = {};
 						 testee.push_back(value);
 						 TestCase::assert(testee.size() == 1);
 					 }),
@@ -373,7 +379,7 @@ public:
 			TestCase("push_back move", [this]
 					 {
 						 VectorType<T, Allocator> testee;
-						 T value({});
+						 T value = {};
 						 testee.push_back(std::move(value));
 						 TestCase::assert(testee.size() == 1);
 					 }),
@@ -389,7 +395,7 @@ public:
 					 {
 						 VectorType<T, Allocator> testee(1);
 						 auto position = testee.begin();
-						 T value({});
+						 T value = {};
 						 auto result = testee.insert(position, value);
 						 TestCase::assert(std::is_same<typename VectorType<T, Allocator>::iterator, decltype(result)>::value, "type");
 						 TestCase::assert(testee.size() == 2, "result");
@@ -399,7 +405,7 @@ public:
 					 {
 						 VectorType<T, Allocator> testee(1);
 						 auto position = testee.begin();
-						 T value({});
+						 T value = {};
 						 auto result = testee.insert(position, 2, value);
 						 TestCase::assert(std::is_same<typename VectorType<T, Allocator>::iterator, decltype(result)>::value, "type");
 						 TestCase::assert(testee.size() == 3, "result");
@@ -418,7 +424,7 @@ public:
 					 {
 						 VectorType<T, Allocator> testee(1);
 						 auto position = testee.begin();
-						 T value({});
+						 T value = {};
 						 auto result = testee.insert(position, std::move(value));
 						 TestCase::assert(std::is_same<typename VectorType<T, Allocator>::iterator, decltype(result)>::value, "type");
 						 TestCase::assert(testee.size() == 2, "result");
@@ -566,10 +572,10 @@ public:
 };
 
 template<template<typename...> class VectorType, typename T, typename Allocator>
-const typename VectorTestSuite<VectorType, T, Allocator>::InitializerListType VectorTestSuite<VectorType, T, Allocator>::INITIALIZER_LIST = {T()};
+const typename VectorTestSuite<VectorType, T, Allocator>::InitializerListType VectorTestSuite<VectorType, T, Allocator>::INITIALIZER_LIST = {makeDefault<T>()};
 
 template<template<typename...> class VectorType, typename T, typename Allocator>
-const typename VectorTestSuite<VectorType, T, Allocator>::ArrayType VectorTestSuite<VectorType, T, Allocator>::ARRAY = {T()};
+const typename VectorTestSuite<VectorType, T, Allocator>::ArrayType VectorTestSuite<VectorType, T, Allocator>::ARRAY = {makeDefault<T>()};
 
 
 // Conditionally enabled test executors handling the std::vector<bool, Allocator> specialization.
