@@ -553,7 +553,7 @@ public:
 			TestCase("unique with predicate", [this]
 					 {
 						 ListType<T, Allocator> testee(3);
-						 testee.unique([](const T&, const T&)->bool{return true;});
+						 testee.unique([](const T& lhs, const T& rhs)->bool{return lhs == rhs;});
 						 TestCase::assert(testee.size() == 1);
 					 }),
 
@@ -577,7 +577,7 @@ public:
 					 {
 						 ListType<T, Allocator> other(2);
 						 ListType<T, Allocator> testee(1);
-						 testee.merge(other, [](const T&, const T&)->bool{return true;});
+						 testee.merge(other, [](const T& lhs, const T& rhs)->bool{return lhs < rhs;});
 						 TestCase::assert(testee.size() == 3);
 					 }),
 
@@ -585,7 +585,7 @@ public:
 					 {
 						 ListType<T, Allocator> other(2);
 						 ListType<T, Allocator> testee(1);
-						 testee.merge(std::move(other), [](const T&, const T&)->bool{return true;});
+						 testee.merge(std::move(other), [](const T& lhs, const T& rhs)->bool{return lhs < rhs;});
 						 TestCase::assert(testee.size() == 3);
 					 }),
 
@@ -599,7 +599,7 @@ public:
 			TestCase("sort with predicate", [this]
 					 {
 						 ListType<T, Allocator> testee(3);
-						 testee.sort([](const T&, const T&)->bool{return true;});
+						 testee.sort([](const T& lhs, const T& rhs)->bool{return lhs < rhs;});
 						 TestCase::assert(testee.size() == 3);
 					 }),
 
