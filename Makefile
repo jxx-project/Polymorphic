@@ -1,4 +1,4 @@
-.PHONY: all test install clean
+.PHONY: all test install clean distclean
 
 all:
 	$(MAKE) -C build all
@@ -10,4 +10,7 @@ install:
 	$(MAKE) -C build install
 
 clean:
+	$(MAKE) -C build clean
+
+distclean:
 	rm -rf build
