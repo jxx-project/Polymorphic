@@ -910,16 +910,18 @@ public:
 		delegate.clear();
 	}
 
-	/// Forwarded to std::vector<bool>::insert(const_iterator position, const bool& arg).
-	iterator emplace(const_iterator position, const bool& arg = bool())
+	/// Forwarded to std::vector<bool>::insert(const_iterator position, bool(Args&&... args)).
+	template<typename... Args>
+	iterator emplace(const_iterator position, Args&&... args)
 	{
-		return delegate.insert(position, arg);
+		return delegate.insert(position, bool(std::forward<Args>(args)...));
 	}
 
-	/// Forwarded to std::vector<bool>::push_back(const bool& arg).
-	void emplace_back(const bool& arg = bool())
+	/// Forwarded to std::vector<bool>::push_back(bool(Args&&... args)).
+	template<typename... Args>
+	void emplace_back(Args&&... args)
 	{
-		return delegate.push_back(arg);
+		return delegate.push_back(bool(std::forward<Args>(args)...));
 	}
 
 	/// Forwarded to std::vector<bool>::get_allocator() const noexcept.
