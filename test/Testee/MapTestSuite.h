@@ -28,7 +28,7 @@ template<template<typename...> class MapType, typename Key, typename T, bool isM
 class TestAtConst;
 
 
-/// Test MapType C++-11 standard map or multimap interface.
+/// Test MapType C++11 standard map or multimap interface.
 template< template<typename...> class MapType, typename Key, typename T, bool isMultimap = false, typename Compare = std::less<Key>, typename Allocator = std::allocator< std::pair<const Key, T> > >
 class MapTestSuite : public TestSuite
 {

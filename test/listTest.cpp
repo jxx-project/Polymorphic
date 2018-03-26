@@ -11,6 +11,6 @@
 
 int main(int args, char* argv[])
 {
-	std::cout << "Testing C++-11 standard list interface ..." << std::endl;
+	std::cout << "Testing C++11 standard list interface ..." << std::endl;
 	return Testee::ListTestSuite<Polymorphic::List, int>().run() ? 0 : 1;
 }

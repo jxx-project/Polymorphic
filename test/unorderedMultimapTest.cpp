@@ -11,6 +11,6 @@
 
 int main(int args, char* argv[])
 {
-	std::cout << "Testing C++-11 standard unordered_multimap interface ..." << std::endl;
+	std::cout << "Testing C++11 standard unordered_multimap interface ..." << std::endl;
 	return Testee::UnorderedMapTestSuite<Polymorphic::UnorderedMultimap, int, int, true>().run() ? 0 : 1;
 }

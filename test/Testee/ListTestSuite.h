@@ -13,7 +13,7 @@
 
 namespace Testee {
 
-/// Test ListType C++-11 standard list interface.
+/// Test ListType C++11 standard list interface.
 template< template<typename...> class ListType, typename T, typename Allocator = std::allocator<T> >
 class ListTestSuite : public TestSuite
 {

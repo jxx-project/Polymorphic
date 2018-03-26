@@ -52,7 +52,7 @@ template<template<typename...> class VectorType, typename T, typename Allocator,
 class TestSwapElements;
 
 
-/// Test VectorType C++-11 standard vector interface.
+/// Test VectorType C++11 standard vector interface.
 template< template<typename...> class VectorType, typename T, typename Allocator = std::allocator<T> >
 class VectorTestSuite : public TestSuite
 {

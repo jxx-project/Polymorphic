@@ -28,7 +28,7 @@ template<template<typename...> class UnorderedMapType, typename Key, typename T,
 class TestAtConst;
 
 
-/// Test UnorderedMapType C++-11 standard map or multimap interface.
+/// Test UnorderedMapType C++11 standard map or multimap interface.
 template< template<typename...> class UnorderedMapType, typename Key, typename T, bool isMultimap = false, typename Hash = std::hash<Key>, typename Predicate = std::equal_to<Key>, typename Allocator = std::allocator< std::pair<const Key, T> > >
 class UnorderedMapTestSuite : public TestSuite
 {
