@@ -13,12 +13,6 @@
 
 namespace Testee {
 
-template<typename T>
-T makeDefault()
-{
-	return T();
-}
-
 // Conditionally enabled test executors handling the std::vector<bool, Allocator> specialization.
 
 template<template<typename...> class VectorType, typename T, typename Allocator, typename Enable = void>
@@ -572,10 +566,10 @@ public:
 };
 
 template<template<typename...> class VectorType, typename T, typename Allocator>
-const typename VectorTestSuite<VectorType, T, Allocator>::InitializerListType VectorTestSuite<VectorType, T, Allocator>::INITIALIZER_LIST = {makeDefault<T>()};
+const typename VectorTestSuite<VectorType, T, Allocator>::InitializerListType VectorTestSuite<VectorType, T, Allocator>::INITIALIZER_LIST = {T()};
 
 template<template<typename...> class VectorType, typename T, typename Allocator>
-const typename VectorTestSuite<VectorType, T, Allocator>::ArrayType VectorTestSuite<VectorType, T, Allocator>::ARRAY = {makeDefault<T>()};
+const typename VectorTestSuite<VectorType, T, Allocator>::ArrayType VectorTestSuite<VectorType, T, Allocator>::ARRAY = {T()};
 
 
 // Conditionally enabled test executors handling the std::vector<bool, Allocator> specialization.

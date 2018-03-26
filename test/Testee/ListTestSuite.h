@@ -13,12 +13,6 @@
 
 namespace Testee {
 
-template<typename T>
-T makeDefault()
-{
-	return T();
-}
-
 /// Test ListType C++-11 standard list interface.
 template< template<typename...> class ListType, typename T, typename Allocator = std::allocator<T> >
 class ListTestSuite : public TestSuite
@@ -694,10 +688,10 @@ public:
 };
 
 template< template< typename...> class ListType, typename T, typename Allocator>
-const typename ListTestSuite<ListType, T, Allocator>::InitializerListType ListTestSuite<ListType, T, Allocator>::INITIALIZER_LIST = {makeDefault<T>()};
+const typename ListTestSuite<ListType, T, Allocator>::InitializerListType ListTestSuite<ListType, T, Allocator>::INITIALIZER_LIST = {T()};
 
 template< template<typename...> class ListType, typename T, typename Allocator>
-const typename ListTestSuite<ListType, T, Allocator>::ArrayType ListTestSuite<ListType, T, Allocator>::ARRAY = {makeDefault<T>()};
+const typename ListTestSuite<ListType, T, Allocator>::ArrayType ListTestSuite<ListType, T, Allocator>::ARRAY = {T()};
 
 } // namespace Testee
 

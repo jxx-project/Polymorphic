@@ -13,12 +13,6 @@
 
 namespace Testee {
 
-template<typename T>
-T makeDefault()
-{
-	return T();
-}
-
 // Conditionally enabled test executors handling map vs multimap.
 
 template<template<typename...> class MapType, typename Key, typename T, bool isMultimap, typename Compare, typename Allocator, typename Enable = void>
@@ -41,6 +35,7 @@ class MapTestSuite : public TestSuite
 public:
 	typedef std::initializer_list< std::pair<const Key, T> > InitializerListType;
 	typedef std::array<std::pair<const Key, T>, 1> ArrayType;
+    typedef typename MapType<Key, T, Compare, Allocator>::value_type ValueType;
 
 	MapTestSuite() : TestSuite({
 
@@ -140,7 +135,7 @@ public:
 						 MapType<Key, T, Compare, Allocator> testee(INITIALIZER_LIST);
 						 auto result = testee.begin();
 						 TestCase::assert(std::is_same<typename MapType<Key, T, Compare, Allocator>::iterator, decltype(result)>::value, "type");
-						 TestCase::assert(*result == makeDefault<typename MapType<Key, T, Compare, Allocator>::value_type>(), "result");
+						 TestCase::assert(*result == ValueType(), "result");
 					 }),
 
 			TestCase("begin const", [this]
@@ -148,7 +143,7 @@ public:
 						 const MapType<Key, T, Compare, Allocator> testee(INITIALIZER_LIST);
 						 auto result = testee.begin();
 						 TestCase::assert(std::is_same<typename MapType<Key, T, Compare, Allocator>::const_iterator, decltype(result)>::value, "type");
-						 TestCase::assert(*result == makeDefault<typename MapType<Key, T, Compare, Allocator>::value_type>(), "result");
+						 TestCase::assert(*result == ValueType(), "result");
 					 }),
 
 			TestCase("end", [this]
@@ -156,7 +151,7 @@ public:
 						 MapType<Key, T, Compare, Allocator> testee(INITIALIZER_LIST);
 						 auto result = testee.end();
 						 TestCase::assert(std::is_same<typename MapType<Key, T, Compare, Allocator>::iterator, decltype(result)>::value, "type");
-						 TestCase::assert(*(--result) == makeDefault<typename MapType<Key, T, Compare, Allocator>::value_type>(), "result");
+						 TestCase::assert(*(--result) == ValueType(), "result");
 					 }),
 
 			TestCase("end const", [this]
@@ -164,7 +159,7 @@ public:
 						 const MapType<Key, T, Compare, Allocator> testee(INITIALIZER_LIST);
 						 auto result = testee.end();
 						 TestCase::assert(std::is_same<typename MapType<Key, T, Compare, Allocator>::const_iterator, decltype(result)>::value, "type");
-						 TestCase::assert(*(--result) == makeDefault<typename MapType<Key, T, Compare, Allocator>::value_type>(), "result");
+						 TestCase::assert(*(--result) == ValueType(), "result");
 					 }),
 
 			TestCase("rbegin", [this]
@@ -172,7 +167,7 @@ public:
 						 MapType<Key, T, Compare, Allocator> testee(INITIALIZER_LIST);
 						 auto result = testee.rbegin();
 						 TestCase::assert(std::is_same<typename MapType<Key, T, Compare, Allocator>::reverse_iterator, decltype(result)>::value, "type");
-						 TestCase::assert(*result == makeDefault<typename MapType<Key, T, Compare, Allocator>::value_type>(), "result");
+						 TestCase::assert(*result == ValueType(), "result");
 					 }),
 
 			TestCase("rbegin const", [this]
@@ -180,7 +175,7 @@ public:
 						 const MapType<Key, T, Compare, Allocator> testee(INITIALIZER_LIST);
 						 auto result = testee.rbegin();
 						 TestCase::assert(std::is_same<typename MapType<Key, T, Compare, Allocator>::const_reverse_iterator, decltype(result)>::value, "type");
-						 TestCase::assert(*result == makeDefault<typename MapType<Key, T, Compare, Allocator>::value_type>(), "result");
+						 TestCase::assert(*result == ValueType(), "result");
 					 }),
 
 			TestCase("rend", [this]
@@ -188,7 +183,7 @@ public:
 						 MapType<Key, T, Compare, Allocator> testee(INITIALIZER_LIST);
 						 auto result = testee.rend();
 						 TestCase::assert(std::is_same<typename MapType<Key, T, Compare, Allocator>::reverse_iterator, decltype(result)>::value, "type");
-						 TestCase::assert(*(--result) == makeDefault<typename MapType<Key, T, Compare, Allocator>::value_type>(), "result");
+						 TestCase::assert(*(--result) == ValueType(), "result");
 					 }),
 
 			TestCase("rend const", [this]
@@ -196,7 +191,7 @@ public:
 						 const MapType<Key, T, Compare, Allocator> testee(INITIALIZER_LIST);
 						 auto result = testee.rend();
 						 TestCase::assert(std::is_same<typename MapType<Key, T, Compare, Allocator>::const_reverse_iterator, decltype(result)>::value, "type");
-						 TestCase::assert(*(--result) == makeDefault<typename MapType<Key, T, Compare, Allocator>::value_type>(), "result");
+						 TestCase::assert(*(--result) == ValueType(), "result");
 					 }),
 
 			TestCase("cbegin", [this]
@@ -204,7 +199,7 @@ public:
 						 MapType<Key, T, Compare, Allocator> testee(INITIALIZER_LIST);
 						 auto result = testee.cbegin();
 						 TestCase::assert(std::is_same<typename MapType<Key, T, Compare, Allocator>::const_iterator, decltype(result)>::value, "type");
-						 TestCase::assert(*result == makeDefault<typename MapType<Key, T, Compare, Allocator>::value_type>(), "result");
+						 TestCase::assert(*result == ValueType(), "result");
 					 }),
 
 			TestCase("cend", [this]
@@ -212,7 +207,7 @@ public:
 						 MapType<Key, T, Compare, Allocator> testee(INITIALIZER_LIST);
 						 auto result = testee.cend();
 						 TestCase::assert(std::is_same<typename MapType<Key, T, Compare, Allocator>::const_iterator, decltype(result)>::value, "type");
-						 TestCase::assert(*(--result) == makeDefault<typename MapType<Key, T, Compare, Allocator>::value_type>(), "result");
+						 TestCase::assert(*(--result) == ValueType(), "result");
 					 }),
 
 			TestCase("crbegin", [this]
@@ -220,7 +215,7 @@ public:
 						 MapType<Key, T, Compare, Allocator> testee(INITIALIZER_LIST);
 						 auto result = testee.crbegin();
 						 TestCase::assert(std::is_same<typename MapType<Key, T, Compare, Allocator>::const_reverse_iterator, decltype(result)>::value, "type");
-						 TestCase::assert(*result == makeDefault<typename MapType<Key, T, Compare, Allocator>::value_type>(), "result");
+						 TestCase::assert(*result == ValueType(), "result");
 					 }),
 
 			TestCase("crend", [this]
@@ -228,7 +223,7 @@ public:
 						 MapType<Key, T, Compare, Allocator> testee(INITIALIZER_LIST);
 						 auto result = testee.crend();
 						 TestCase::assert(std::is_same<typename MapType<Key, T, Compare, Allocator>::const_reverse_iterator, decltype(result)>::value, "type");
-						 TestCase::assert(*(--result) == makeDefault<typename MapType<Key, T, Compare, Allocator>::value_type>(), "result");
+						 TestCase::assert(*(--result) == ValueType(), "result");
 					 }),
 
 			TestCase("empty", [this]
@@ -409,7 +404,7 @@ public:
 						 MapType<Key, T, Compare, Allocator> testee(INITIALIZER_LIST);
 						 auto result = testee.find(Key());
 						 TestCase::assert(std::is_same<typename MapType<Key, T, Compare, Allocator>::iterator, decltype(result)>::value, "type");
-						 TestCase::assert(*result == makeDefault<typename MapType<Key, T, Compare, Allocator>::value_type>(), "result");
+						 TestCase::assert(*result == ValueType(), "result");
 					 }),
 
 			TestCase("find const", [this]
@@ -417,7 +412,7 @@ public:
 						 const MapType<Key, T, Compare, Allocator> testee(INITIALIZER_LIST);
 						 auto result = testee.find(Key());
 						 TestCase::assert(std::is_same<typename MapType<Key, T, Compare, Allocator>::const_iterator, decltype(result)>::value, "type");
-						 TestCase::assert(*result == makeDefault<typename MapType<Key, T, Compare, Allocator>::value_type>(), "result");
+						 TestCase::assert(*result == ValueType(), "result");
 					 }),
 
 			TestCase("count", [this]
@@ -433,7 +428,7 @@ public:
 						 MapType<Key, T, Compare, Allocator> testee(INITIALIZER_LIST);
 						 auto result = testee.lower_bound(Key());
 						 TestCase::assert(std::is_same<typename MapType<Key, T, Compare, Allocator>::iterator, decltype(result)>::value, "type");
-						 TestCase::assert(*result == makeDefault<typename MapType<Key, T, Compare, Allocator>::value_type>(), "result");
+						 TestCase::assert(*result == ValueType(), "result");
 					 }),
 
 			TestCase("lower_bound const", [this]
@@ -441,7 +436,7 @@ public:
 						 const MapType<Key, T, Compare, Allocator> testee(INITIALIZER_LIST);
 						 auto result = testee.lower_bound(Key());
 						 TestCase::assert(std::is_same<typename MapType<Key, T, Compare, Allocator>::const_iterator, decltype(result)>::value, "type");
-						 TestCase::assert(*result == makeDefault<typename MapType<Key, T, Compare, Allocator>::value_type>(), "result");
+						 TestCase::assert(*result == ValueType(), "result");
 					 }),
 
 			TestCase("upper_bound", [this]
@@ -449,7 +444,7 @@ public:
 						 MapType<Key, T, Compare, Allocator> testee(INITIALIZER_LIST);
 						 auto result = testee.upper_bound(Key());
 						 TestCase::assert(std::is_same<typename MapType<Key, T, Compare, Allocator>::iterator, decltype(result)>::value, "type");
-						 TestCase::assert(*(--result) == makeDefault<typename MapType<Key, T, Compare, Allocator>::value_type>(), "result");
+						 TestCase::assert(*(--result) == ValueType(), "result");
 					 }),
 
 			TestCase("upper_bound const", [this]
@@ -457,7 +452,7 @@ public:
 						 const MapType<Key, T, Compare, Allocator> testee(INITIALIZER_LIST);
 						 auto result = testee.upper_bound(Key());
 						 TestCase::assert(std::is_same<typename MapType<Key, T, Compare, Allocator>::const_iterator, decltype(result)>::value, "type");
-						 TestCase::assert(*(--result) == makeDefault<typename MapType<Key, T, Compare, Allocator>::value_type>(), "result");
+						 TestCase::assert(*(--result) == ValueType(), "result");
 					 }),
 
 			TestCase("equal_range", [this]
