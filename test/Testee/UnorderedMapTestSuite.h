@@ -39,7 +39,7 @@ public:
 
 	UnorderedMapTestSuite() : TestSuite({
 
-			TestCase("typedefs", [this]
+			TestCase("typedefs", []
 					 {
 						 TestCase::assert(std::is_same<typename UnorderedMapType<Key, T, Hash, Predicate, Allocator>::key_type, Key>::value, "key_type");
 						 TestCase::assert(std::is_same<typename UnorderedMapType<Key, T, Hash, Predicate, Allocator>::mapped_type, T>::value, "mapped_type");
@@ -51,33 +51,33 @@ public:
 						 TestCase::assert(std::is_same<typename UnorderedMapType<Key, T, Hash, Predicate, Allocator>::const_reference, typename UnorderedMapType<Key, T, Hash, Predicate, Allocator>::allocator_type::const_reference>::value, "const_reference");
 					 }),
 
-			TestCase("ctor default", [this]
+			TestCase("ctor default", []
 					 {
 						 UnorderedMapType<Key, T, Hash, Predicate, Allocator> testee;
 						 TestCase::assert(testee.size() == 0);
 					 }),
 
-			// TestCase("ctor default with allocator", [this]
+			// TestCase("ctor default with allocator", []
 			//		 {
 			//			 UnorderedMapType<Key, T, Hash, Predicate, Allocator> testee(std::allocator<T>());
 			//			 TestCase::assert(testee.size() == 0);
 			//		 }),
 
-			TestCase("ctor copy", [this]
+			TestCase("ctor copy", []
 					 {
 						 const UnorderedMapType<Key, T, Hash, Predicate, Allocator> other(INITIALIZER_LIST);
 						 UnorderedMapType<Key, T, Hash, Predicate, Allocator> testee(other);
 						 TestCase::assert(testee.size() == INITIALIZER_LIST.size());
 					 }),
 
-			// TestCase("ctor copy with allocator", [this]
+			// TestCase("ctor copy with allocator", []
 			//		 {
 			//			 const UnorderedMapType<Key, T, Hash, Predicate, Allocator> other(INITIALIZER_LIST);
 			//			 UnorderedMapType<Key, T, Hash, Predicate, Allocator> testee(other, std::allocator<T>());
 			//			 TestCase::assert(testee.size() == INITIALIZER_LIST.size());
 			//		 }),
 
-			TestCase("ctor move", [this]
+			TestCase("ctor move", []
 					 {
 						 UnorderedMapType<Key, T, Hash, Predicate, Allocator> other(INITIALIZER_LIST);
 						 UnorderedMapType<Key, T, Hash, Predicate, Allocator> testee(std::move(other));
@@ -85,7 +85,7 @@ public:
 						 TestCase::assert(testee.size() == INITIALIZER_LIST.size(), "testee");
 					 }),
 
-			// TestCase("ctor move with allocator", [this]
+			// TestCase("ctor move with allocator", []
 			//		 {
 			//			 UnorderedMapType<Key, T, Hash, Predicate, Allocator> other(INITIALIZER_LIST);
 			//			 UnorderedMapType<Key, T, Hash, Predicate, Allocator> testee(std::move(other), std::allocator<T>());
@@ -93,19 +93,19 @@ public:
 			//			 TestCase::assert(testee.size() == INITIALIZER_LIST.size(), "testee");
 			//		 }),
 
-			TestCase("ctor range", [this]
+			TestCase("ctor range", []
 					 {
 						 UnorderedMapType<Key, T, Hash, Predicate, Allocator> testee(ARRAY.begin(), ARRAY.end());
 						 TestCase::assert(testee.size() == ARRAY.size());
 					 }),
 
-			TestCase("ctor initializer list", [this]
+			TestCase("ctor initializer list", []
 					 {
 						 UnorderedMapType<Key, T, Hash, Predicate, Allocator> testee(INITIALIZER_LIST);
 						 TestCase::assert(testee.size() == INITIALIZER_LIST.size());
 					 }),
 
-			TestCase("operator= copy", [this]
+			TestCase("operator= copy", []
 					 {
 						 const UnorderedMapType<Key, T, Hash, Predicate, Allocator> other(INITIALIZER_LIST);
 						 UnorderedMapType<Key, T, Hash, Predicate, Allocator> testee;
@@ -114,7 +114,7 @@ public:
 						 TestCase::assert(testee.size() == INITIALIZER_LIST.size(), "result");
 					 }),
 
-			TestCase("operator= move", [this]
+			TestCase("operator= move", []
 					 {
 						 UnorderedMapType<Key, T, Hash, Predicate, Allocator> other(INITIALIZER_LIST);
 						 UnorderedMapType<Key, T, Hash, Predicate, Allocator> testee;
@@ -124,7 +124,7 @@ public:
 						 TestCase::assert(testee.size() == INITIALIZER_LIST.size(), "testee");
 					 }),
 
-			TestCase("operator= initializer list", [this]
+			TestCase("operator= initializer list", []
 					 {
 						 UnorderedMapType<Key, T, Hash, Predicate, Allocator> testee;
 						 auto& result = (testee = INITIALIZER_LIST);
@@ -132,7 +132,7 @@ public:
 						 TestCase::assert(testee.size() == INITIALIZER_LIST.size(), "result");
 					 }),
 
-			TestCase("begin", [this]
+			TestCase("begin", []
 					 {
 						 UnorderedMapType<Key, T, Hash, Predicate, Allocator> testee(INITIALIZER_LIST);
 						 auto result = testee.begin();
@@ -140,7 +140,7 @@ public:
 						 TestCase::assert(*result == ValueType(), "result");
 					 }),
 
-			TestCase("begin const", [this]
+			TestCase("begin const", []
 					 {
 						 const UnorderedMapType<Key, T, Hash, Predicate, Allocator> testee(INITIALIZER_LIST);
 						 auto result = testee.begin();
@@ -148,21 +148,21 @@ public:
 						 TestCase::assert(*result == ValueType(), "result");
 					 }),
 
-			TestCase("end", [this]
+			TestCase("end", []
 					 {
 						 UnorderedMapType<Key, T, Hash, Predicate, Allocator> testee(INITIALIZER_LIST);
 						 auto result = testee.end();
 						 TestCase::assert(std::is_same<typename UnorderedMapType<Key, T, Hash, Predicate, Allocator>::iterator, decltype(result)>::value);
 					 }),
 
-			TestCase("end const", [this]
+			TestCase("end const", []
 					 {
 						 const UnorderedMapType<Key, T, Hash, Predicate, Allocator> testee(INITIALIZER_LIST);
 						 auto result = testee.end();
 						 TestCase::assert(std::is_same<typename UnorderedMapType<Key, T, Hash, Predicate, Allocator>::const_iterator, decltype(result)>::value);
 					 }),
 
-			TestCase("cbegin", [this]
+			TestCase("cbegin", []
 					 {
 						 UnorderedMapType<Key, T, Hash, Predicate, Allocator> testee(INITIALIZER_LIST);
 						 auto result = testee.cbegin();
@@ -170,14 +170,14 @@ public:
 						 TestCase::assert(*result == ValueType(), "result");
 					 }),
 
-			TestCase("cend", [this]
+			TestCase("cend", []
 					 {
 						 UnorderedMapType<Key, T, Hash, Predicate, Allocator> testee(INITIALIZER_LIST);
 						 auto result = testee.cend();
 						 TestCase::assert(std::is_same<typename UnorderedMapType<Key, T, Hash, Predicate, Allocator>::const_iterator, decltype(result)>::value);
 					 }),
 
-			TestCase("empty", [this]
+			TestCase("empty", []
 					 {
 						 const UnorderedMapType<Key, T, Hash, Predicate, Allocator> testee;
 						 auto result = testee.empty();
@@ -185,7 +185,7 @@ public:
 						 TestCase::assert(result == true, "result");
 					 }),
 
-			TestCase("size", [this]
+			TestCase("size", []
 					 {
 						 const UnorderedMapType<Key, T, Hash, Predicate, Allocator> testee(INITIALIZER_LIST);
 						 auto result = testee.size();
@@ -193,7 +193,7 @@ public:
 						 TestCase::assert(result == INITIALIZER_LIST.size(), "result");
 					 }),
 
-			TestCase("max_size", [this]
+			TestCase("max_size", []
 					 {
 						 const UnorderedMapType<Key, T, Hash, Predicate, Allocator> testee(INITIALIZER_LIST);
 						 auto result = testee.max_size();
@@ -210,7 +210,7 @@ public:
 
 			TestCase("at const", TestAtConst<UnorderedMapType, Key, T, isMultimap, Hash, Predicate, Allocator>()),
 
-			TestCase("insert single element", [this]
+			TestCase("insert single element", []
 					 {
 						 UnorderedMapType<Key, T, Hash, Predicate, Allocator> testee;
 						 auto position = testee.begin();
@@ -224,7 +224,7 @@ public:
 						 TestCase::assert(testee.size() == 1, "result");
 					 }),
 
-			TestCase("insert move", [this]
+			TestCase("insert move", []
 					 {
 						 UnorderedMapType<Key, T, Hash, Predicate, Allocator> testee;
 						 auto position = testee.begin();
@@ -238,7 +238,7 @@ public:
 						 TestCase::assert(testee.size() == 1, "result");
 					 }),
 
-			TestCase("insert hint single element", [this]
+			TestCase("insert hint single element", []
 					 {
 						 UnorderedMapType<Key, T, Hash, Predicate, Allocator> testee;
 						 auto position = testee.begin();
@@ -248,7 +248,7 @@ public:
 						 TestCase::assert(testee.size() == 1, "result");
 					 }),
 
-			TestCase("insert hint move", [this]
+			TestCase("insert hint move", []
 					 {
 						 UnorderedMapType<Key, T, Hash, Predicate, Allocator> testee;
 						 auto position = testee.begin();
@@ -258,21 +258,21 @@ public:
 						 TestCase::assert(testee.size() == 1, "result");
 					 }),
 
-			TestCase("insert range", [this]
+			TestCase("insert range", []
 					 {
 						 UnorderedMapType<Key, T, Hash, Predicate, Allocator> testee;
 						 testee.insert(ARRAY.begin(), ARRAY.end());
 						 TestCase::assert(testee.size() == ARRAY.size());
 					 }),
 
-			TestCase("insert initializer list", [this]
+			TestCase("insert initializer list", []
 					 {
 						 UnorderedMapType<Key, T, Hash, Predicate, Allocator> testee;
 						 testee.insert(INITIALIZER_LIST);
 						 TestCase::assert(testee.size() == INITIALIZER_LIST.size());
 					 }),
 
-			TestCase("erase single element", [this]
+			TestCase("erase single element", []
 					 {
 						 UnorderedMapType<Key, T, Hash, Predicate, Allocator> testee(INITIALIZER_LIST);
 						 auto position = testee.begin();
@@ -281,7 +281,7 @@ public:
 						 TestCase::assert(testee.size() == 0, "result");
 					 }),
 
-			TestCase("erase key", [this]
+			TestCase("erase key", []
 					 {
 						 UnorderedMapType<Key, T, Hash, Predicate, Allocator> testee(INITIALIZER_LIST);
 						 auto result = testee.erase(Key());
@@ -289,7 +289,7 @@ public:
 						 TestCase::assert(testee.size() == 0, "result");
 					 }),
 
-			TestCase("erase range", [this]
+			TestCase("erase range", []
 					 {
 						 UnorderedMapType<Key, T, Hash, Predicate, Allocator> testee(INITIALIZER_LIST);
 						 auto first = testee.begin();
@@ -299,7 +299,7 @@ public:
 						 TestCase::assert(testee.size() == 0, "result");
 					 }),
 
-			TestCase("swap", [this]
+			TestCase("swap", []
 					 {
 						 UnorderedMapType<Key, T, Hash, Predicate, Allocator> other(INITIALIZER_LIST);
 						 UnorderedMapType<Key, T, Hash, Predicate, Allocator> testee(INITIALIZER_LIST);
@@ -308,14 +308,14 @@ public:
 						 TestCase::assert(testee.size() == INITIALIZER_LIST.size(), "testee");
 					 }),
 
-			TestCase("clear", [this]
+			TestCase("clear", []
 					 {
 						 UnorderedMapType<Key, T, Hash, Predicate, Allocator> testee(INITIALIZER_LIST);
 						 testee.clear();
 						 TestCase::assert(testee.size() == 0);
 					 }),
 
-			TestCase("emplace", [this]
+			TestCase("emplace", []
 					 {
 						 UnorderedMapType<Key, T, Hash, Predicate, Allocator> testee;
 						 auto result = testee.emplace();
@@ -327,7 +327,7 @@ public:
 						 TestCase::assert(testee.size() == 1, "result");
 					 }),
 
-			TestCase("emplace_hint", [this]
+			TestCase("emplace_hint", []
 					 {
 						 UnorderedMapType<Key, T, Hash, Predicate, Allocator> testee;
 						 auto position = testee.begin();
@@ -336,7 +336,7 @@ public:
 						 TestCase::assert(testee.size() == 1, "result");
 					 }),
 
-			TestCase("find", [this]
+			TestCase("find", []
 					 {
 						 UnorderedMapType<Key, T, Hash, Predicate, Allocator> testee(INITIALIZER_LIST);
 						 auto result = testee.find(Key());
@@ -344,7 +344,7 @@ public:
 						 TestCase::assert(*result == ValueType(), "result");
 					 }),
 
-			TestCase("find const", [this]
+			TestCase("find const", []
 					 {
 						 const UnorderedMapType<Key, T, Hash, Predicate, Allocator> testee(INITIALIZER_LIST);
 						 auto result = testee.find(Key());
@@ -352,7 +352,7 @@ public:
 						 TestCase::assert(*result == ValueType(), "result");
 					 }),
 
-			TestCase("count", [this]
+			TestCase("count", []
 					 {
 						 const UnorderedMapType<Key, T, Hash, Predicate, Allocator> testee(INITIALIZER_LIST);
 						 auto result = testee.count(Key());
@@ -360,21 +360,21 @@ public:
 						 TestCase::assert(result == 1, "result");
 					 }),
 
-			TestCase("equal_range", [this]
+			TestCase("equal_range", []
 					 {
 						 UnorderedMapType<Key, T, Hash, Predicate, Allocator> testee(INITIALIZER_LIST);
 						 auto result = testee.equal_range(Key());
 						 TestCase::assert(std::is_same<std::pair<typename UnorderedMapType<Key, T, Hash, Predicate, Allocator>::iterator, typename UnorderedMapType<Key, T, Hash, Predicate, Allocator>::iterator>, decltype(result)>::value);
 					 }),
 
-			TestCase("equal_range const", [this]
+			TestCase("equal_range const", []
 					 {
 						 const UnorderedMapType<Key, T, Hash, Predicate, Allocator> testee(INITIALIZER_LIST);
 						 auto result = testee.equal_range(Key());
 						 TestCase::assert(std::is_same<std::pair<typename UnorderedMapType<Key, T, Hash, Predicate, Allocator>::const_iterator, typename UnorderedMapType<Key, T, Hash, Predicate, Allocator>::const_iterator>, decltype(result)>::value);
 					 }),
 
-			TestCase("bucket_count", [this]
+			TestCase("bucket_count", []
 					 {
 						 const UnorderedMapType<Key, T, Hash, Predicate, Allocator> testee(INITIALIZER_LIST);
 						 auto result = testee.bucket_count();
@@ -382,7 +382,7 @@ public:
 						 TestCase::assert(result >= 1, "result");
 					 }),
 
-			TestCase("max_bucket_count", [this]
+			TestCase("max_bucket_count", []
 					 {
 						 const UnorderedMapType<Key, T, Hash, Predicate, Allocator> testee(INITIALIZER_LIST);
 						 auto result = testee.max_bucket_count();
@@ -390,7 +390,7 @@ public:
 						 TestCase::assert(result >= 1, "result");
 					 }),
 
-			TestCase("bucket_size", [this]
+			TestCase("bucket_size", []
 					 {
 						 const UnorderedMapType<Key, T, Hash, Predicate, Allocator> testee(INITIALIZER_LIST);
 						 auto result = testee.bucket_size(0);
@@ -398,7 +398,7 @@ public:
 						 TestCase::assert(result >= 0, "result");
 					 }),
 
-			TestCase("bucket", [this]
+			TestCase("bucket", []
 					 {
 						 const UnorderedMapType<Key, T, Hash, Predicate, Allocator> testee(INITIALIZER_LIST);
 						 auto result = testee.bucket(Key());
@@ -406,7 +406,7 @@ public:
 						 TestCase::assert(result >= 0, "result");
 					 }),
 
-			TestCase("load_factor", [this]
+			TestCase("load_factor", []
 					 {
 						 const UnorderedMapType<Key, T, Hash, Predicate, Allocator> testee(INITIALIZER_LIST);
 						 auto result = testee.load_factor();
@@ -414,7 +414,7 @@ public:
 						 TestCase::assert(result >= 0.0F, "result");
 					 }),
 
-			TestCase("max_load_factor get", [this]
+			TestCase("max_load_factor get", []
 					 {
 						 const UnorderedMapType<Key, T, Hash, Predicate, Allocator> testee(INITIALIZER_LIST);
 						 auto result = testee.max_load_factor();
@@ -422,7 +422,7 @@ public:
 						 TestCase::assert(result >= 0.0F, "result");
 					 }),
 
-			TestCase("max_load_factor set", [this]
+			TestCase("max_load_factor set", []
 					 {
 						 UnorderedMapType<Key, T, Hash, Predicate, Allocator> testee(INITIALIZER_LIST);
 						 auto oldLoadFactor = testee.max_load_factor();
@@ -431,7 +431,7 @@ public:
 						 TestCase::assert(newLoadFactor >= oldLoadFactor);
 					 }),
 
-			TestCase("rehash", [this]
+			TestCase("rehash", []
 					 {
 						 UnorderedMapType<Key, T, Hash, Predicate, Allocator> testee(INITIALIZER_LIST);
 						 auto oldCount = testee.bucket_count();
@@ -440,7 +440,7 @@ public:
 						 TestCase::assert(newCount > oldCount);
 					 }),
 
-			TestCase("reserve", [this]
+			TestCase("reserve", []
 					 {
 						 UnorderedMapType<Key, T, Hash, Predicate, Allocator> testee(INITIALIZER_LIST);
 						 auto oldCount = testee.bucket_count();
@@ -449,28 +449,28 @@ public:
 						 TestCase::assert(newCount > oldCount);
 					 }),
 
-			TestCase("hash_function", [this]
+			TestCase("hash_function", []
 					 {
 						 const UnorderedMapType<Key, T, Hash, Predicate, Allocator> testee;
 						 auto result = testee.hash_function();
 						 TestCase::assert(std::is_same<typename UnorderedMapType<Key, T, Hash, Predicate, Allocator>::hasher, decltype(result)>::value);
 					 }),
 
-			TestCase("key_eq", [this]
+			TestCase("key_eq", []
 					 {
 						 const UnorderedMapType<Key, T, Hash, Predicate, Allocator> testee;
 						 auto result = testee.key_eq();
 						 TestCase::assert(std::is_same<typename UnorderedMapType<Key, T, Hash, Predicate, Allocator>::key_equal, decltype(result)>::value);
 					 }),
 
-			TestCase("get_allocator", [this]
+			TestCase("get_allocator", []
 					 {
 						 UnorderedMapType<Key, T, Hash, Predicate, Allocator> testee;
 						 auto result = testee.get_allocator();
 						 TestCase::assert(std::is_same<typename UnorderedMapType<Key, T, Hash, Predicate, Allocator>::allocator_type, decltype(result)>::value);
 					 }),
 
-			TestCase("operator==", [this]
+			TestCase("operator==", []
 					 {
 						 UnorderedMapType<Key, T, Hash, Predicate, Allocator> lhs(INITIALIZER_LIST);
 						 UnorderedMapType<Key, T, Hash, Predicate, Allocator> rhs(INITIALIZER_LIST);
@@ -479,7 +479,7 @@ public:
 						 TestCase::assert(result == true, "result");
 					 }),
 
-			TestCase("operator!=", [this]
+			TestCase("operator!=", []
 					 {
 						 UnorderedMapType<Key, T, Hash, Predicate, Allocator> lhs;
 						 UnorderedMapType<Key, T, Hash, Predicate, Allocator> rhs(INITIALIZER_LIST);
@@ -488,7 +488,7 @@ public:
 						 TestCase::assert(result == true, "result");
 					 }),
 
-			TestCase("swap lhs rhs", [this]
+			TestCase("swap lhs rhs", []
 					 {
 						 UnorderedMapType<Key, T, Hash, Predicate, Allocator> lhs(INITIALIZER_LIST);
 						 UnorderedMapType<Key, T, Hash, Predicate, Allocator> rhs;

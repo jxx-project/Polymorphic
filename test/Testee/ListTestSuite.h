@@ -23,7 +23,7 @@ public:
 
 	ListTestSuite() : TestSuite({
 
-			TestCase("typedefs", [this]
+			TestCase("typedefs", []
 					 {
 						 TestCase::assert(std::is_same<typename ListType<T, Allocator>::value_type, T>::value, "value_type");
 						 TestCase::assert(std::is_class<typename ListType<T, Allocator>::allocator_type>::value, "allocator_type");
@@ -31,39 +31,39 @@ public:
 						 TestCase::assert(std::is_same<typename ListType<T, Allocator>::const_reference, const T&>::value, "const_reference");
 					 }),
 
-			TestCase("ctor default", [this]
+			TestCase("ctor default", []
 					 {
 						 ListType<T, Allocator> testee;
 						 TestCase::assert(testee.size() == 0);
 					 }),
 
-			TestCase("ctor fill", [this]
+			TestCase("ctor fill", []
 					 {
 						 ListType<T, Allocator> testee(3);
 						 TestCase::assert(testee.size() == 3);
 					 }),
 
-			TestCase("ctor fill value", [this]
+			TestCase("ctor fill value", []
 					 {
 						 ListType<T, Allocator> testee(3, T(), std::allocator<T>());
 						 TestCase::assert(testee.size() == 3);
 					 }),
 
-			TestCase("ctor copy", [this]
+			TestCase("ctor copy", []
 					 {
 						 const ListType<T, Allocator> other(3);
 						 ListType<T, Allocator> testee(other);
 						 TestCase::assert(testee.size() == 3);
 					 }),
 
-			// TestCase("ctor copy with allocator", [this]
+			// TestCase("ctor copy with allocator", []
 			//		 {
 			//			 const ListType<T, Allocator> other(3);
 			//			 ListType<T, Allocator> testee(other, std::allocator<T>());
 			//			 TestCase::assert(testee.size() == 3);
 			//		 }),
 
-			TestCase("ctor move", [this]
+			TestCase("ctor move", []
 					 {
 						 ListType<T, Allocator> other(3);
 						 ListType<T, Allocator> testee(std::move(other));
@@ -71,7 +71,7 @@ public:
 						 TestCase::assert(testee.size() == 3, "testee");
 					 }),
 
-			// TestCase("ctor move with allocator", [this]
+			// TestCase("ctor move with allocator", []
 			//		 {
 			//			 ListType<T, Allocator> other(3);
 			//			 ListType<T, Allocator> testee(std::move(other), std::allocator<T>());
@@ -79,19 +79,19 @@ public:
 			//			 TestCase::assert(testee.size() == 3, "testee");
 			//		 }),
 
-			TestCase("ctor range", [this]
+			TestCase("ctor range", []
 					 {
 						 ListType<T, Allocator> testee(ARRAY.begin(), ARRAY.end());
 						 TestCase::assert(testee.size() == ARRAY.size());
 					 }),
 
-			TestCase("ctor initializer list", [this]
+			TestCase("ctor initializer list", []
 					 {
 						 ListType<T, Allocator> testee(INITIALIZER_LIST);
 						 TestCase::assert(testee.size() == INITIALIZER_LIST.size());
 					 }),
 
-			TestCase("operator= copy", [this]
+			TestCase("operator= copy", []
 					 {
 						 const ListType<T, Allocator> other(3);
 						 ListType<T, Allocator> testee;
@@ -100,7 +100,7 @@ public:
 						 TestCase::assert(testee.size() == 3, "result");
 					 }),
 
-			TestCase("operator= move", [this]
+			TestCase("operator= move", []
 					 {
 						 ListType<T, Allocator> other(3);
 						 ListType<T, Allocator> testee;
@@ -110,7 +110,7 @@ public:
 						 TestCase::assert(testee.size() == 3, "testee");
 					 }),
 
-			TestCase("operator= initializer list", [this]
+			TestCase("operator= initializer list", []
 					 {
 						 ListType<T, Allocator> testee;
 						 auto& result = (testee = INITIALIZER_LIST);
@@ -118,7 +118,7 @@ public:
 						 TestCase::assert(testee.size() == INITIALIZER_LIST.size(), "result");
 					 }),
 
-			TestCase("begin", [this]
+			TestCase("begin", []
 					 {
 						 ListType<T, Allocator> testee(1);
 						 auto result = testee.begin();
@@ -126,7 +126,7 @@ public:
 						 TestCase::assert(*result == T(), "result");
 					 }),
 
-			TestCase("begin const", [this]
+			TestCase("begin const", []
 					 {
 						 const ListType<T, Allocator> testee(1);
 						 auto result = testee.begin();
@@ -134,7 +134,7 @@ public:
 						 TestCase::assert(*result == T(), "result");
 					 }),
 
-			TestCase("end", [this]
+			TestCase("end", []
 					 {
 						 ListType<T, Allocator> testee(1);
 						 auto result = testee.end();
@@ -142,7 +142,7 @@ public:
 						 TestCase::assert(*(--result) == T(), "result");
 					 }),
 
-			TestCase("end const", [this]
+			TestCase("end const", []
 					 {
 						 const ListType<T, Allocator> testee(1);
 						 auto result = testee.end();
@@ -150,7 +150,7 @@ public:
 						 TestCase::assert(*(--result) == T(), "result");
 					 }),
 
-			TestCase("rbegin", [this]
+			TestCase("rbegin", []
 					 {
 						 ListType<T, Allocator> testee(1);
 						 auto result = testee.rbegin();
@@ -158,7 +158,7 @@ public:
 						 TestCase::assert(*result == T(), "result");
 					 }),
 
-			TestCase("rbegin const", [this]
+			TestCase("rbegin const", []
 					 {
 						 const ListType<T, Allocator> testee(1);
 						 auto result = testee.rbegin();
@@ -166,7 +166,7 @@ public:
 						 TestCase::assert(*result == T(), "result");
 					 }),
 
-			TestCase("rend", [this]
+			TestCase("rend", []
 					 {
 						 ListType<T, Allocator> testee(1);
 						 auto result = testee.rend();
@@ -174,7 +174,7 @@ public:
 						 TestCase::assert(*(--result) == T(), "result");
 					 }),
 
-			TestCase("rend const", [this]
+			TestCase("rend const", []
 					 {
 						 const ListType<T, Allocator> testee(1);
 						 auto result = testee.rend();
@@ -182,7 +182,7 @@ public:
 						 TestCase::assert(*(--result) == T(), "result");
 					 }),
 
-			TestCase("cbegin", [this]
+			TestCase("cbegin", []
 					 {
 						 ListType<T, Allocator> testee(1);
 						 auto result = testee.cbegin();
@@ -190,7 +190,7 @@ public:
 						 TestCase::assert(*result == T(), "result");
 					 }),
 
-			TestCase("cend", [this]
+			TestCase("cend", []
 					 {
 						 ListType<T, Allocator> testee(1);
 						 auto result = testee.cend();
@@ -198,7 +198,7 @@ public:
 						 TestCase::assert(*(--result) == T(), "result");
 					 }),
 
-			TestCase("crbegin", [this]
+			TestCase("crbegin", []
 					 {
 						 ListType<T, Allocator> testee(1);
 						 auto result = testee.crbegin();
@@ -206,7 +206,7 @@ public:
 						 TestCase::assert(*result == T(), "result");
 					 }),
 
-			TestCase("crend", [this]
+			TestCase("crend", []
 					 {
 						 ListType<T, Allocator> testee(1);
 						 auto result = testee.crend();
@@ -214,7 +214,7 @@ public:
 						 TestCase::assert(*(--result) == T(), "result");
 					 }),
 
-			TestCase("empty", [this]
+			TestCase("empty", []
 					 {
 						 const ListType<T, Allocator> testee;
 						 auto result = testee.empty();
@@ -222,7 +222,7 @@ public:
 						 TestCase::assert(result == true, "result");
 					 }),
 
-			TestCase("size", [this]
+			TestCase("size", []
 					 {
 						 const ListType<T, Allocator> testee(3);
 						 auto result = testee.size();
@@ -230,7 +230,7 @@ public:
 						 TestCase::assert(result == 3, "result");
 					 }),
 
-			TestCase("max_size", [this]
+			TestCase("max_size", []
 					 {
 						 const ListType<T, Allocator> testee(3);
 						 auto result = testee.max_size();
@@ -238,7 +238,7 @@ public:
 						 TestCase::assert(result >= 3, "result");
 					 }),
 
-			TestCase("front", [this]
+			TestCase("front", []
 					 {
 						 ListType<T, Allocator> testee(1);
 						 auto& result = testee.front();
@@ -246,7 +246,7 @@ public:
 						 TestCase::assert(result == T(), "result");
 					 }),
 
-			TestCase("front const", [this]
+			TestCase("front const", []
 					 {
 						 const ListType<T, Allocator> testee(1);
 						 auto& result = testee.front();
@@ -254,7 +254,7 @@ public:
 						 TestCase::assert(result == T(), "result");
 					 }),
 
-			TestCase("back", [this]
+			TestCase("back", []
 					 {
 						 ListType<T, Allocator> testee(1);
 						 auto& result = testee.back();
@@ -262,7 +262,7 @@ public:
 						 TestCase::assert(result == T(), "result");
 					 }),
 
-			TestCase("back const", [this]
+			TestCase("back const", []
 					 {
 						 const ListType<T, Allocator> testee(1);
 						 auto& result = testee.back();
@@ -270,35 +270,35 @@ public:
 						 TestCase::assert(result == T(), "result");
 					 }),
 
-			TestCase("assign range", [this]
+			TestCase("assign range", []
 					 {
 						 ListType<T, Allocator> testee;
 						 testee.assign(ARRAY.begin(), ARRAY.end());
 						 TestCase::assert(testee.size() == ARRAY.size());
 					 }),
 
-			TestCase("assign fill value", [this]
+			TestCase("assign fill value", []
 					 {
 						 ListType<T, Allocator> testee;
 						 testee.assign(3, T());
 						 TestCase::assert(testee.size() == 3);
 					 }),
 
-			TestCase("assign initializer list", [this]
+			TestCase("assign initializer list", []
 					 {
 						 ListType<T, Allocator> testee;
 						 testee.assign(INITIALIZER_LIST);
 						 TestCase::assert(testee.size() == INITIALIZER_LIST.size());
 					 }),
 
-			TestCase("emplace_front", [this]
+			TestCase("emplace_front", []
 					 {
 						 ListType<T, Allocator> testee(1);
 						 testee.emplace_front();
 						 TestCase::assert(testee.size() == 2);
 					 }),
 
-			TestCase("push_front copy", [this]
+			TestCase("push_front copy", []
 					 {
 						 ListType<T, Allocator> testee;
 						 T value = {};
@@ -306,7 +306,7 @@ public:
 						 TestCase::assert(testee.size() == 1);
 					 }),
 
-			TestCase("push_front move", [this]
+			TestCase("push_front move", []
 					 {
 						 ListType<T, Allocator> testee;
 						 T value = {};
@@ -314,21 +314,21 @@ public:
 						 TestCase::assert(testee.size() == 1);
 					 }),
 
-			TestCase("pop_front", [this]
+			TestCase("pop_front", []
 					 {
 						 ListType<T, Allocator> testee(2);
 						 testee.pop_front();
 						 TestCase::assert(testee.size() == 1);
 					 }),
 
-			TestCase("emplace_back", [this]
+			TestCase("emplace_back", []
 					 {
 						 ListType<T, Allocator> testee(1);
 						 testee.emplace_back();
 						 TestCase::assert(testee.size() == 2);
 					 }),
 
-			TestCase("push_back copy", [this]
+			TestCase("push_back copy", []
 					 {
 						 ListType<T, Allocator> testee;
 						 T value = {};
@@ -336,7 +336,7 @@ public:
 						 TestCase::assert(testee.size() == 1);
 					 }),
 
-			TestCase("push_back move", [this]
+			TestCase("push_back move", []
 					 {
 						 ListType<T, Allocator> testee;
 						 T value = {};
@@ -344,14 +344,14 @@ public:
 						 TestCase::assert(testee.size() == 1);
 					 }),
 
-			TestCase("pop_back", [this]
+			TestCase("pop_back", []
 					 {
 						 ListType<T, Allocator> testee(2);
 						 testee.pop_back();
 						 TestCase::assert(testee.size() == 1);
 					 }),
 
-			TestCase("emplace", [this]
+			TestCase("emplace", []
 					 {
 						 ListType<T, Allocator> testee(1);
 						 auto position = testee.begin();
@@ -360,7 +360,7 @@ public:
 						 TestCase::assert(testee.size() == 2, "result");
 					 }),
 
-			TestCase("insert single element", [this]
+			TestCase("insert single element", []
 					 {
 						 ListType<T, Allocator> testee(1);
 						 auto position = testee.begin();
@@ -370,7 +370,7 @@ public:
 						 TestCase::assert(testee.size() == 2, "result");
 					 }),
 
-			TestCase("insert fill", [this]
+			TestCase("insert fill", []
 					 {
 						 ListType<T, Allocator> testee(1);
 						 auto position = testee.begin();
@@ -380,7 +380,7 @@ public:
 						 TestCase::assert(testee.size() == 3, "result");
 					 }),
 
-			TestCase("insert range", [this]
+			TestCase("insert range", []
 					 {
 						 ListType<T, Allocator> testee(1);
 						 auto position = testee.begin();
@@ -389,7 +389,7 @@ public:
 						 TestCase::assert(testee.size() == 1 + ARRAY.size(), "result");
 					 }),
 
-			TestCase("insert move", [this]
+			TestCase("insert move", []
 					 {
 						 ListType<T, Allocator> testee(1);
 						 auto position = testee.begin();
@@ -399,7 +399,7 @@ public:
 						 TestCase::assert(testee.size() == 2, "result");
 					 }),
 
-			TestCase("insert initializer list", [this]
+			TestCase("insert initializer list", []
 					 {
 						 ListType<T, Allocator> testee(1);
 						 auto position = testee.begin();
@@ -408,7 +408,7 @@ public:
 						 TestCase::assert(testee.size() == 1 + INITIALIZER_LIST.size(), "result");
 					 }),
 
-			TestCase("erase single element", [this]
+			TestCase("erase single element", []
 					 {
 						 ListType<T, Allocator> testee(3);
 						 auto position = testee.begin();
@@ -417,7 +417,7 @@ public:
 						 TestCase::assert(testee.size() == 2, "result");
 					 }),
 
-			TestCase("erase range", [this]
+			TestCase("erase range", []
 					 {
 						 ListType<T, Allocator> testee(3);
 						 auto first = testee.begin();
@@ -429,7 +429,7 @@ public:
 						 TestCase::assert(testee.size() == 1, "result");
 					 }),
 
-			TestCase("swap", [this]
+			TestCase("swap", []
 					 {
 						 ListType<T, Allocator> other(3);
 						 ListType<T, Allocator> testee(1);
@@ -438,28 +438,28 @@ public:
 						 TestCase::assert(testee.size() == 3, "testee");
 					 }),
 
-			TestCase("resize", [this]
+			TestCase("resize", []
 					 {
 						 ListType<T, Allocator> testee(1);
 						 testee.resize(3);
 						 TestCase::assert(testee.size() == 3);
 					 }),
 
-			TestCase("resize value", [this]
+			TestCase("resize value", []
 					 {
 						 ListType<T, Allocator> testee(1);
 						 testee.resize(3, T());
 						 TestCase::assert(testee.size() == 3);
 					 }),
 
-			TestCase("clear", [this]
+			TestCase("clear", []
 					 {
 						 ListType<T, Allocator> testee(1);
 						 testee.clear();
 						 TestCase::assert(testee.size() == 0);
 					 }),
 
-			TestCase("splice entire list", [this]
+			TestCase("splice entire list", []
 					 {
 						 ListType<T, Allocator> other(3);
 						 ListType<T, Allocator> testee(1);
@@ -469,7 +469,7 @@ public:
 						 TestCase::assert(testee.size() == 4, "testee");
 					 }),
 
-			TestCase("splice entire list move", [this]
+			TestCase("splice entire list move", []
 					 {
 						 ListType<T, Allocator> other(3);
 						 ListType<T, Allocator> testee(1);
@@ -479,7 +479,7 @@ public:
 						 TestCase::assert(testee.size() == 4, "testee");
 					 }),
 
-			TestCase("splice single element", [this]
+			TestCase("splice single element", []
 					 {
 						 ListType<T, Allocator> other(3);
 						 auto i = other.begin();
@@ -490,7 +490,7 @@ public:
 						 TestCase::assert(testee.size() == 2, "testee");
 					 }),
 
-			TestCase("splice single element move", [this]
+			TestCase("splice single element move", []
 					 {
 						 ListType<T, Allocator> other(3);
 						 auto i = other.begin();
@@ -501,7 +501,7 @@ public:
 						 TestCase::assert(testee.size() == 2, "testee");
 					 }),
 
-			TestCase("splice range move", [this]
+			TestCase("splice range move", []
 					 {
 						 ListType<T, Allocator> other(3);
 						 auto first = other.begin();
@@ -515,7 +515,7 @@ public:
 						 TestCase::assert(testee.size() == 3, "testee");
 					 }),
 
-			TestCase("splice range", [this]
+			TestCase("splice range", []
 					 {
 						 ListType<T, Allocator> other(3);
 						 auto first = other.begin();
@@ -529,35 +529,35 @@ public:
 						 TestCase::assert(testee.size() == 3, "testee");
 					 }),
 
-			TestCase("remove", [this]
+			TestCase("remove", []
 					 {
 						 ListType<T, Allocator> testee(1);
 						 testee.remove(T());
 						 TestCase::assert(testee.size() == 0);
 					 }),
 
-			TestCase("remove_if", [this]
+			TestCase("remove_if", []
 					 {
 						 ListType<T, Allocator> testee(1);
 						 testee.remove_if([](const T&)->bool{return true;});
 						 TestCase::assert(testee.size() == 0);
 					 }),
 
-			TestCase("unique", [this]
+			TestCase("unique", []
 					 {
 						 ListType<T, Allocator> testee(3);
 						 testee.unique();
 						 TestCase::assert(testee.size() == 1);
 					 }),
 
-			TestCase("unique with predicate", [this]
+			TestCase("unique with predicate", []
 					 {
 						 ListType<T, Allocator> testee(3);
 						 testee.unique([](const T& lhs, const T& rhs)->bool{return lhs == rhs;});
 						 TestCase::assert(testee.size() == 1);
 					 }),
 
-			TestCase("merge", [this]
+			TestCase("merge", []
 					 {
 						 ListType<T, Allocator> other(2);
 						 ListType<T, Allocator> testee(1);
@@ -565,7 +565,7 @@ public:
 						 TestCase::assert(testee.size() == 3);
 					 }),
 
-			TestCase("merge move", [this]
+			TestCase("merge move", []
 					 {
 						 ListType<T, Allocator> other(2);
 						 ListType<T, Allocator> testee(1);
@@ -573,7 +573,7 @@ public:
 						 TestCase::assert(testee.size() == 3);
 					 }),
 
-			TestCase("merge with predicate", [this]
+			TestCase("merge with predicate", []
 					 {
 						 ListType<T, Allocator> other(2);
 						 ListType<T, Allocator> testee(1);
@@ -581,7 +581,7 @@ public:
 						 TestCase::assert(testee.size() == 3);
 					 }),
 
-			TestCase("merge with predicate move", [this]
+			TestCase("merge with predicate move", []
 					 {
 						 ListType<T, Allocator> other(2);
 						 ListType<T, Allocator> testee(1);
@@ -589,35 +589,35 @@ public:
 						 TestCase::assert(testee.size() == 3);
 					 }),
 
-			TestCase("sort", [this]
+			TestCase("sort", []
 					 {
 						 ListType<T, Allocator> testee(3);
 						 testee.sort();
 						 TestCase::assert(testee.size() == 3);
 					 }),
 
-			TestCase("sort with predicate", [this]
+			TestCase("sort with predicate", []
 					 {
 						 ListType<T, Allocator> testee(3);
 						 testee.sort([](const T& lhs, const T& rhs)->bool{return lhs < rhs;});
 						 TestCase::assert(testee.size() == 3);
 					 }),
 
-			TestCase("reverse", [this]
+			TestCase("reverse", []
 					 {
 						 ListType<T, Allocator> testee(3);
 						 testee.reverse();
 						 TestCase::assert(testee.size() == 3);
 					 }),
 
-			TestCase("get_allocator", [this]
+			TestCase("get_allocator", []
 					 {
 						 ListType<T, Allocator> testee;
 						 auto result = testee.get_allocator();
 						 TestCase::assert(std::is_same<typename ListType<T, Allocator>::allocator_type, decltype(result)>::value);
 					 }),
 
-			TestCase("operator==", [this]
+			TestCase("operator==", []
 					 {
 						 ListType<T, Allocator> lhs(3);
 						 ListType<T, Allocator> rhs(3);
@@ -626,7 +626,7 @@ public:
 						 TestCase::assert(result == true, "result");
 					 }),
 
-			TestCase("operator!=", [this]
+			TestCase("operator!=", []
 					 {
 						 ListType<T, Allocator> lhs(2);
 						 ListType<T, Allocator> rhs(3);
@@ -635,7 +635,7 @@ public:
 						 TestCase::assert(result == true, "result");
 					 }),
 
-			TestCase("operator<", [this]
+			TestCase("operator<", []
 					 {
 						 ListType<T, Allocator> lhs(2);
 						 ListType<T, Allocator> rhs(3);
@@ -644,7 +644,7 @@ public:
 						 TestCase::assert(result == true, "result");
 					 }),
 
-			TestCase("operator<=", [this]
+			TestCase("operator<=", []
 					 {
 						 ListType<T, Allocator> lhs(2);
 						 ListType<T, Allocator> rhs(3);
@@ -653,7 +653,7 @@ public:
 						 TestCase::assert(result == true, "result");
 					 }),
 
-			TestCase("operator>", [this]
+			TestCase("operator>", []
 					 {
 						 ListType<T, Allocator> lhs(3);
 						 ListType<T, Allocator> rhs(2);
@@ -662,7 +662,7 @@ public:
 						 TestCase::assert(result == true, "result");
 					 }),
 
-			TestCase("operator>=", [this]
+			TestCase("operator>=", []
 					 {
 						 ListType<T, Allocator> lhs(3);
 						 ListType<T, Allocator> rhs(2);
@@ -671,7 +671,7 @@ public:
 						 TestCase::assert(result == true, "result");
 					 }),
 
-			TestCase("swap lhs rhs", [this]
+			TestCase("swap lhs rhs", []
 					 {
 						 ListType<T, Allocator> lhs(3);
 						 ListType<T, Allocator> rhs(2);

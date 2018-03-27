@@ -39,7 +39,7 @@ public:
 
 	MapTestSuite() : TestSuite({
 
-			TestCase("typedefs", [this]
+			TestCase("typedefs", []
 					 {
 						 TestCase::assert(std::is_same<typename MapType<Key, T, Compare, Allocator>::key_type, Key>::value, "key_type");
 						 TestCase::assert(std::is_same<typename MapType<Key, T, Compare, Allocator>::mapped_type, T>::value, "mapped_type");
@@ -49,33 +49,33 @@ public:
 						 TestCase::assert(std::is_same<typename MapType<Key, T, Compare, Allocator>::const_reference, const std::pair<const Key, T>&>::value, "const_reference");
 					 }),
 
-			TestCase("ctor default", [this]
+			TestCase("ctor default", []
 					 {
 						 MapType<Key, T, Compare, Allocator> testee;
 						 TestCase::assert(testee.size() == 0);
 					 }),
 
-			// TestCase("ctor default with allocator", [this]
+			// TestCase("ctor default with allocator", []
 			//		 {
 			//			 MapType<Key, T, Compare, Allocator> testee(std::allocator<T>());
 			//			 TestCase::assert(testee.size() == 0);
 			//		 }),
 
-			TestCase("ctor copy", [this]
+			TestCase("ctor copy", []
 					 {
 						 const MapType<Key, T, Compare, Allocator> other(INITIALIZER_LIST);
 						 MapType<Key, T, Compare, Allocator> testee(other);
 						 TestCase::assert(testee.size() == INITIALIZER_LIST.size());
 					 }),
 
-			// TestCase("ctor copy with allocator", [this]
+			// TestCase("ctor copy with allocator", []
 			//		 {
 			//			 const MapType<Key, T, Compare, Allocator> other(INITIALIZER_LIST);
 			//			 MapType<Key, T, Compare, Allocator> testee(other, std::allocator<T>());
 			//			 TestCase::assert(testee.size() == INITIALIZER_LIST.size());
 			//		 }),
 
-			TestCase("ctor move", [this]
+			TestCase("ctor move", []
 					 {
 						 MapType<Key, T, Compare, Allocator> other(INITIALIZER_LIST);
 						 MapType<Key, T, Compare, Allocator> testee(std::move(other));
@@ -83,7 +83,7 @@ public:
 						 TestCase::assert(testee.size() == INITIALIZER_LIST.size(), "testee");
 					 }),
 
-			// TestCase("ctor move with allocator", [this]
+			// TestCase("ctor move with allocator", []
 			//		 {
 			//			 MapType<Key, T, Compare, Allocator> other(INITIALIZER_LIST);
 			//			 MapType<Key, T, Compare, Allocator> testee(std::move(other), std::allocator<T>());
@@ -91,19 +91,19 @@ public:
 			//			 TestCase::assert(testee.size() == INITIALIZER_LIST.size(), "testee");
 			//		 }),
 
-			TestCase("ctor range", [this]
+			TestCase("ctor range", []
 					 {
 						 MapType<Key, T, Compare, Allocator> testee(ARRAY.begin(), ARRAY.end());
 						 TestCase::assert(testee.size() == ARRAY.size());
 					 }),
 
-			TestCase("ctor initializer list", [this]
+			TestCase("ctor initializer list", []
 					 {
 						 MapType<Key, T, Compare, Allocator> testee(INITIALIZER_LIST);
 						 TestCase::assert(testee.size() == INITIALIZER_LIST.size());
 					 }),
 
-			TestCase("operator= copy", [this]
+			TestCase("operator= copy", []
 					 {
 						 const MapType<Key, T, Compare, Allocator> other(INITIALIZER_LIST);
 						 MapType<Key, T, Compare, Allocator> testee;
@@ -112,7 +112,7 @@ public:
 						 TestCase::assert(testee.size() == INITIALIZER_LIST.size(), "result");
 					 }),
 
-			TestCase("operator= move", [this]
+			TestCase("operator= move", []
 					 {
 						 MapType<Key, T, Compare, Allocator> other(INITIALIZER_LIST);
 						 MapType<Key, T, Compare, Allocator> testee;
@@ -122,7 +122,7 @@ public:
 						 TestCase::assert(testee.size() == INITIALIZER_LIST.size(), "testee");
 					 }),
 
-			TestCase("operator= initializer list", [this]
+			TestCase("operator= initializer list", []
 					 {
 						 MapType<Key, T, Compare, Allocator> testee;
 						 auto& result = (testee = INITIALIZER_LIST);
@@ -130,7 +130,7 @@ public:
 						 TestCase::assert(testee.size() == INITIALIZER_LIST.size(), "result");
 					 }),
 
-			TestCase("begin", [this]
+			TestCase("begin", []
 					 {
 						 MapType<Key, T, Compare, Allocator> testee(INITIALIZER_LIST);
 						 auto result = testee.begin();
@@ -138,7 +138,7 @@ public:
 						 TestCase::assert(*result == ValueType(), "result");
 					 }),
 
-			TestCase("begin const", [this]
+			TestCase("begin const", []
 					 {
 						 const MapType<Key, T, Compare, Allocator> testee(INITIALIZER_LIST);
 						 auto result = testee.begin();
@@ -146,7 +146,7 @@ public:
 						 TestCase::assert(*result == ValueType(), "result");
 					 }),
 
-			TestCase("end", [this]
+			TestCase("end", []
 					 {
 						 MapType<Key, T, Compare, Allocator> testee(INITIALIZER_LIST);
 						 auto result = testee.end();
@@ -154,7 +154,7 @@ public:
 						 TestCase::assert(*(--result) == ValueType(), "result");
 					 }),
 
-			TestCase("end const", [this]
+			TestCase("end const", []
 					 {
 						 const MapType<Key, T, Compare, Allocator> testee(INITIALIZER_LIST);
 						 auto result = testee.end();
@@ -162,7 +162,7 @@ public:
 						 TestCase::assert(*(--result) == ValueType(), "result");
 					 }),
 
-			TestCase("rbegin", [this]
+			TestCase("rbegin", []
 					 {
 						 MapType<Key, T, Compare, Allocator> testee(INITIALIZER_LIST);
 						 auto result = testee.rbegin();
@@ -170,7 +170,7 @@ public:
 						 TestCase::assert(*result == ValueType(), "result");
 					 }),
 
-			TestCase("rbegin const", [this]
+			TestCase("rbegin const", []
 					 {
 						 const MapType<Key, T, Compare, Allocator> testee(INITIALIZER_LIST);
 						 auto result = testee.rbegin();
@@ -178,7 +178,7 @@ public:
 						 TestCase::assert(*result == ValueType(), "result");
 					 }),
 
-			TestCase("rend", [this]
+			TestCase("rend", []
 					 {
 						 MapType<Key, T, Compare, Allocator> testee(INITIALIZER_LIST);
 						 auto result = testee.rend();
@@ -186,7 +186,7 @@ public:
 						 TestCase::assert(*(--result) == ValueType(), "result");
 					 }),
 
-			TestCase("rend const", [this]
+			TestCase("rend const", []
 					 {
 						 const MapType<Key, T, Compare, Allocator> testee(INITIALIZER_LIST);
 						 auto result = testee.rend();
@@ -194,7 +194,7 @@ public:
 						 TestCase::assert(*(--result) == ValueType(), "result");
 					 }),
 
-			TestCase("cbegin", [this]
+			TestCase("cbegin", []
 					 {
 						 MapType<Key, T, Compare, Allocator> testee(INITIALIZER_LIST);
 						 auto result = testee.cbegin();
@@ -202,7 +202,7 @@ public:
 						 TestCase::assert(*result == ValueType(), "result");
 					 }),
 
-			TestCase("cend", [this]
+			TestCase("cend", []
 					 {
 						 MapType<Key, T, Compare, Allocator> testee(INITIALIZER_LIST);
 						 auto result = testee.cend();
@@ -210,7 +210,7 @@ public:
 						 TestCase::assert(*(--result) == ValueType(), "result");
 					 }),
 
-			TestCase("crbegin", [this]
+			TestCase("crbegin", []
 					 {
 						 MapType<Key, T, Compare, Allocator> testee(INITIALIZER_LIST);
 						 auto result = testee.crbegin();
@@ -218,7 +218,7 @@ public:
 						 TestCase::assert(*result == ValueType(), "result");
 					 }),
 
-			TestCase("crend", [this]
+			TestCase("crend", []
 					 {
 						 MapType<Key, T, Compare, Allocator> testee(INITIALIZER_LIST);
 						 auto result = testee.crend();
@@ -226,7 +226,7 @@ public:
 						 TestCase::assert(*(--result) == ValueType(), "result");
 					 }),
 
-			TestCase("empty", [this]
+			TestCase("empty", []
 					 {
 						 const MapType<Key, T, Compare, Allocator> testee;
 						 auto result = testee.empty();
@@ -234,7 +234,7 @@ public:
 						 TestCase::assert(result == true, "result");
 					 }),
 
-			TestCase("size", [this]
+			TestCase("size", []
 					 {
 						 const MapType<Key, T, Compare, Allocator> testee(INITIALIZER_LIST);
 						 auto result = testee.size();
@@ -242,7 +242,7 @@ public:
 						 TestCase::assert(result == INITIALIZER_LIST.size(), "result");
 					 }),
 
-			TestCase("max_size", [this]
+			TestCase("max_size", []
 					 {
 						 const MapType<Key, T, Compare, Allocator> testee(INITIALIZER_LIST);
 						 auto result = testee.max_size();
@@ -259,7 +259,7 @@ public:
 
 			TestCase("at const", TestAtConst<MapType, Key, T, isMultimap, Compare, Allocator>()),
 
-			TestCase("insert single element", [this]
+			TestCase("insert single element", []
 					 {
 						 MapType<Key, T, Compare, Allocator> testee;
 						 auto position = testee.begin();
@@ -273,7 +273,7 @@ public:
 						 TestCase::assert(testee.size() == 1, "result");
 					 }),
 
-			TestCase("insert move", [this]
+			TestCase("insert move", []
 					 {
 						 MapType<Key, T, Compare, Allocator> testee;
 						 auto position = testee.begin();
@@ -287,7 +287,7 @@ public:
 						 TestCase::assert(testee.size() == 1, "result");
 					 }),
 
-			TestCase("insert hint single element", [this]
+			TestCase("insert hint single element", []
 					 {
 						 MapType<Key, T, Compare, Allocator> testee;
 						 auto position = testee.begin();
@@ -297,7 +297,7 @@ public:
 						 TestCase::assert(testee.size() == 1, "result");
 					 }),
 
-			TestCase("insert hint move", [this]
+			TestCase("insert hint move", []
 					 {
 						 MapType<Key, T, Compare, Allocator> testee;
 						 auto position = testee.begin();
@@ -307,21 +307,21 @@ public:
 						 TestCase::assert(testee.size() == 1, "result");
 					 }),
 
-			TestCase("insert range", [this]
+			TestCase("insert range", []
 					 {
 						 MapType<Key, T, Compare, Allocator> testee;
 						 testee.insert(ARRAY.begin(), ARRAY.end());
 						 TestCase::assert(testee.size() == ARRAY.size());
 					 }),
 
-			TestCase("insert initializer list", [this]
+			TestCase("insert initializer list", []
 					 {
 						 MapType<Key, T, Compare, Allocator> testee;
 						 testee.insert(INITIALIZER_LIST);
 						 TestCase::assert(testee.size() == INITIALIZER_LIST.size());
 					 }),
 
-			TestCase("erase single element", [this]
+			TestCase("erase single element", []
 					 {
 						 MapType<Key, T, Compare, Allocator> testee(INITIALIZER_LIST);
 						 auto position = testee.begin();
@@ -330,7 +330,7 @@ public:
 						 TestCase::assert(testee.size() == 0, "result");
 					 }),
 
-			TestCase("erase key", [this]
+			TestCase("erase key", []
 					 {
 						 MapType<Key, T, Compare, Allocator> testee(INITIALIZER_LIST);
 						 auto result = testee.erase(Key());
@@ -338,7 +338,7 @@ public:
 						 TestCase::assert(testee.size() == 0, "result");
 					 }),
 
-			TestCase("erase range", [this]
+			TestCase("erase range", []
 					 {
 						 MapType<Key, T, Compare, Allocator> testee(INITIALIZER_LIST);
 						 auto first = testee.begin();
@@ -348,7 +348,7 @@ public:
 						 TestCase::assert(testee.size() == 0, "result");
 					 }),
 
-			TestCase("swap", [this]
+			TestCase("swap", []
 					 {
 						 MapType<Key, T, Compare, Allocator> other(INITIALIZER_LIST);
 						 MapType<Key, T, Compare, Allocator> testee(INITIALIZER_LIST);
@@ -357,14 +357,14 @@ public:
 						 TestCase::assert(testee.size() == INITIALIZER_LIST.size(), "testee");
 					 }),
 
-			TestCase("clear", [this]
+			TestCase("clear", []
 					 {
 						 MapType<Key, T, Compare, Allocator> testee(INITIALIZER_LIST);
 						 testee.clear();
 						 TestCase::assert(testee.size() == 0);
 					 }),
 
-			TestCase("emplace", [this]
+			TestCase("emplace", []
 					 {
 						 MapType<Key, T, Compare, Allocator> testee;
 						 auto result = testee.emplace();
@@ -376,7 +376,7 @@ public:
 						 TestCase::assert(testee.size() == 1, "result");
 					 }),
 
-			TestCase("emplace_hint", [this]
+			TestCase("emplace_hint", []
 					 {
 						 MapType<Key, T, Compare, Allocator> testee;
 						 auto position = testee.begin();
@@ -385,21 +385,21 @@ public:
 						 TestCase::assert(testee.size() == 1, "result");
 					 }),
 
-			TestCase("key_comp", [this]
+			TestCase("key_comp", []
 					 {
 						 const MapType<Key, T, Compare, Allocator> testee;
 						 auto result = testee.key_comp();
 						 TestCase::assert(std::is_same<typename MapType<Key, T, Compare, Allocator>::key_compare, decltype(result)>::value);
 					 }),
 
-			TestCase("value_comp", [this]
+			TestCase("value_comp", []
 					 {
 						 const MapType<Key, T, Compare, Allocator> testee;
 						 auto result = testee.value_comp();
 						 TestCase::assert(std::is_same<typename MapType<Key, T, Compare, Allocator>::value_compare, decltype(result)>::value);
 					 }),
 
-			TestCase("find", [this]
+			TestCase("find", []
 					 {
 						 MapType<Key, T, Compare, Allocator> testee(INITIALIZER_LIST);
 						 auto result = testee.find(Key());
@@ -407,7 +407,7 @@ public:
 						 TestCase::assert(*result == ValueType(), "result");
 					 }),
 
-			TestCase("find const", [this]
+			TestCase("find const", []
 					 {
 						 const MapType<Key, T, Compare, Allocator> testee(INITIALIZER_LIST);
 						 auto result = testee.find(Key());
@@ -415,7 +415,7 @@ public:
 						 TestCase::assert(*result == ValueType(), "result");
 					 }),
 
-			TestCase("count", [this]
+			TestCase("count", []
 					 {
 						 const MapType<Key, T, Compare, Allocator> testee(INITIALIZER_LIST);
 						 auto result = testee.count(Key());
@@ -423,7 +423,7 @@ public:
 						 TestCase::assert(result == 1, "result");
 					 }),
 
-			TestCase("lower_bound", [this]
+			TestCase("lower_bound", []
 					 {
 						 MapType<Key, T, Compare, Allocator> testee(INITIALIZER_LIST);
 						 auto result = testee.lower_bound(Key());
@@ -431,7 +431,7 @@ public:
 						 TestCase::assert(*result == ValueType(), "result");
 					 }),
 
-			TestCase("lower_bound const", [this]
+			TestCase("lower_bound const", []
 					 {
 						 const MapType<Key, T, Compare, Allocator> testee(INITIALIZER_LIST);
 						 auto result = testee.lower_bound(Key());
@@ -439,7 +439,7 @@ public:
 						 TestCase::assert(*result == ValueType(), "result");
 					 }),
 
-			TestCase("upper_bound", [this]
+			TestCase("upper_bound", []
 					 {
 						 MapType<Key, T, Compare, Allocator> testee(INITIALIZER_LIST);
 						 auto result = testee.upper_bound(Key());
@@ -447,7 +447,7 @@ public:
 						 TestCase::assert(*(--result) == ValueType(), "result");
 					 }),
 
-			TestCase("upper_bound const", [this]
+			TestCase("upper_bound const", []
 					 {
 						 const MapType<Key, T, Compare, Allocator> testee(INITIALIZER_LIST);
 						 auto result = testee.upper_bound(Key());
@@ -455,28 +455,28 @@ public:
 						 TestCase::assert(*(--result) == ValueType(), "result");
 					 }),
 
-			TestCase("equal_range", [this]
+			TestCase("equal_range", []
 					 {
 						 MapType<Key, T, Compare, Allocator> testee(INITIALIZER_LIST);
 						 auto result = testee.equal_range(Key());
 						 TestCase::assert(std::is_same<std::pair<typename MapType<Key, T, Compare, Allocator>::iterator, typename MapType<Key, T, Compare, Allocator>::iterator>, decltype(result)>::value);
 					 }),
 
-			TestCase("equal_range const", [this]
+			TestCase("equal_range const", []
 					 {
 						 const MapType<Key, T, Compare, Allocator> testee(INITIALIZER_LIST);
 						 auto result = testee.equal_range(Key());
 						 TestCase::assert(std::is_same<std::pair<typename MapType<Key, T, Compare, Allocator>::const_iterator, typename MapType<Key, T, Compare, Allocator>::const_iterator>, decltype(result)>::value);
 					 }),
 
-			TestCase("get_allocator", [this]
+			TestCase("get_allocator", []
 					 {
 						 MapType<Key, T, Compare, Allocator> testee;
 						 auto result = testee.get_allocator();
 						 TestCase::assert(std::is_same<typename MapType<Key, T, Compare, Allocator>::allocator_type, decltype(result)>::value);
 					 }),
 
-			TestCase("operator==", [this]
+			TestCase("operator==", []
 					 {
 						 MapType<Key, T, Compare, Allocator> lhs(INITIALIZER_LIST);
 						 MapType<Key, T, Compare, Allocator> rhs(INITIALIZER_LIST);
@@ -485,7 +485,7 @@ public:
 						 TestCase::assert(result == true, "result");
 					 }),
 
-			TestCase("operator!=", [this]
+			TestCase("operator!=", []
 					 {
 						 MapType<Key, T, Compare, Allocator> lhs;
 						 MapType<Key, T, Compare, Allocator> rhs(INITIALIZER_LIST);
@@ -494,7 +494,7 @@ public:
 						 TestCase::assert(result == true, "result");
 					 }),
 
-			TestCase("operator<", [this]
+			TestCase("operator<", []
 					 {
 						 MapType<Key, T, Compare, Allocator> lhs;
 						 MapType<Key, T, Compare, Allocator> rhs(INITIALIZER_LIST);
@@ -503,7 +503,7 @@ public:
 						 TestCase::assert(result == true, "result");
 					 }),
 
-			TestCase("operator<=", [this]
+			TestCase("operator<=", []
 					 {
 						 MapType<Key, T, Compare, Allocator> lhs;
 						 MapType<Key, T, Compare, Allocator> rhs(INITIALIZER_LIST);
@@ -512,7 +512,7 @@ public:
 						 TestCase::assert(result == true, "result");
 					 }),
 
-			TestCase("operator>", [this]
+			TestCase("operator>", []
 					 {
 						 MapType<Key, T, Compare, Allocator> lhs(INITIALIZER_LIST);
 						 MapType<Key, T, Compare, Allocator> rhs;
@@ -521,7 +521,7 @@ public:
 						 TestCase::assert(result == true, "result");
 					 }),
 
-			TestCase("operator>=", [this]
+			TestCase("operator>=", []
 					 {
 						 MapType<Key, T, Compare, Allocator> lhs(INITIALIZER_LIST);
 						 MapType<Key, T, Compare, Allocator> rhs;
@@ -530,7 +530,7 @@ public:
 						 TestCase::assert(result == true, "result");
 					 }),
 
-			TestCase("swap lhs rhs", [this]
+			TestCase("swap lhs rhs", []
 					 {
 						 MapType<Key, T, Compare, Allocator> lhs(INITIALIZER_LIST);
 						 MapType<Key, T, Compare, Allocator> rhs;

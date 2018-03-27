@@ -62,7 +62,7 @@ public:
 
 	VectorTestSuite() : TestSuite({
 
-			TestCase("typedefs", [this]
+			TestCase("typedefs", []
 					 {
 						 TestCase::assert(std::is_same<typename VectorType<T, Allocator>::value_type, T>::value, "value_type");
 						 TestCase::assert(std::is_class<typename VectorType<T, Allocator>::allocator_type>::value, "allocator_type");
@@ -75,39 +75,39 @@ public:
 						 }
 					 }),
 
-			TestCase("ctor default", [this]
+			TestCase("ctor default", []
 					 {
 						 VectorType<T, Allocator> testee;
 						 TestCase::assert(testee.size() == 0);
 					 }),
 
-			TestCase("ctor fill", [this]
+			TestCase("ctor fill", []
 					 {
 						 VectorType<T, Allocator> testee(3);
 						 TestCase::assert(testee.size() == 3);
 					 }),
 
-			TestCase("ctor fill value", [this]
+			TestCase("ctor fill value", []
 					 {
 						 VectorType<T, Allocator> testee(3, T());
 						 TestCase::assert(testee.size() == 3);
 					 }),
 
-			TestCase("ctor copy", [this]
+			TestCase("ctor copy", []
 					 {
 						 const VectorType<T, Allocator> other(3);
 						 VectorType<T, Allocator> testee(other);
 						 TestCase::assert(testee.size() == 3);
 					 }),
 
-			TestCase("ctor copy with allocator", [this]
+			TestCase("ctor copy with allocator", []
 					 {
 						 const VectorType<T, Allocator> other(3);
 						 VectorType<T, Allocator> testee(other, std::allocator<T>());
 						 TestCase::assert(testee.size() == 3);
 					 }),
 
-			TestCase("ctor move", [this]
+			TestCase("ctor move", []
 					 {
 						 VectorType<T, Allocator> other(3);
 						 VectorType<T, Allocator> testee(std::move(other));
@@ -115,7 +115,7 @@ public:
 						 TestCase::assert(testee.size() == 3, "testee");
 					 }),
 
-			TestCase("ctor move with allocator", [this]
+			TestCase("ctor move with allocator", []
 					 {
 						 VectorType<T, Allocator> other(3);
 						 VectorType<T, Allocator> testee(std::move(other), std::allocator<T>());
@@ -123,19 +123,19 @@ public:
 						 TestCase::assert(testee.size() == 3, "testee");
 					 }),
 
-			TestCase("ctor range", [this]
+			TestCase("ctor range", []
 					 {
 						 VectorType<T, Allocator> testee(ARRAY.begin(), ARRAY.end());
 						 TestCase::assert(testee.size() == ARRAY.size());
 					 }),
 
-			TestCase("ctor initializer list", [this]
+			TestCase("ctor initializer list", []
 					 {
 						 VectorType<T, Allocator> testee(INITIALIZER_LIST);
 						 TestCase::assert(testee.size() == INITIALIZER_LIST.size());
 					 }),
 
-			TestCase("operator= copy", [this]
+			TestCase("operator= copy", []
 					 {
 						 const VectorType<T, Allocator> other(3);
 						 VectorType<T, Allocator> testee;
@@ -144,7 +144,7 @@ public:
 						 TestCase::assert(testee.size() == 3, "result");
 					 }),
 
-			TestCase("operator= move", [this]
+			TestCase("operator= move", []
 					 {
 						 VectorType<T, Allocator> other(3);
 						 VectorType<T, Allocator> testee;
@@ -154,7 +154,7 @@ public:
 						 TestCase::assert(testee.size() == 3, "testee");
 					 }),
 
-			TestCase("operator= initializer list", [this]
+			TestCase("operator= initializer list", []
 					 {
 						 VectorType<T, Allocator> testee;
 						 auto& result = (testee = INITIALIZER_LIST);
@@ -162,7 +162,7 @@ public:
 						 TestCase::assert(testee.size() == INITIALIZER_LIST.size(), "result");
 					 }),
 
-			TestCase("begin", [this]
+			TestCase("begin", []
 					 {
 						 VectorType<T, Allocator> testee(1);
 						 auto result = testee.begin();
@@ -170,7 +170,7 @@ public:
 						 TestCase::assert(*result == T(), "result");
 					 }),
 
-			TestCase("begin const", [this]
+			TestCase("begin const", []
 					 {
 						 const VectorType<T, Allocator> testee(1);
 						 auto result = testee.begin();
@@ -178,7 +178,7 @@ public:
 						 TestCase::assert(*result == T(), "result");
 					 }),
 
-			TestCase("end", [this]
+			TestCase("end", []
 					 {
 						 VectorType<T, Allocator> testee(1);
 						 auto result = testee.end();
@@ -186,7 +186,7 @@ public:
 						 TestCase::assert(*(--result) == T(), "result");
 					 }),
 
-			TestCase("end const", [this]
+			TestCase("end const", []
 					 {
 						 const VectorType<T, Allocator> testee(1);
 						 auto result = testee.end();
@@ -194,7 +194,7 @@ public:
 						 TestCase::assert(*(--result) == T(), "result");
 					 }),
 
-			TestCase("rbegin", [this]
+			TestCase("rbegin", []
 					 {
 						 VectorType<T, Allocator> testee(1);
 						 auto result = testee.rbegin();
@@ -202,7 +202,7 @@ public:
 						 TestCase::assert(*result == T(), "result");
 					 }),
 
-			TestCase("rbegin const", [this]
+			TestCase("rbegin const", []
 					 {
 						 const VectorType<T, Allocator> testee(1);
 						 auto result = testee.rbegin();
@@ -210,7 +210,7 @@ public:
 						 TestCase::assert(*result == T(), "result");
 					 }),
 
-			TestCase("rend", [this]
+			TestCase("rend", []
 					 {
 						 VectorType<T, Allocator> testee(1);
 						 auto result = testee.rend();
@@ -218,7 +218,7 @@ public:
 						 TestCase::assert(*(--result) == T(), "result");
 					 }),
 
-			TestCase("rend const", [this]
+			TestCase("rend const", []
 					 {
 						 const VectorType<T, Allocator> testee(1);
 						 auto result = testee.rend();
@@ -226,7 +226,7 @@ public:
 						 TestCase::assert(*(--result) == T(), "result");
 					 }),
 
-			TestCase("cbegin", [this]
+			TestCase("cbegin", []
 					 {
 						 VectorType<T, Allocator> testee(1);
 						 auto result = testee.cbegin();
@@ -234,7 +234,7 @@ public:
 						 TestCase::assert(*result == T(), "result");
 					 }),
 
-			TestCase("cend", [this]
+			TestCase("cend", []
 					 {
 						 VectorType<T, Allocator> testee(1);
 						 auto result = testee.cend();
@@ -242,7 +242,7 @@ public:
 						 TestCase::assert(*(--result) == T(), "result");
 					 }),
 
-			TestCase("crbegin", [this]
+			TestCase("crbegin", []
 					 {
 						 VectorType<T, Allocator> testee(1);
 						 auto result = testee.crbegin();
@@ -250,7 +250,7 @@ public:
 						 TestCase::assert(*result == T(), "result");
 					 }),
 
-			TestCase("crend", [this]
+			TestCase("crend", []
 					 {
 						 VectorType<T, Allocator> testee(1);
 						 auto result = testee.crend();
@@ -258,7 +258,7 @@ public:
 						 TestCase::assert(*(--result) == T(), "result");
 					 }),
 
-			TestCase("empty", [this]
+			TestCase("empty", []
 					 {
 						 const VectorType<T, Allocator> testee;
 						 auto result = testee.empty();
@@ -266,7 +266,7 @@ public:
 						 TestCase::assert(result == true, "result");
 					 }),
 
-			TestCase("size", [this]
+			TestCase("size", []
 					 {
 						 const VectorType<T, Allocator> testee(3);
 						 auto result = testee.size();
@@ -274,7 +274,7 @@ public:
 						 TestCase::assert(result == 3, "result");
 					 }),
 
-			TestCase("max_size", [this]
+			TestCase("max_size", []
 					 {
 						 const VectorType<T, Allocator> testee(3);
 						 auto result = testee.max_size();
@@ -282,21 +282,21 @@ public:
 						 TestCase::assert(result >= 3, "result");
 					 }),
 
-			TestCase("resize", [this]
+			TestCase("resize", []
 					 {
 						 VectorType<T, Allocator> testee(1);
 						 testee.resize(3);
 						 TestCase::assert(testee.size() == 3);
 					 }),
 
-			TestCase("resize value", [this]
+			TestCase("resize value", []
 					 {
 						 VectorType<T, Allocator> testee(1);
 						 testee.resize(3, T());
 						 TestCase::assert(testee.size() == 3);
 					 }),
 
-			TestCase("capacity", [this]
+			TestCase("capacity", []
 					 {
 						 const VectorType<T, Allocator> testee(3);
 						 auto result = testee.capacity();
@@ -304,14 +304,14 @@ public:
 						 TestCase::assert(result >= 3, "result");
 					 }),
 
-			TestCase("reserve", [this]
+			TestCase("reserve", []
 					 {
 						 VectorType<T, Allocator> testee(1);
 						 testee.reserve(3);
 						 TestCase::assert(testee.capacity() >= 3);
 					 }),
 
-			TestCase("shrink_to_fit", [this]
+			TestCase("shrink_to_fit", []
 					 {
 						 VectorType<T, Allocator> testee(1);
 						 testee.reserve(3);
@@ -341,28 +341,28 @@ public:
 
 			TestCase("data const", TestDataConst<VectorType, T, Allocator>()),
 
-			TestCase("assign range", [this]
+			TestCase("assign range", []
 					 {
 						 VectorType<T, Allocator> testee;
 						 testee.assign(ARRAY.begin(), ARRAY.end());
 						 TestCase::assert(testee.size() == ARRAY.size());
 					 }),
 
-			TestCase("assign fill value", [this]
+			TestCase("assign fill value", []
 					 {
 						 VectorType<T, Allocator> testee;
 						 testee.assign(3, T());
 						 TestCase::assert(testee.size() == 3);
 					 }),
 
-			TestCase("assign initializer list", [this]
+			TestCase("assign initializer list", []
 					 {
 						 VectorType<T, Allocator> testee;
 						 testee.assign(INITIALIZER_LIST);
 						 TestCase::assert(testee.size() == INITIALIZER_LIST.size());
 					 }),
 
-			TestCase("push_back copy", [this]
+			TestCase("push_back copy", []
 					 {
 						 VectorType<T, Allocator> testee;
 						 T value = {};
@@ -370,7 +370,7 @@ public:
 						 TestCase::assert(testee.size() == 1);
 					 }),
 
-			TestCase("push_back move", [this]
+			TestCase("push_back move", []
 					 {
 						 VectorType<T, Allocator> testee;
 						 T value = {};
@@ -378,14 +378,14 @@ public:
 						 TestCase::assert(testee.size() == 1);
 					 }),
 
-			TestCase("pop_back", [this]
+			TestCase("pop_back", []
 					 {
 						 VectorType<T, Allocator> testee(2);
 						 testee.pop_back();
 						 TestCase::assert(testee.size() == 1);
 					 }),
 
-			TestCase("insert single element", [this]
+			TestCase("insert single element", []
 					 {
 						 VectorType<T, Allocator> testee(1);
 						 auto position = testee.begin();
@@ -395,7 +395,7 @@ public:
 						 TestCase::assert(testee.size() == 2, "result");
 					 }),
 
-			TestCase("insert fill", [this]
+			TestCase("insert fill", []
 					 {
 						 VectorType<T, Allocator> testee(1);
 						 auto position = testee.begin();
@@ -405,7 +405,7 @@ public:
 						 TestCase::assert(testee.size() == 3, "result");
 					 }),
 
-			TestCase("insert range", [this]
+			TestCase("insert range", []
 					 {
 						 VectorType<T, Allocator> testee(1);
 						 auto position = testee.begin();
@@ -414,7 +414,7 @@ public:
 						 TestCase::assert(testee.size() == 1 + ARRAY.size(), "result");
 					 }),
 
-			TestCase("insert move", [this]
+			TestCase("insert move", []
 					 {
 						 VectorType<T, Allocator> testee(1);
 						 auto position = testee.begin();
@@ -424,7 +424,7 @@ public:
 						 TestCase::assert(testee.size() == 2, "result");
 					 }),
 
-			TestCase("insert initializer list", [this]
+			TestCase("insert initializer list", []
 					 {
 						 VectorType<T, Allocator> testee(1);
 						 auto position = testee.begin();
@@ -433,7 +433,7 @@ public:
 						 TestCase::assert(testee.size() == 1 + INITIALIZER_LIST.size(), "result");
 					 }),
 
-			TestCase("erase single element", [this]
+			TestCase("erase single element", []
 					 {
 						 VectorType<T, Allocator> testee(3);
 						 auto position = testee.begin();
@@ -442,7 +442,7 @@ public:
 						 TestCase::assert(testee.size() == 2, "result");
 					 }),
 
-			TestCase("erase range", [this]
+			TestCase("erase range", []
 					 {
 						 VectorType<T, Allocator> testee(3);
 						 auto first = testee.begin();
@@ -454,7 +454,7 @@ public:
 
 			TestCase("flip", TestFlip<VectorType, T, Allocator>()),
 
-			TestCase("swap", [this]
+			TestCase("swap", []
 					 {
 						 VectorType<T, Allocator> other(3);
 						 VectorType<T, Allocator> testee(1);
@@ -465,14 +465,14 @@ public:
 
 			TestCase("swap elements", TestSwapElements<VectorType, T, Allocator>()),
 
-			TestCase("clear", [this]
+			TestCase("clear", []
 					 {
 						 VectorType<T, Allocator> testee(1);
 						 testee.clear();
 						 TestCase::assert(testee.size() == 0);
 					 }),
 
-			TestCase("emplace", [this]
+			TestCase("emplace", []
 					 {
 						 VectorType<T, Allocator> testee(1);
 						 auto position = testee.begin();
@@ -481,21 +481,21 @@ public:
 						 TestCase::assert(testee.size() == 2, "result");
 					 }),
 
-			TestCase("emplace_back", [this]
+			TestCase("emplace_back", []
 					 {
 						 VectorType<T, Allocator> testee(1);
 						 testee.emplace_back();
 						 TestCase::assert(testee.size() == 2);
 					 }),
 
-			TestCase("get_allocator", [this]
+			TestCase("get_allocator", []
 					 {
 						 VectorType<T, Allocator> testee;
 						 auto result = testee.get_allocator();
 						 TestCase::assert(std::is_same<typename VectorType<T, Allocator>::allocator_type, decltype(result)>::value);
 					 }),
 
-			TestCase("operator==", [this]
+			TestCase("operator==", []
 					 {
 						 VectorType<T, Allocator> lhs(3);
 						 VectorType<T, Allocator> rhs(3);
@@ -504,7 +504,7 @@ public:
 						 TestCase::assert(result == true, "result");
 					 }),
 
-			TestCase("operator!=", [this]
+			TestCase("operator!=", []
 					 {
 						 VectorType<T, Allocator> lhs(2);
 						 VectorType<T, Allocator> rhs(3);
@@ -513,7 +513,7 @@ public:
 						 TestCase::assert(result == true, "result");
 					 }),
 
-			TestCase("operator<", [this]
+			TestCase("operator<", []
 					 {
 						 VectorType<T, Allocator> lhs(2);
 						 VectorType<T, Allocator> rhs(3);
@@ -522,7 +522,7 @@ public:
 						 TestCase::assert(result == true, "result");
 					 }),
 
-			TestCase("operator<=", [this]
+			TestCase("operator<=", []
 					 {
 						 VectorType<T, Allocator> lhs(2);
 						 VectorType<T, Allocator> rhs(3);
@@ -531,7 +531,7 @@ public:
 						 TestCase::assert(result == true, "result");
 					 }),
 
-			TestCase("operator>", [this]
+			TestCase("operator>", []
 					 {
 						 VectorType<T, Allocator> lhs(3);
 						 VectorType<T, Allocator> rhs(2);
@@ -540,7 +540,7 @@ public:
 						 TestCase::assert(result == true, "result");
 					 }),
 
-			TestCase("operator>=", [this]
+			TestCase("operator>=", []
 					 {
 						 VectorType<T, Allocator> lhs(3);
 						 VectorType<T, Allocator> rhs(2);
@@ -549,7 +549,7 @@ public:
 						 TestCase::assert(result == true, "result");
 					 }),
 
-			TestCase("swap lhs rhs", [this]
+			TestCase("swap lhs rhs", []
 					 {
 						 VectorType<T, Allocator> lhs(3);
 						 VectorType<T, Allocator> rhs(2);
