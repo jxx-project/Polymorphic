@@ -11,6 +11,5 @@
 
 int main(int args, char* argv[])
 {
-	std::cout << "Testing C++11 standard map interface ..." << std::endl;
-	return Testee::MapTestSuite<Polymorphic::Map, int, int>().run() ? 0 : 1;
+	return Testee::MapTestSuite<Polymorphic::Map, int, int>("Polymorphic::Map<int, int>").run() ? 0 : 1;
 }

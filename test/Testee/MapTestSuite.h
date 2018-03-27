@@ -37,7 +37,7 @@ public:
 	typedef std::array<std::pair<const Key, T>, 1> ArrayType;
     typedef typename MapType<Key, T, Compare, Allocator>::value_type ValueType;
 
-	MapTestSuite() : TestSuite({
+	MapTestSuite(const std::string& mapType) : TestSuite(mapType + " C++11 standard interface", {
 
 			TestCase("typedefs", []
 					 {

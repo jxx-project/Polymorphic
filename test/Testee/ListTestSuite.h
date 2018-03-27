@@ -21,7 +21,7 @@ public:
 	typedef std::initializer_list<T> InitializerListType;
 	typedef std::array<T, 1> ArrayType;
 
-	ListTestSuite() : TestSuite({
+	ListTestSuite(const std::string& listType) : TestSuite(listType + " C++11 standard interface", {
 
 			TestCase("typedefs", []
 					 {

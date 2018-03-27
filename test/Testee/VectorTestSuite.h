@@ -60,7 +60,7 @@ public:
 	typedef std::initializer_list<T> InitializerListType;
 	typedef std::array<T, 1> ArrayType;
 
-	VectorTestSuite() : TestSuite({
+	VectorTestSuite(const std::string& vectorType) : TestSuite(vectorType + " C++11 standard interface", {
 
 			TestCase("typedefs", []
 					 {

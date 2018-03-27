@@ -11,9 +11,8 @@
 
 int main(int args, char* argv[])
 {
-	std::cout << "Testing C++11 standard vector interface ..." << std::endl;
-	auto vectorPassed = Testee::VectorTestSuite<Polymorphic::Vector, int>().run();
-	std::cout << "Testing C++11 standard vector<bool> interface ..." << std::endl;
-	auto vectorBoolPassed = Testee::VectorTestSuite<Polymorphic::Vector, bool>().run();
-	return vectorPassed && vectorBoolPassed ? 0 : 1;
+	bool failed = false;
+	failed = failed || !Testee::VectorTestSuite<Polymorphic::Vector, int>("Polymorphic::Vector<int>").run();
+	failed = failed || !Testee::VectorTestSuite<Polymorphic::Vector, bool>("Polymorphic::Vector<bool>").run();
+	return failed ? 1 : 0;
 }

@@ -37,7 +37,7 @@ public:
 	typedef std::array<std::pair<const Key, T>, 1> ArrayType;
 	typedef typename UnorderedMapType<Key, T, Hash, Predicate, Allocator>::value_type ValueType;
 
-	UnorderedMapTestSuite() : TestSuite({
+	UnorderedMapTestSuite(const std::string& unorderedMapType) : TestSuite(unorderedMapType + " C++11 standard interface", {
 
 			TestCase("typedefs", []
 					 {

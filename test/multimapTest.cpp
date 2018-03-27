@@ -11,6 +11,5 @@
 
 int main(int args, char* argv[])
 {
-	std::cout << "Testing C++11 standard multimap interface ..." << std::endl;
-	return Testee::MapTestSuite<Polymorphic::Multimap, int, int, true>().run() ? 0 : 1;
+	return Testee::MapTestSuite<Polymorphic::Multimap, int, int, true>("Polymorphic::Multimap<int, int>").run() ? 0 : 1;
 }
