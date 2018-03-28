@@ -30,9 +30,9 @@ public:
 		}
 	}
 
-	static void assert(bool succeeded, const char* comment = "")
+	static void assert(bool passed, const char* comment = "")
 	{
-		if (!succeeded) {
+		if (!passed) {
 			throw std::runtime_error(comment);
 		}
 	}
