@@ -52,8 +52,6 @@ Polymorphic decorators are a headers-only library. You may just copy the `includ
 
 CMake is required to install headers in a location along with CMake export files (recommended), and to build and run the test suites.
 
-**Note:** With Visual Studio 2013 please use the [Visual C++ Compiler November 2013 CTP](https://www.microsoft.com/en-us/download/details.aspx?id=41151) tool chain in order to get support for `noexcept`.
-
 ### Linux
 
 ```
@@ -73,7 +71,9 @@ cd build
 cmake .. -DCMAKE_INSTALL_PREFIX=C:/path/to/Polymorphic
 ```
 
-There is no default for `CMAKE_INSTALL_PREFIX` on Windows. Commands above will create a Visual Studio solution with an INSTALL and a RUN_TESTS project.
+There is no default for `CMAKE_INSTALL_PREFIX` on Windows. Commands above will create a Visual Studio solution with an `INSTALL` and a `check` project.
+
+**Note:** When using Visual Studio 2013 please configure the [Visual C++ Compiler November 2013 CTP](https://www.microsoft.com/en-us/download/details.aspx?id=41151) toolset in order to get support for `noexcept`. Adding the option `-TCTP_Nov2013` to the cmake command line will then select the appropriate compiler.
 
 ## License
 

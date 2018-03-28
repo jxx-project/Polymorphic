@@ -26,7 +26,13 @@ install(EXPORT PolymorphicConfig DESTINATION share/Polymorphic/cmake)
 export(TARGETS polymorphic FILE PolymorphicConfig.cmake)
 
 enable_testing()
-add_custom_target(check COMMAND ${CMAKE_CTEST_COMMAND})
+
+# On demand build of tests. See https://cmake.org/Wiki/CMakeEmulateMakeCheck
+if(NOT "${CMAKE_GENERATOR}" MATCHES "Visual Studio")
+	add_custom_target(check COMMAND ${CMAKE_CTEST_COMMAND} --force-new-ctest-process)
+else()
+	add_custom_target(check COMMAND ${CMAKE_CTEST_COMMAND} --force-new-ctest-process -C $(Configuration))
+endif()
 
 add_executable(vectorTest EXCLUDE_FROM_ALL test/vectorTest.cpp)
 target_link_libraries(vectorTest polymorphic)
