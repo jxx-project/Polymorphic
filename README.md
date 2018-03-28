@@ -44,34 +44,36 @@ The Polymorphic package is harnessed with a set of test suite templates located 
 
 Test suites are not based on any particular framework. With test cases being self contained it is amazing how far you can get with template templates, a plain `std::list<TestCase>`, initializer lists and lambda expressions.
 
-On the the other hand, using test suite templates nicely solved the "test the tester" dilemma. Running tests first against the delegates, i.e. the C++ standard library implementations, helped developing and verifying test suites. Finally the results are pointed to the decorators to verify these.
+On the the other hand, using test suite templates nicely solved the "test-the-tester" challenge. Running tests first against the delegates, i.e. the C++ standard library implementations, helped developing and verifying test suites. Finally, these were redirected to verify decorators are providing the same APIs as delegates do.
 
 ## How to use
 
 Polymorphic decorators are a headers-only library. You may just copy the `include/Polymorphic` directory into a location found by your build system.
 
-CMakeLists.txt files are only required to build and run the test suites.
+CMake is required to install headers in a location along with CMake export files (recommended), and to build and run the test suites.
 
-**Note:** Whth Visual Studio 2013 please use the [Visual C++ Compiler November 2013 CTP](https://www.microsoft.com/en-us/download/details.aspx?id=41151) tool chain in order to get support for `noexcept`.
-
+**Note:** With Visual Studio 2013 please use the [Visual C++ Compiler November 2013 CTP](https://www.microsoft.com/en-us/download/details.aspx?id=41151) tool chain in order to get support for `noexcept`.
 
 ### Linux
 
 ```
-./configure
+./configure [--prefix=/path/to/Polymorphic]
 make
-make test
+make check
+make install
 ```
+
+The default installation prefix is `/usr/local`. The step `make check`, building and running test suites, is optional.
 
 ### Windows
 
 ```
 mkdir build
 cd build
-cmake ..
+cmake .. -DCMAKE_INSTALL_PREFIX=C:/path/to/Polymorphic
 ```
 
-will create a Visual Studio solution building the test executables.
+There is no default for `CMAKE_INSTALL_PREFIX` on Windows. Commands above will create a Visual Studio solution with an INSTALL and a RUN_TESTS project.
 
 ## License
 

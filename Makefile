@@ -1,10 +1,10 @@
-.PHONY: all test install clean distclean
+.PHONY: all check install clean distclean
 
 all:
 	$(MAKE) -C build all
 
-test:
-	$(MAKE) -C build test
+check:
+	$(MAKE) -C build check
 
 install:
 	$(MAKE) -C build install
