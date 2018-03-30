@@ -12,7 +12,7 @@
 int main(int args, char* argv[])
 {
 	bool failed = false;
-	failed = failed || !Testee::VectorTestSuite<Polymorphic::Vector, int>("Polymorphic::Vector<int>").run();
-	failed = failed || !Testee::VectorTestSuite<Polymorphic::Vector, bool>("Polymorphic::Vector<bool>").run();
+	failed = !Testee::VectorTestSuite<Polymorphic::Vector, int>("Polymorphic::Vector<int>").run() || failed;
+	failed = !Testee::VectorTestSuite<Polymorphic::Vector, bool>("Polymorphic::Vector<bool>").run() || failed;
 	return failed ? 1 : 0;
 }
