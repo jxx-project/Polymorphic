@@ -177,8 +177,8 @@ public:
 		return delegate;
 	}
 
-	/// Implicit type conversion into std::list<T> rvalue reference.
-	operator DelegateType&&()
+	/// Explicit type conversion into std::list<T> rvalue reference.
+	explicit operator DelegateType&&()
 	{
 		return std::move(delegate);
 	}

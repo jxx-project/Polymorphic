@@ -176,8 +176,8 @@ public:
 		return delegate;
 	}
 
-	/// Implicit type conversion into std::multimap<T> rvalue reference.
-	operator DelegateType&&()
+	/// Explicit type conversion into std::multimap<T> rvalue reference.
+	explicit operator DelegateType&&()
 	{
 		return std::move(delegate);
 	}
