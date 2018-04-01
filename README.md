@@ -19,7 +19,7 @@ is very simple but effective. They
 ## Modern C++ features
 
  * Can be used almost interchangeably with C++11 standard containers.
- * Implicit conversions allow transparent substitution of one for the other almost everywhere, except as pointer targets.
+ * Implicit conversions allow transparent substitution of one for the other almost everywhere, except as pointer targets. (Note: delegate type rvalue reference conversions are explicit.)
  * Move semantics, rvalue references.
 
 Decorator pattern is cool and old school. Typing hundreds of forwarding members is neither cool nor fun, but a one time task. Fortunately, C++ library standards, while evolving, do not alter signatures of existing public container members.
