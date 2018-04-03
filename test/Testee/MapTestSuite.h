@@ -35,7 +35,7 @@ class MapTestSuite : public TestSuite
 public:
 	typedef std::initializer_list< std::pair<const Key, T> > InitializerListType;
 	typedef std::array<std::pair<const Key, T>, 1> ArrayType;
-    typedef typename MapType<Key, T, Compare, Allocator>::value_type ValueType;
+	typedef typename MapType<Key, T, Compare, Allocator>::value_type ValueType;
 
 	MapTestSuite(const std::string& mapType) : TestSuite(mapType + " C++11 standard interface", {
 
