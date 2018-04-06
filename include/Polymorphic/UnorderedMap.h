@@ -41,7 +41,7 @@ void swap(const UnorderedMap<Key, T, Hash, Predicate, Allocator>& lhs, const Uno
 /// Classes derived from Polymorphic::UnorderedMap<Key, T> can be safely used as targets of smart pointers.
 /// Note: forwarding member functions are *not* declared virtual! They are not meant to be overriden
 /// in subclasses. Add new behavior using new virtual members instead.
-template< typename Key, typename T, typename Hash = std::hash<Key>, typename Predicate = std::equal_to<Key>, typename Allocator = std::allocator< std::pair<const Key, T> > >
+template<typename Key, typename T, typename Hash = std::hash<Key>, typename Predicate = std::equal_to<Key>, typename Allocator = std::allocator<std::pair<const Key, T>>>
 class UnorderedMap
 {
 public:
@@ -464,12 +464,12 @@ public:
 private:
 	DelegateType delegate;
 
-	friend bool operator== <Key, T, Hash, Predicate, Allocator> (const UnorderedMap& lhs, const UnorderedMap& rhs);
-	friend bool operator!= <Key, T, Hash, Predicate, Allocator> (const UnorderedMap& lhs, const UnorderedMap& rhs);
-	friend bool operator<  <Key, T, Hash, Predicate, Allocator> (const UnorderedMap& lhs, const UnorderedMap& rhs);
-	friend bool operator<= <Key, T, Hash, Predicate, Allocator> (const UnorderedMap& lhs, const UnorderedMap& rhs);
-	friend bool operator>  <Key, T, Hash, Predicate, Allocator> (const UnorderedMap& lhs, const UnorderedMap& rhs);
-	friend bool operator>= <Key, T, Hash, Predicate, Allocator> (const UnorderedMap& lhs, const UnorderedMap& rhs);
+	friend bool operator== <Key, T, Hash, Predicate, Allocator>(const UnorderedMap& lhs, const UnorderedMap& rhs);
+	friend bool operator!= <Key, T, Hash, Predicate, Allocator>(const UnorderedMap& lhs, const UnorderedMap& rhs);
+	friend bool operator< <Key, T, Hash, Predicate, Allocator>(const UnorderedMap& lhs, const UnorderedMap& rhs);
+	friend bool operator<= <Key, T, Hash, Predicate, Allocator>(const UnorderedMap& lhs, const UnorderedMap& rhs);
+	friend bool operator> <Key, T, Hash, Predicate, Allocator>(const UnorderedMap& lhs, const UnorderedMap& rhs);
+	friend bool operator>= <Key, T, Hash, Predicate, Allocator>(const UnorderedMap& lhs, const UnorderedMap& rhs);
 	friend void Polymorphic::swap<Key, T, Hash, Predicate, Allocator>(const UnorderedMap<Key, T, Hash, Predicate, Allocator>& lhs, const UnorderedMap<Key, T, Hash, Predicate, Allocator>& rhs);
 };
 

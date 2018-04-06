@@ -41,7 +41,7 @@ void swap(const Multimap<Key, T, Compare, Allocator>& lhs, const Multimap<Key, T
 /// Classes derived from Polymorphic::Multimap<Key, T> can be safely used as targets of smart pointers.
 /// Note: forwarding member functions are *not* declared virtual! They are not meant to be overriden
 /// in subclasses. Add new behavior using new virtual members instead.
-template< typename Key, typename T, typename Compare = std::less<Key>, typename Allocator = std::allocator< std::pair<const Key, T> > >
+template<typename Key, typename T, typename Compare = std::less<Key>, typename Allocator = std::allocator<std::pair<const Key, T>>>
 class Multimap
 {
 public:
@@ -430,12 +430,12 @@ public:
 private:
 	DelegateType delegate;
 
-	friend bool operator== <Key, T, Compare, Allocator> (const Multimap& lhs, const Multimap& rhs);
-	friend bool operator!= <Key, T, Compare, Allocator> (const Multimap& lhs, const Multimap& rhs);
-	friend bool operator<  <Key, T, Compare, Allocator> (const Multimap& lhs, const Multimap& rhs);
-	friend bool operator<= <Key, T, Compare, Allocator> (const Multimap& lhs, const Multimap& rhs);
-	friend bool operator>  <Key, T, Compare, Allocator> (const Multimap& lhs, const Multimap& rhs);
-	friend bool operator>= <Key, T, Compare, Allocator> (const Multimap& lhs, const Multimap& rhs);
+	friend bool operator== <Key, T, Compare, Allocator>(const Multimap& lhs, const Multimap& rhs);
+	friend bool operator!= <Key, T, Compare, Allocator>(const Multimap& lhs, const Multimap& rhs);
+	friend bool operator< <Key, T, Compare, Allocator>(const Multimap& lhs, const Multimap& rhs);
+	friend bool operator<= <Key, T, Compare, Allocator>(const Multimap& lhs, const Multimap& rhs);
+	friend bool operator> <Key, T, Compare, Allocator>(const Multimap& lhs, const Multimap& rhs);
+	friend bool operator>= <Key, T, Compare, Allocator>(const Multimap& lhs, const Multimap& rhs);
 	friend void Polymorphic::swap<Key, T, Compare, Allocator>(const Multimap<Key, T, Compare, Allocator>& lhs, const Multimap<Key, T, Compare, Allocator>& rhs);
 };
 

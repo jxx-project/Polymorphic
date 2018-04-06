@@ -29,11 +29,11 @@ class TestAtConst;
 
 
 /// Test UnorderedMapType C++11 standard map or multimap interface.
-template< template<typename...> class UnorderedMapType, typename Key, typename T, bool isMultimap = false, typename Hash = std::hash<Key>, typename Predicate = std::equal_to<Key>, typename Allocator = std::allocator< std::pair<const Key, T> > >
+template<template<typename...> class UnorderedMapType, typename Key, typename T, bool isMultimap = false, typename Hash = std::hash<Key>, typename Predicate = std::equal_to<Key>, typename Allocator = std::allocator<std::pair<const Key, T>>>
 class UnorderedMapTestSuite : public TestSuite
 {
 public:
-	typedef std::initializer_list< std::pair<const Key, T> > InitializerListType;
+	typedef std::initializer_list<std::pair<const Key, T>> InitializerListType;
 	typedef std::array<std::pair<const Key, T>, 1> ArrayType;
 	typedef typename UnorderedMapType<Key, T, Hash, Predicate, Allocator>::value_type ValueType;
 
@@ -43,7 +43,7 @@ public:
 					 {
 						 TestCase::assert(std::is_same<typename UnorderedMapType<Key, T, Hash, Predicate, Allocator>::key_type, Key>::value, "key_type");
 						 TestCase::assert(std::is_same<typename UnorderedMapType<Key, T, Hash, Predicate, Allocator>::mapped_type, T>::value, "mapped_type");
-						 TestCase::assert(std::is_same<typename UnorderedMapType<Key, T, Hash, Predicate, Allocator>::value_type, std::pair<const Key, T> >::value, "value_type");
+						 TestCase::assert(std::is_same<typename UnorderedMapType<Key, T, Hash, Predicate, Allocator>::value_type, std::pair<const Key, T>>::value, "value_type");
 						 TestCase::assert(std::is_class<typename UnorderedMapType<Key, T, Hash, Predicate, Allocator>::hasher>::value, "hasher");
 						 TestCase::assert(std::is_class<typename UnorderedMapType<Key, T, Hash, Predicate, Allocator>::key_equal>::value, "key_equal");
 						 TestCase::assert(std::is_class<typename UnorderedMapType<Key, T, Hash, Predicate, Allocator>::allocator_type>::value, "allocator_type");

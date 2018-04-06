@@ -41,7 +41,7 @@ void swap(const List<T, Allocator>& lhs, const List<T, Allocator>& rhs);
 /// Classes derived from Polymorphic::List<T> can be safely used as targets of smart pointers.
 /// Note: forwarding member functions are *not* declared virtual! They are not meant to be overriden
 /// in subclasses. Add new behavior using new virtual members instead.
-template< typename T, typename Allocator = std::allocator<T> >
+template<typename T, typename Allocator = std::allocator<T>>
 class List
 {
 public:
@@ -556,12 +556,12 @@ public:
 private:
 	DelegateType delegate;
 
-	friend bool operator== <T, Allocator> (const List& lhs, const List& rhs);
-	friend bool operator!= <T, Allocator> (const List& lhs, const List& rhs);
-	friend bool operator<  <T, Allocator> (const List& lhs, const List& rhs);
-	friend bool operator<= <T, Allocator> (const List& lhs, const List& rhs);
-	friend bool operator>  <T, Allocator> (const List& lhs, const List& rhs);
-	friend bool operator>= <T, Allocator> (const List& lhs, const List& rhs);
+	friend bool operator== <T, Allocator>(const List& lhs, const List& rhs);
+	friend bool operator!= <T, Allocator>(const List& lhs, const List& rhs);
+	friend bool operator< <T, Allocator>(const List& lhs, const List& rhs);
+	friend bool operator<= <T, Allocator>(const List& lhs, const List& rhs);
+	friend bool operator> <T, Allocator>(const List& lhs, const List& rhs);
+	friend bool operator>= <T, Allocator>(const List& lhs, const List& rhs);
 	friend void Polymorphic::swap<T, Allocator>(const List<T, Allocator>& lhs, const List<T, Allocator>& rhs);
 };
 

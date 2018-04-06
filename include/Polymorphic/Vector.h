@@ -41,7 +41,7 @@ void swap(const Vector<T, Allocator>& lhs, const Vector<T, Allocator>& rhs);
 /// Classes derived from Polymorphic::Vector<T> can be safely used as targets of smart pointers.
 /// Note: forwarding member functions are *not* declared virtual! They are not meant to be overriden
 /// in subclasses. Add new behavior using new virtual members instead.
-template< typename T, typename Allocator = std::allocator<T> >
+template<typename T, typename Allocator = std::allocator<T>>
 class Vector
 {
 public:
@@ -478,12 +478,12 @@ public:
 private:
 	DelegateType delegate;
 
-	friend bool operator== <T, Allocator> (const Vector& lhs, const Vector& rhs);
-	friend bool operator!= <T, Allocator> (const Vector& lhs, const Vector& rhs);
-	friend bool operator<  <T, Allocator> (const Vector& lhs, const Vector& rhs);
-	friend bool operator<= <T, Allocator> (const Vector& lhs, const Vector& rhs);
-	friend bool operator>  <T, Allocator> (const Vector& lhs, const Vector& rhs);
-	friend bool operator>= <T, Allocator> (const Vector& lhs, const Vector& rhs);
+	friend bool operator== <T, Allocator>(const Vector& lhs, const Vector& rhs);
+	friend bool operator!= <T, Allocator>(const Vector& lhs, const Vector& rhs);
+	friend bool operator< <T, Allocator>(const Vector& lhs, const Vector& rhs);
+	friend bool operator<= <T, Allocator>(const Vector& lhs, const Vector& rhs);
+	friend bool operator> <T, Allocator>(const Vector& lhs, const Vector& rhs);
+	friend bool operator>= <T, Allocator>(const Vector& lhs, const Vector& rhs);
 	friend void Polymorphic::swap<T, Allocator>(const Vector<T, Allocator>& lhs, const Vector<T, Allocator>& rhs);
 };
 
@@ -933,12 +933,12 @@ public:
 private:
 	DelegateType delegate;
 
-	friend bool operator== <bool, Allocator> (const Vector& lhs, const Vector& rhs);
-	friend bool operator!= <bool, Allocator> (const Vector& lhs, const Vector& rhs);
-	friend bool operator<  <bool, Allocator> (const Vector& lhs, const Vector& rhs);
-	friend bool operator<= <bool, Allocator> (const Vector& lhs, const Vector& rhs);
-	friend bool operator>  <bool, Allocator> (const Vector& lhs, const Vector& rhs);
-	friend bool operator>= <bool, Allocator> (const Vector& lhs, const Vector& rhs);
+	friend bool operator== <bool, Allocator>(const Vector& lhs, const Vector& rhs);
+	friend bool operator!= <bool, Allocator>(const Vector& lhs, const Vector& rhs);
+	friend bool operator< <bool, Allocator>(const Vector& lhs, const Vector& rhs);
+	friend bool operator<= <bool, Allocator>(const Vector& lhs, const Vector& rhs);
+	friend bool operator> <bool, Allocator>(const Vector& lhs, const Vector& rhs);
+	friend bool operator>= <bool, Allocator>(const Vector& lhs, const Vector& rhs);
 	friend void Polymorphic::swap<bool, Allocator>(const Vector<bool, Allocator>& lhs, const Vector<bool, Allocator>& rhs);
 };
 

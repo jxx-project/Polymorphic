@@ -29,11 +29,11 @@ class TestAtConst;
 
 
 /// Test MapType C++11 standard map or multimap interface.
-template< template<typename...> class MapType, typename Key, typename T, bool isMultimap = false, typename Compare = std::less<Key>, typename Allocator = std::allocator< std::pair<const Key, T> > >
+template<template<typename...> class MapType, typename Key, typename T, bool isMultimap = false, typename Compare = std::less<Key>, typename Allocator = std::allocator<std::pair<const Key, T>>>
 class MapTestSuite : public TestSuite
 {
 public:
-	typedef std::initializer_list< std::pair<const Key, T> > InitializerListType;
+	typedef std::initializer_list<std::pair<const Key, T>> InitializerListType;
 	typedef std::array<std::pair<const Key, T>, 1> ArrayType;
 	typedef typename MapType<Key, T, Compare, Allocator>::value_type ValueType;
 
@@ -43,7 +43,7 @@ public:
 					 {
 						 TestCase::assert(std::is_same<typename MapType<Key, T, Compare, Allocator>::key_type, Key>::value, "key_type");
 						 TestCase::assert(std::is_same<typename MapType<Key, T, Compare, Allocator>::mapped_type, T>::value, "mapped_type");
-						 TestCase::assert(std::is_same<typename MapType<Key, T, Compare, Allocator>::value_type, std::pair<const Key, T> >::value, "value_type");
+						 TestCase::assert(std::is_same<typename MapType<Key, T, Compare, Allocator>::value_type, std::pair<const Key, T>>::value, "value_type");
 						 TestCase::assert(std::is_class<typename MapType<Key, T, Compare, Allocator>::allocator_type>::value, "allocator_type");
 						 TestCase::assert(std::is_same<typename MapType<Key, T, Compare, Allocator>::reference, std::pair<const Key, T>&>::value, "reference");
 						 TestCase::assert(std::is_same<typename MapType<Key, T, Compare, Allocator>::const_reference, const std::pair<const Key, T>&>::value, "const_reference");

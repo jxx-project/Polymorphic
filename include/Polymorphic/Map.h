@@ -41,7 +41,7 @@ void swap(const Map<Key, T, Compare, Allocator>& lhs, const Map<Key, T, Compare,
 /// Classes derived from Polymorphic::Map<Key, T> can be safely used as targets of smart pointers.
 /// Note: forwarding member functions are *not* declared virtual! They are not meant to be overriden
 /// in subclasses. Add new behavior using new virtual members instead.
-template< typename Key, typename T, typename Compare = std::less<Key>, typename Allocator = std::allocator< std::pair<const Key, T> > >
+template<typename Key, typename T, typename Compare = std::less<Key>, typename Allocator = std::allocator<std::pair<const Key, T>>>
 class Map
 {
 public:
@@ -454,12 +454,12 @@ public:
 private:
 	DelegateType delegate;
 
-	friend bool operator== <Key, T, Compare, Allocator> (const Map& lhs, const Map& rhs);
-	friend bool operator!= <Key, T, Compare, Allocator> (const Map& lhs, const Map& rhs);
-	friend bool operator<  <Key, T, Compare, Allocator> (const Map& lhs, const Map& rhs);
-	friend bool operator<= <Key, T, Compare, Allocator> (const Map& lhs, const Map& rhs);
-	friend bool operator>  <Key, T, Compare, Allocator> (const Map& lhs, const Map& rhs);
-	friend bool operator>= <Key, T, Compare, Allocator> (const Map& lhs, const Map& rhs);
+	friend bool operator== <Key, T, Compare, Allocator>(const Map& lhs, const Map& rhs);
+	friend bool operator!= <Key, T, Compare, Allocator>(const Map& lhs, const Map& rhs);
+	friend bool operator< <Key, T, Compare, Allocator>(const Map& lhs, const Map& rhs);
+	friend bool operator<= <Key, T, Compare, Allocator>(const Map& lhs, const Map& rhs);
+	friend bool operator> <Key, T, Compare, Allocator>(const Map& lhs, const Map& rhs);
+	friend bool operator>= <Key, T, Compare, Allocator>(const Map& lhs, const Map& rhs);
 	friend void Polymorphic::swap<Key, T, Compare, Allocator>(const Map<Key, T, Compare, Allocator>& lhs, const Map<Key, T, Compare, Allocator>& rhs);
 };
 

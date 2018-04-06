@@ -41,7 +41,7 @@ void swap(const UnorderedMultimap<Key, T, Hash, Predicate, Allocator>& lhs, cons
 /// Classes derived from Polymorphic::UnorderedMultimap<Key, T> can be safely used as targets of smart pointers.
 /// Note: forwarding member functions are *not* declared virtual! They are not meant to be overriden
 /// in subclasses. Add new behavior using new virtual members instead.
-template< typename Key, typename T, typename Hash = std::hash<Key>, typename Predicate = std::equal_to<Key>, typename Allocator = std::allocator< std::pair<const Key, T> > >
+template<typename Key, typename T, typename Hash = std::hash<Key>, typename Predicate = std::equal_to<Key>, typename Allocator = std::allocator<std::pair<const Key, T>>>
 class UnorderedMultimap
 {
 public:
@@ -440,12 +440,12 @@ public:
 private:
 	DelegateType delegate;
 
-	friend bool operator== <Key, T, Hash, Predicate, Allocator> (const UnorderedMultimap& lhs, const UnorderedMultimap& rhs);
-	friend bool operator!= <Key, T, Hash, Predicate, Allocator> (const UnorderedMultimap& lhs, const UnorderedMultimap& rhs);
-	friend bool operator<  <Key, T, Hash, Predicate, Allocator> (const UnorderedMultimap& lhs, const UnorderedMultimap& rhs);
-	friend bool operator<= <Key, T, Hash, Predicate, Allocator> (const UnorderedMultimap& lhs, const UnorderedMultimap& rhs);
-	friend bool operator>  <Key, T, Hash, Predicate, Allocator> (const UnorderedMultimap& lhs, const UnorderedMultimap& rhs);
-	friend bool operator>= <Key, T, Hash, Predicate, Allocator> (const UnorderedMultimap& lhs, const UnorderedMultimap& rhs);
+	friend bool operator== <Key, T, Hash, Predicate, Allocator>(const UnorderedMultimap& lhs, const UnorderedMultimap& rhs);
+	friend bool operator!= <Key, T, Hash, Predicate, Allocator>(const UnorderedMultimap& lhs, const UnorderedMultimap& rhs);
+	friend bool operator< <Key, T, Hash, Predicate, Allocator>(const UnorderedMultimap& lhs, const UnorderedMultimap& rhs);
+	friend bool operator<= <Key, T, Hash, Predicate, Allocator>(const UnorderedMultimap& lhs, const UnorderedMultimap& rhs);
+	friend bool operator> <Key, T, Hash, Predicate, Allocator>(const UnorderedMultimap& lhs, const UnorderedMultimap& rhs);
+	friend bool operator>= <Key, T, Hash, Predicate, Allocator>(const UnorderedMultimap& lhs, const UnorderedMultimap& rhs);
 	friend void Polymorphic::swap<Key, T, Hash, Predicate, Allocator>(const UnorderedMultimap<Key, T, Hash, Predicate, Allocator>& lhs, const UnorderedMultimap<Key, T, Hash, Predicate, Allocator>& rhs);
 };
 
