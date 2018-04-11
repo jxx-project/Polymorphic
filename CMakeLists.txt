@@ -7,23 +7,28 @@
 cmake_minimum_required(VERSION 3.0)
 project(Polymorphic VERSION 1.0.0 LANGUAGES CXX)
 include(GNUInstallDirs)
+include(CMakePackageConfigHelpers)
 
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS NO)
 
 add_library(polymorphic INTERFACE)
-add_library(Polymorphic::Polymorphic ALIAS polymorphic)
 
 target_include_directories(polymorphic INTERFACE
 	$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
 	$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/test>
 	$<INSTALL_INTERFACE:include>)
 
-install(TARGETS polymorphic EXPORT PolymorphicConfig)
+install(TARGETS polymorphic EXPORT PolymorphicTargets)
 install(DIRECTORY include/ DESTINATION ${CMAKE_INSTALL_INCLUDEDIR} FILES_MATCHING PATTERN "*.h")
-install(EXPORT PolymorphicConfig DESTINATION share/Polymorphic/cmake)
-export(TARGETS polymorphic FILE PolymorphicConfig.cmake)
+install(EXPORT PolymorphicTargets DESTINATION share/Polymorphic/cmake)
+configure_file(cmake/PolymorphicConfig.cmake.in PolymorphicConfig.cmake @ONLY)
+write_basic_package_version_file(${CMAKE_CURRENT_BINARY_DIR}/PolymorphicConfigVersion.cmake COMPATIBILITY SameMajorVersion)
+install(FILES
+	${CMAKE_CURRENT_BINARY_DIR}/PolymorphicConfig.cmake
+	${CMAKE_CURRENT_BINARY_DIR}/PolymorphicConfigVersion.cmake
+	DESTINATION share/Polymorphic/cmake)
 
 enable_testing()
 
