@@ -13,16 +13,17 @@ set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS NO)
 
-add_library(polymorphic INTERFACE)
+add_library(Polymorphic INTERFACE)
+add_library(${PROJECT_NAME}::Polymorphic ALIAS Polymorphic)
 
-target_include_directories(polymorphic INTERFACE
+target_include_directories(Polymorphic INTERFACE
 	$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
 	$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/test>
 	$<INSTALL_INTERFACE:include>)
 
-install(TARGETS polymorphic EXPORT PolymorphicTargets)
+install(TARGETS Polymorphic EXPORT PolymorphicTargets)
 install(DIRECTORY include/ DESTINATION ${CMAKE_INSTALL_INCLUDEDIR} FILES_MATCHING PATTERN "*.h")
-install(EXPORT PolymorphicTargets DESTINATION share/Polymorphic/cmake)
+install(EXPORT PolymorphicTargets NAMESPACE ${PROJECT_NAME}:: DESTINATION share/Polymorphic/cmake)
 configure_file(cmake/PolymorphicConfig.cmake.in PolymorphicConfig.cmake @ONLY)
 write_basic_package_version_file(${CMAKE_CURRENT_BINARY_DIR}/PolymorphicConfigVersion.cmake COMPATIBILITY SameMajorVersion)
 install(FILES
@@ -40,31 +41,31 @@ else()
 endif()
 
 add_executable(vectorTest EXCLUDE_FROM_ALL test/vectorTest.cpp)
-target_link_libraries(vectorTest polymorphic)
+target_link_libraries(vectorTest ${PROJECT_NAME}::Polymorphic)
 add_test(NAME VectorTest COMMAND vectorTest)
 add_dependencies(check vectorTest)
 
 add_executable(listTest EXCLUDE_FROM_ALL test/listTest.cpp)
-target_link_libraries(listTest polymorphic)
+target_link_libraries(listTest ${PROJECT_NAME}::Polymorphic)
 add_test(NAME ListTest COMMAND listTest)
 add_dependencies(check listTest)
 
 add_executable(mapTest EXCLUDE_FROM_ALL test/mapTest.cpp)
-target_link_libraries(mapTest polymorphic)
+target_link_libraries(mapTest ${PROJECT_NAME}::Polymorphic)
 add_test(NAME MapTest COMMAND mapTest)
 add_dependencies(check mapTest)
 
 add_executable(multimapTest EXCLUDE_FROM_ALL test/multimapTest.cpp)
-target_link_libraries(multimapTest polymorphic)
+target_link_libraries(multimapTest ${PROJECT_NAME}::Polymorphic)
 add_test(NAME MultimapTest COMMAND multimapTest)
 add_dependencies(check multimapTest)
 
 add_executable(unorderedMapTest EXCLUDE_FROM_ALL test/unorderedMapTest.cpp)
-target_link_libraries(unorderedMapTest polymorphic)
+target_link_libraries(unorderedMapTest ${PROJECT_NAME}::Polymorphic)
 add_test(NAME UnorderedMapTest COMMAND unorderedMapTest)
 add_dependencies(check unorderedMapTest)
 
 add_executable(unorderedMultimapTest EXCLUDE_FROM_ALL test/unorderedMultimapTest.cpp)
-target_link_libraries(unorderedMultimapTest polymorphic)
+target_link_libraries(unorderedMultimapTest ${PROJECT_NAME}::Polymorphic)
 add_test(NAME UnorderedMultimapTest COMMAND unorderedMultimapTest)
 add_dependencies(check unorderedMultimapTest)
