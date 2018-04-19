@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 1.1.0 - 2018-04-19
 ### Added
 - CMake target version.
 - CHANGELOG.md.
