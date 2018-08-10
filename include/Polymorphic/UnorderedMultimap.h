@@ -440,12 +440,14 @@ public:
 private:
 	DelegateType delegate;
 
+	// clang-format off
 	friend bool operator== <Key, T, Hash, Predicate, Allocator>(const UnorderedMultimap& lhs, const UnorderedMultimap& rhs);
 	friend bool operator!= <Key, T, Hash, Predicate, Allocator>(const UnorderedMultimap& lhs, const UnorderedMultimap& rhs);
 	friend bool operator< <Key, T, Hash, Predicate, Allocator>(const UnorderedMultimap& lhs, const UnorderedMultimap& rhs);
 	friend bool operator<= <Key, T, Hash, Predicate, Allocator>(const UnorderedMultimap& lhs, const UnorderedMultimap& rhs);
 	friend bool operator> <Key, T, Hash, Predicate, Allocator>(const UnorderedMultimap& lhs, const UnorderedMultimap& rhs);
 	friend bool operator>= <Key, T, Hash, Predicate, Allocator>(const UnorderedMultimap& lhs, const UnorderedMultimap& rhs);
+	// clang-format on
 	friend void Polymorphic::swap<Key, T, Hash, Predicate, Allocator>(const UnorderedMultimap<Key, T, Hash, Predicate, Allocator>& lhs, const UnorderedMultimap<Key, T, Hash, Predicate, Allocator>& rhs);
 };
 

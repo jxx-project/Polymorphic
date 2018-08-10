@@ -454,12 +454,14 @@ public:
 private:
 	DelegateType delegate;
 
+	// clang-format off
 	friend bool operator== <Key, T, Compare, Allocator>(const Map& lhs, const Map& rhs);
 	friend bool operator!= <Key, T, Compare, Allocator>(const Map& lhs, const Map& rhs);
 	friend bool operator< <Key, T, Compare, Allocator>(const Map& lhs, const Map& rhs);
 	friend bool operator<= <Key, T, Compare, Allocator>(const Map& lhs, const Map& rhs);
 	friend bool operator> <Key, T, Compare, Allocator>(const Map& lhs, const Map& rhs);
 	friend bool operator>= <Key, T, Compare, Allocator>(const Map& lhs, const Map& rhs);
+	// clang-format on
 	friend void Polymorphic::swap<Key, T, Compare, Allocator>(const Map<Key, T, Compare, Allocator>& lhs, const Map<Key, T, Compare, Allocator>& rhs);
 };
 

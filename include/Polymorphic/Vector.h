@@ -478,12 +478,14 @@ public:
 private:
 	DelegateType delegate;
 
+	// clang-format off
 	friend bool operator== <T, Allocator>(const Vector& lhs, const Vector& rhs);
 	friend bool operator!= <T, Allocator>(const Vector& lhs, const Vector& rhs);
 	friend bool operator< <T, Allocator>(const Vector& lhs, const Vector& rhs);
 	friend bool operator<= <T, Allocator>(const Vector& lhs, const Vector& rhs);
 	friend bool operator> <T, Allocator>(const Vector& lhs, const Vector& rhs);
 	friend bool operator>= <T, Allocator>(const Vector& lhs, const Vector& rhs);
+	// clang-format on
 	friend void Polymorphic::swap<T, Allocator>(const Vector<T, Allocator>& lhs, const Vector<T, Allocator>& rhs);
 };
 
