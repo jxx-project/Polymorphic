@@ -935,12 +935,14 @@ public:
 private:
 	DelegateType delegate;
 
+	// clang-format off
 	friend bool operator== <bool, Allocator>(const Vector& lhs, const Vector& rhs);
 	friend bool operator!= <bool, Allocator>(const Vector& lhs, const Vector& rhs);
 	friend bool operator< <bool, Allocator>(const Vector& lhs, const Vector& rhs);
 	friend bool operator<= <bool, Allocator>(const Vector& lhs, const Vector& rhs);
 	friend bool operator> <bool, Allocator>(const Vector& lhs, const Vector& rhs);
 	friend bool operator>= <bool, Allocator>(const Vector& lhs, const Vector& rhs);
+	// clang-format on
 	friend void Polymorphic::swap<bool, Allocator>(const Vector<bool, Allocator>& lhs, const Vector<bool, Allocator>& rhs);
 };
 
