@@ -16,7 +16,9 @@ namespace Testee {
 class TestCase
 {
 public:
-	TestCase(const std::string& name, const std::function<void(void)>& runner) : name(name), runner(runner)
+	TestCase(const std::string& name, const std::function<void(void)>& runner)
+		: name(name)
+		, runner(runner)
 	{
 	}
 
@@ -26,7 +28,7 @@ public:
 			runner();
 		} catch (std::runtime_error& e) {
 			std::string comment(e.what());
-			throw std::runtime_error("Test case \"" + name + "\" failed." + (comment.empty() ?	"" : " // " + comment));
+			throw std::runtime_error("Test case \"" + name + "\" failed." + (comment.empty() ? "" : " // " + comment));
 		}
 	}
 

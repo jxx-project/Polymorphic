@@ -55,16 +55,18 @@ public:
 	typedef value_type& reference;
 	typedef const value_type& const_reference;
 	typedef typename DelegateType::pointer pointer;
-	typedef typename DelegateType::const_pointer const_pointer ;
+	typedef typename DelegateType::const_pointer const_pointer;
 	typedef typename DelegateType::iterator iterator;
-	typedef typename DelegateType::const_iterator const_iterator ;
+	typedef typename DelegateType::const_iterator const_iterator;
 	typedef typename DelegateType::reverse_iterator reverse_iterator;
 	typedef typename DelegateType::const_reverse_iterator const_reverse_iterator;
 	typedef typename DelegateType::difference_type difference_type;
 	typedef typename DelegateType::size_type size_type;
 
-	/// Forwarded to std::multimap<Key, T>::multimap(const key_compare& compare = key_compare(), const allocator_type& allocator = allocator_type()).
-	explicit Multimap(const key_compare& compare = key_compare(), const allocator_type& allocator = allocator_type()) : delegate(compare, allocator)
+	/// Forwarded to std::multimap<Key, T>::multimap(const key_compare& compare = key_compare(), const allocator_type& allocator =
+	/// allocator_type()).
+	explicit Multimap(const key_compare& compare = key_compare(), const allocator_type& allocator = allocator_type()) :
+		delegate(compare, allocator)
 	{
 	}
 
@@ -73,9 +75,15 @@ public:
 	{
 	}
 
-	/// Forwarded to std::multimap<Key, T>::multimap(InputIterator first, InputIterator last, const key_compare& compare = key_compare(), const allocator_type& allocator = allocator_type()).
+	/// Forwarded to std::multimap<Key, T>::multimap(InputIterator first, InputIterator last, const key_compare& compare =
+	/// key_compare(), const allocator_type& allocator = allocator_type()).
 	template<typename InputIterator>
-	Multimap(InputIterator first, InputIterator last, const key_compare& compare = key_compare(), const allocator_type& allocator = allocator_type()) : delegate(first, last, compare, allocator)
+	Multimap(
+		InputIterator first,
+		InputIterator last,
+		const key_compare& compare = key_compare(),
+		const allocator_type& allocator = allocator_type()) :
+		delegate(first, last, compare, allocator)
 	{
 	}
 
@@ -99,8 +107,13 @@ public:
 	{
 	}
 
-	/// Forwarded to std::multimap<Key, T>::multimap(std::initializer_list<value_type> initializerList, const key_compare& compare = key_compare(), const allocator_type& allocator = allocator_type()).
-	Multimap(std::initializer_list<value_type> initializerList, const key_compare& compare = key_compare(), const allocator_type& allocator = allocator_type()) : delegate(initializerList, compare, allocator)
+	/// Forwarded to std::multimap<Key, T>::multimap(std::initializer_list<value_type> initializerList, const key_compare& compare =
+	/// key_compare(), const allocator_type& allocator = allocator_type()).
+	Multimap(
+		std::initializer_list<value_type> initializerList,
+		const key_compare& compare = key_compare(),
+		const allocator_type& allocator = allocator_type()) :
+		delegate(initializerList, compare, allocator)
 	{
 	}
 
@@ -177,7 +190,7 @@ public:
 	}
 
 	/// Explicit type conversion into std::multimap<T> rvalue reference.
-	explicit operator DelegateType&&()
+	explicit operator DelegateType &&()
 	{
 		return std::move(delegate);
 	}
@@ -438,45 +451,53 @@ private:
 	friend bool operator> <Key, T, Compare, Allocator>(const Multimap& lhs, const Multimap& rhs);
 	friend bool operator>= <Key, T, Compare, Allocator>(const Multimap& lhs, const Multimap& rhs);
 	// clang-format on
-	friend void Polymorphic::swap<Key, T, Compare, Allocator>(const Multimap<Key, T, Compare, Allocator>& lhs, const Multimap<Key, T, Compare, Allocator>& rhs);
+	friend void Polymorphic::swap<Key, T, Compare, Allocator>(
+		const Multimap<Key, T, Compare, Allocator>& lhs,
+		const Multimap<Key, T, Compare, Allocator>& rhs);
 };
 
-/// Forwarded to operator==(const std::multimap<Key, T, Compare, Allocator>& lhs, const std::multimap<Key, T, Compare, Allocator>& rhs).
+/// Forwarded to operator==(const std::multimap<Key, T, Compare, Allocator>& lhs, const std::multimap<Key, T, Compare, Allocator>&
+/// rhs).
 template<typename Key, typename T, typename Compare, typename Allocator>
 bool operator==(const Multimap<Key, T, Compare, Allocator>& lhs, const Multimap<Key, T, Compare, Allocator>& rhs)
 {
 	return lhs.delegate == rhs.delegate;
 }
 
-/// Forwarded to operator!=(const std::multimap<Key, T, Compare, Allocator>& lhs, const std::multimap<Key, T, Compare, Allocator>& rhs).
+/// Forwarded to operator!=(const std::multimap<Key, T, Compare, Allocator>& lhs, const std::multimap<Key, T, Compare, Allocator>&
+/// rhs).
 template<typename Key, typename T, typename Compare, typename Allocator>
 bool operator!=(const Multimap<Key, T, Compare, Allocator>& lhs, const Multimap<Key, T, Compare, Allocator>& rhs)
 {
 	return lhs.delegate != rhs.delegate;
 }
 
-/// Forwarded to operator<(const std::multimap<Key, T, Compare, Allocator>& lhs, const std::multimap<Key, T, Compare, Allocator>& rhs).
+/// Forwarded to operator<(const std::multimap<Key, T, Compare, Allocator>& lhs, const std::multimap<Key, T, Compare, Allocator>&
+/// rhs).
 template<typename Key, typename T, typename Compare, typename Allocator>
 bool operator<(const Multimap<Key, T, Compare, Allocator>& lhs, const Multimap<Key, T, Compare, Allocator>& rhs)
 {
 	return lhs.delegate < rhs.delegate;
 }
 
-/// Forwarded to operator<=(const std::multimap<Key, T, Compare, Allocator>& lhs, const std::multimap<Key, T, Compare, Allocator>& rhs).
+/// Forwarded to operator<=(const std::multimap<Key, T, Compare, Allocator>& lhs, const std::multimap<Key, T, Compare, Allocator>&
+/// rhs).
 template<typename Key, typename T, typename Compare, typename Allocator>
 bool operator<=(const Multimap<Key, T, Compare, Allocator>& lhs, const Multimap<Key, T, Compare, Allocator>& rhs)
 {
 	return lhs.delegate <= rhs.delegate;
 }
 
-/// Forwarded to operator>(const std::multimap<Key, T, Compare, Allocator>& lhs, const std::multimap<Key, T, Compare, Allocator>& rhs).
+/// Forwarded to operator>(const std::multimap<Key, T, Compare, Allocator>& lhs, const std::multimap<Key, T, Compare, Allocator>&
+/// rhs).
 template<typename Key, typename T, typename Compare, typename Allocator>
 bool operator>(const Multimap<Key, T, Compare, Allocator>& lhs, const Multimap<Key, T, Compare, Allocator>& rhs)
 {
 	return lhs.delegate > rhs.delegate;
 }
 
-/// Forwarded to operator>=(const std::multimap<Key, T, Compare, Allocator>& lhs, const std::multimap<Key, T, Compare, Allocator>& rhs).
+/// Forwarded to operator>=(const std::multimap<Key, T, Compare, Allocator>& lhs, const std::multimap<Key, T, Compare, Allocator>&
+/// rhs).
 template<typename Key, typename T, typename Compare, typename Allocator>
 bool operator>=(const Multimap<Key, T, Compare, Allocator>& lhs, const Multimap<Key, T, Compare, Allocator>& rhs)
 {

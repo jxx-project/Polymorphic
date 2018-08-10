@@ -55,16 +55,18 @@ public:
 	typedef value_type& reference;
 	typedef const value_type& const_reference;
 	typedef typename DelegateType::pointer pointer;
-	typedef typename DelegateType::const_pointer const_pointer ;
+	typedef typename DelegateType::const_pointer const_pointer;
 	typedef typename DelegateType::iterator iterator;
-	typedef typename DelegateType::const_iterator const_iterator ;
+	typedef typename DelegateType::const_iterator const_iterator;
 	typedef typename DelegateType::reverse_iterator reverse_iterator;
 	typedef typename DelegateType::const_reverse_iterator const_reverse_iterator;
 	typedef typename DelegateType::difference_type difference_type;
 	typedef typename DelegateType::size_type size_type;
 
-	/// Forwarded to std::map<Key, T>::map(const key_compare& compare = key_compare(), const allocator_type& allocator = allocator_type()).
-	explicit Map(const key_compare& compare = key_compare(), const allocator_type& allocator = allocator_type()) : delegate(compare, allocator)
+	/// Forwarded to std::map<Key, T>::map(const key_compare& compare = key_compare(), const allocator_type& allocator =
+	/// allocator_type()).
+	explicit Map(const key_compare& compare = key_compare(), const allocator_type& allocator = allocator_type()) :
+		delegate(compare, allocator)
 	{
 	}
 
@@ -73,9 +75,14 @@ public:
 	{
 	}
 
-	/// Forwarded to std::map<Key, T>::map(InputIterator first, InputIterator last, const key_compare& compare = key_compare(), const allocator_type& allocator = allocator_type()).
+	/// Forwarded to std::map<Key, T>::map(InputIterator first, InputIterator last, const key_compare& compare = key_compare(),
+	/// const allocator_type& allocator = allocator_type()).
 	template<typename InputIterator>
-	Map(InputIterator first, InputIterator last, const key_compare& compare = key_compare(), const allocator_type& allocator = allocator_type()) : delegate(first, last, compare, allocator)
+	Map(InputIterator first,
+		InputIterator last,
+		const key_compare& compare = key_compare(),
+		const allocator_type& allocator = allocator_type()) :
+		delegate(first, last, compare, allocator)
 	{
 	}
 
@@ -99,8 +106,12 @@ public:
 	{
 	}
 
-	/// Forwarded to std::map<Key, T>::map(std::initializer_list<value_type> initializerList, const key_compare& compare = key_compare(), const allocator_type& allocator = allocator_type()).
-	Map(std::initializer_list<value_type> initializerList, const key_compare& compare = key_compare(), const allocator_type& allocator = allocator_type()) : delegate(initializerList, compare, allocator)
+	/// Forwarded to std::map<Key, T>::map(std::initializer_list<value_type> initializerList, const key_compare& compare =
+	/// key_compare(), const allocator_type& allocator = allocator_type()).
+	Map(std::initializer_list<value_type> initializerList,
+		const key_compare& compare = key_compare(),
+		const allocator_type& allocator = allocator_type()) :
+		delegate(initializerList, compare, allocator)
 	{
 	}
 
@@ -177,7 +188,7 @@ public:
 	}
 
 	/// Explicit type conversion into std::map<T> rvalue reference.
-	explicit operator DelegateType&&()
+	explicit operator DelegateType &&()
 	{
 		return std::move(delegate);
 	}
@@ -462,7 +473,9 @@ private:
 	friend bool operator> <Key, T, Compare, Allocator>(const Map& lhs, const Map& rhs);
 	friend bool operator>= <Key, T, Compare, Allocator>(const Map& lhs, const Map& rhs);
 	// clang-format on
-	friend void Polymorphic::swap<Key, T, Compare, Allocator>(const Map<Key, T, Compare, Allocator>& lhs, const Map<Key, T, Compare, Allocator>& rhs);
+	friend void Polymorphic::swap<Key, T, Compare, Allocator>(
+		const Map<Key, T, Compare, Allocator>& lhs,
+		const Map<Key, T, Compare, Allocator>& rhs);
 };
 
 /// Forwarded to operator==(const std::map<Key, T, Compare, Allocator>& lhs, const std::map<Key, T, Compare, Allocator>& rhs).

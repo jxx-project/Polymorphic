@@ -16,22 +16,34 @@ template<typename Key, typename T, typename Hash, typename Predicate, typename A
 class UnorderedMap;
 
 template<typename Key, typename T, typename Hash, typename Predicate, typename Allocator>
-bool operator==(const UnorderedMap<Key, T, Hash, Predicate, Allocator>& lhs, const UnorderedMap<Key, T, Hash, Predicate, Allocator>& rhs);
+bool operator==(
+	const UnorderedMap<Key, T, Hash, Predicate, Allocator>& lhs,
+	const UnorderedMap<Key, T, Hash, Predicate, Allocator>& rhs);
 
 template<typename Key, typename T, typename Hash, typename Predicate, typename Allocator>
-bool operator!=(const UnorderedMap<Key, T, Hash, Predicate, Allocator>& lhs, const UnorderedMap<Key, T, Hash, Predicate, Allocator>& rhs);
+bool operator!=(
+	const UnorderedMap<Key, T, Hash, Predicate, Allocator>& lhs,
+	const UnorderedMap<Key, T, Hash, Predicate, Allocator>& rhs);
 
 template<typename Key, typename T, typename Hash, typename Predicate, typename Allocator>
-bool operator<(const UnorderedMap<Key, T, Hash, Predicate, Allocator>& lhs, const UnorderedMap<Key, T, Hash, Predicate, Allocator>& rhs);
+bool operator<(
+	const UnorderedMap<Key, T, Hash, Predicate, Allocator>& lhs,
+	const UnorderedMap<Key, T, Hash, Predicate, Allocator>& rhs);
 
 template<typename Key, typename T, typename Hash, typename Predicate, typename Allocator>
-bool operator<=(const UnorderedMap<Key, T, Hash, Predicate, Allocator>& lhs, const UnorderedMap<Key, T, Hash, Predicate, Allocator>& rhs);
+bool operator<=(
+	const UnorderedMap<Key, T, Hash, Predicate, Allocator>& lhs,
+	const UnorderedMap<Key, T, Hash, Predicate, Allocator>& rhs);
 
 template<typename Key, typename T, typename Hash, typename Predicate, typename Allocator>
-bool operator>(const UnorderedMap<Key, T, Hash, Predicate, Allocator>& lhs, const UnorderedMap<Key, T, Hash, Predicate, Allocator>& rhs);
+bool operator>(
+	const UnorderedMap<Key, T, Hash, Predicate, Allocator>& lhs,
+	const UnorderedMap<Key, T, Hash, Predicate, Allocator>& rhs);
 
 template<typename Key, typename T, typename Hash, typename Predicate, typename Allocator>
-bool operator>=(const UnorderedMap<Key, T, Hash, Predicate, Allocator>& lhs, const UnorderedMap<Key, T, Hash, Predicate, Allocator>& rhs);
+bool operator>=(
+	const UnorderedMap<Key, T, Hash, Predicate, Allocator>& lhs,
+	const UnorderedMap<Key, T, Hash, Predicate, Allocator>& rhs);
 
 template<typename Key, typename T, typename Hash, typename Predicate, typename Allocator>
 void swap(const UnorderedMap<Key, T, Hash, Predicate, Allocator>& lhs, const UnorderedMap<Key, T, Hash, Predicate, Allocator>& rhs);
@@ -41,7 +53,12 @@ void swap(const UnorderedMap<Key, T, Hash, Predicate, Allocator>& lhs, const Uno
 /// Classes derived from Polymorphic::UnorderedMap<Key, T> can be safely used as targets of smart pointers.
 /// Note: forwarding member functions are *not* declared virtual! They are not meant to be overriden
 /// in subclasses. Add new behavior using new virtual members instead.
-template<typename Key, typename T, typename Hash = std::hash<Key>, typename Predicate = std::equal_to<Key>, typename Allocator = std::allocator<std::pair<const Key, T>>>
+template<
+	typename Key,
+	typename T,
+	typename Hash = std::hash<Key>,
+	typename Predicate = std::equal_to<Key>,
+	typename Allocator = std::allocator<std::pair<const Key, T>>>
 class UnorderedMap
 {
 public:
@@ -55,9 +72,9 @@ public:
 	typedef value_type& reference;
 	typedef const value_type& const_reference;
 	typedef typename DelegateType::pointer pointer;
-	typedef typename DelegateType::const_pointer const_pointer ;
+	typedef typename DelegateType::const_pointer const_pointer;
 	typedef typename DelegateType::iterator iterator;
-	typedef typename DelegateType::const_iterator const_iterator ;
+	typedef typename DelegateType::const_iterator const_iterator;
 	typedef typename DelegateType::local_iterator local_iterator;
 	typedef typename DelegateType::const_local_iterator const_local_iterator;
 	typedef typename DelegateType::difference_type difference_type;
@@ -68,8 +85,14 @@ public:
 	{
 	}
 
-	/// Forwarded to std::unordered_map<Key, T>::unordered_map(size_type minInitialBuckets, const hasher& hash = hasher(), const key_equal& predicate = key_equal(), const allocator_type& allocator = allocator_type()).
-	explicit UnorderedMap(size_type minInitialBuckets, const hasher& hash = hasher(), const key_equal& predicate = key_equal(), const allocator_type& allocator = allocator_type()) : delegate(minInitialBuckets, hash, predicate, allocator)
+	/// Forwarded to std::unordered_map<Key, T>::unordered_map(size_type minInitialBuckets, const hasher& hash = hasher(), const
+	/// key_equal& predicate = key_equal(), const allocator_type& allocator = allocator_type()).
+	explicit UnorderedMap(
+		size_type minInitialBuckets,
+		const hasher& hash = hasher(),
+		const key_equal& predicate = key_equal(),
+		const allocator_type& allocator = allocator_type()) :
+		delegate(minInitialBuckets, hash, predicate, allocator)
 	{
 	}
 
@@ -78,15 +101,25 @@ public:
 	{
 	}
 
-	/// Forwarded to std::unordered_map<Key, T>::unordered_map(InputIterator first, InputIterator last) using default minInitialBuckets.
+	/// Forwarded to std::unordered_map<Key, T>::unordered_map(InputIterator first, InputIterator last) using default
+	/// minInitialBuckets.
 	template<typename InputIterator>
 	UnorderedMap(InputIterator first, InputIterator last) : delegate(first, last)
 	{
 	}
 
-	/// Forwarded to std::unordered_map<Key, T>::unordered_map(InputIterator first, InputIterator last, size_type minInitialBuckets, const hasher& hash = hasher(), const key_equal& predicate = key_equal(), const allocator_type& allocator = allocator_type()).
+	/// Forwarded to std::unordered_map<Key, T>::unordered_map(InputIterator first, InputIterator last, size_type minInitialBuckets,
+	/// const hasher& hash = hasher(), const key_equal& predicate = key_equal(), const allocator_type& allocator =
+	/// allocator_type()).
 	template<typename InputIterator>
-	UnorderedMap(InputIterator first, InputIterator last, size_type minInitialBuckets, const hasher& hash = hasher(), const key_equal& predicate = key_equal(), const allocator_type& allocator = allocator_type()) : delegate(first, last, minInitialBuckets, hash, predicate, allocator)
+	UnorderedMap(
+		InputIterator first,
+		InputIterator last,
+		size_type minInitialBuckets,
+		const hasher& hash = hasher(),
+		const key_equal& predicate = key_equal(),
+		const allocator_type& allocator = allocator_type()) :
+		delegate(first, last, minInitialBuckets, hash, predicate, allocator)
 	{
 	}
 
@@ -110,13 +143,22 @@ public:
 	{
 	}
 
-	/// Forwarded to std::unordered_map<Key, T>::unordered_map(std::initializer_list<value_type> initializerList) using default minInitialBuckets.
+	/// Forwarded to std::unordered_map<Key, T>::unordered_map(std::initializer_list<value_type> initializerList) using default
+	/// minInitialBuckets.
 	UnorderedMap(std::initializer_list<value_type> initializerList) : delegate(initializerList)
 	{
 	}
 
-	/// Forwarded to std::unordered_map<Key, T>::unordered_map(std::initializer_list<value_type> initializerList, size_type minInitialBuckets, const hasher& hash = hasher(), const key_equal& predicate = key_equal(), const allocator_type& allocator = allocator_type()).
-	UnorderedMap(std::initializer_list<value_type> initializerList, size_type minInitialBuckets, const hasher& hash = hasher(), const key_equal& predicate = key_equal(), const allocator_type& allocator = allocator_type()) : delegate(initializerList, minInitialBuckets, hash, predicate, allocator)
+	/// Forwarded to std::unordered_map<Key, T>::unordered_map(std::initializer_list<value_type> initializerList, size_type
+	/// minInitialBuckets, const hasher& hash = hasher(), const key_equal& predicate = key_equal(), const allocator_type& allocator
+	/// = allocator_type()).
+	UnorderedMap(
+		std::initializer_list<value_type> initializerList,
+		size_type minInitialBuckets,
+		const hasher& hash = hasher(),
+		const key_equal& predicate = key_equal(),
+		const allocator_type& allocator = allocator_type()) :
+		delegate(initializerList, minInitialBuckets, hash, predicate, allocator)
 	{
 	}
 
@@ -193,7 +235,7 @@ public:
 	}
 
 	/// Explicit type conversion into std::unordered_map<T> rvalue reference.
-	explicit operator DelegateType&&()
+	explicit operator DelegateType &&()
 	{
 		return std::move(delegate);
 	}
@@ -472,52 +514,73 @@ private:
 	friend bool operator> <Key, T, Hash, Predicate, Allocator>(const UnorderedMap& lhs, const UnorderedMap& rhs);
 	friend bool operator>= <Key, T, Hash, Predicate, Allocator>(const UnorderedMap& lhs, const UnorderedMap& rhs);
 	// clang-format on
-	friend void Polymorphic::swap<Key, T, Hash, Predicate, Allocator>(const UnorderedMap<Key, T, Hash, Predicate, Allocator>& lhs, const UnorderedMap<Key, T, Hash, Predicate, Allocator>& rhs);
+	friend void Polymorphic::swap<Key, T, Hash, Predicate, Allocator>(
+		const UnorderedMap<Key, T, Hash, Predicate, Allocator>& lhs,
+		const UnorderedMap<Key, T, Hash, Predicate, Allocator>& rhs);
 };
 
-/// Forwarded to operator==(const std::unordered_map<Key, T, Hash, Predicate, Allocator>& lhs, const std::unordered_map<Key, T, Hash, Predicate, Allocator>& rhs).
+/// Forwarded to operator==(const std::unordered_map<Key, T, Hash, Predicate, Allocator>& lhs, const std::unordered_map<Key, T,
+/// Hash, Predicate, Allocator>& rhs).
 template<typename Key, typename T, typename Hash, typename Predicate, typename Allocator>
-bool operator==(const UnorderedMap<Key, T, Hash, Predicate, Allocator>& lhs, const UnorderedMap<Key, T, Hash, Predicate, Allocator>& rhs)
+bool operator==(
+	const UnorderedMap<Key, T, Hash, Predicate, Allocator>& lhs,
+	const UnorderedMap<Key, T, Hash, Predicate, Allocator>& rhs)
 {
 	return lhs.delegate == rhs.delegate;
 }
 
-/// Forwarded to operator!=(const std::unordered_map<Key, T, Hash, Predicate, Allocator>& lhs, const std::unordered_map<Key, T, Hash, Predicate, Allocator>& rhs).
+/// Forwarded to operator!=(const std::unordered_map<Key, T, Hash, Predicate, Allocator>& lhs, const std::unordered_map<Key, T,
+/// Hash, Predicate, Allocator>& rhs).
 template<typename Key, typename T, typename Hash, typename Predicate, typename Allocator>
-bool operator!=(const UnorderedMap<Key, T, Hash, Predicate, Allocator>& lhs, const UnorderedMap<Key, T, Hash, Predicate, Allocator>& rhs)
+bool operator!=(
+	const UnorderedMap<Key, T, Hash, Predicate, Allocator>& lhs,
+	const UnorderedMap<Key, T, Hash, Predicate, Allocator>& rhs)
 {
 	return lhs.delegate != rhs.delegate;
 }
 
-/// Forwarded to operator<(const std::unordered_map<Key, T, Hash, Predicate, Allocator>& lhs, const std::unordered_map<Key, T, Hash, Predicate, Allocator>& rhs).
+/// Forwarded to operator<(const std::unordered_map<Key, T, Hash, Predicate, Allocator>& lhs, const std::unordered_map<Key, T, Hash,
+/// Predicate, Allocator>& rhs).
 template<typename Key, typename T, typename Hash, typename Predicate, typename Allocator>
-bool operator<(const UnorderedMap<Key, T, Hash, Predicate, Allocator>& lhs, const UnorderedMap<Key, T, Hash, Predicate, Allocator>& rhs)
+bool operator<(
+	const UnorderedMap<Key, T, Hash, Predicate, Allocator>& lhs,
+	const UnorderedMap<Key, T, Hash, Predicate, Allocator>& rhs)
 {
 	return lhs.delegate < rhs.delegate;
 }
 
-/// Forwarded to operator<=(const std::unordered_map<Key, T, Hash, Predicate, Allocator>& lhs, const std::unordered_map<Key, T, Hash, Predicate, Allocator>& rhs).
+/// Forwarded to operator<=(const std::unordered_map<Key, T, Hash, Predicate, Allocator>& lhs, const std::unordered_map<Key, T,
+/// Hash, Predicate, Allocator>& rhs).
 template<typename Key, typename T, typename Hash, typename Predicate, typename Allocator>
-bool operator<=(const UnorderedMap<Key, T, Hash, Predicate, Allocator>& lhs, const UnorderedMap<Key, T, Hash, Predicate, Allocator>& rhs)
+bool operator<=(
+	const UnorderedMap<Key, T, Hash, Predicate, Allocator>& lhs,
+	const UnorderedMap<Key, T, Hash, Predicate, Allocator>& rhs)
 {
 	return lhs.delegate <= rhs.delegate;
 }
 
-/// Forwarded to operator>(const std::unordered_map<Key, T, Hash, Predicate, Allocator>& lhs, const std::unordered_map<Key, T, Hash, Predicate, Allocator>& rhs).
+/// Forwarded to operator>(const std::unordered_map<Key, T, Hash, Predicate, Allocator>& lhs, const std::unordered_map<Key, T, Hash,
+/// Predicate, Allocator>& rhs).
 template<typename Key, typename T, typename Hash, typename Predicate, typename Allocator>
-bool operator>(const UnorderedMap<Key, T, Hash, Predicate, Allocator>& lhs, const UnorderedMap<Key, T, Hash, Predicate, Allocator>& rhs)
+bool operator>(
+	const UnorderedMap<Key, T, Hash, Predicate, Allocator>& lhs,
+	const UnorderedMap<Key, T, Hash, Predicate, Allocator>& rhs)
 {
 	return lhs.delegate > rhs.delegate;
 }
 
-/// Forwarded to operator>=(const std::unordered_map<Key, T, Hash, Predicate, Allocator>& lhs, const std::unordered_map<Key, T, Hash, Predicate, Allocator>& rhs).
+/// Forwarded to operator>=(const std::unordered_map<Key, T, Hash, Predicate, Allocator>& lhs, const std::unordered_map<Key, T,
+/// Hash, Predicate, Allocator>& rhs).
 template<typename Key, typename T, typename Hash, typename Predicate, typename Allocator>
-bool operator>=(const UnorderedMap<Key, T, Hash, Predicate, Allocator>& lhs, const UnorderedMap<Key, T, Hash, Predicate, Allocator>& rhs)
+bool operator>=(
+	const UnorderedMap<Key, T, Hash, Predicate, Allocator>& lhs,
+	const UnorderedMap<Key, T, Hash, Predicate, Allocator>& rhs)
 {
 	return lhs.delegate >= rhs.delegate;
 }
 
-/// Forwarded to swap(const std::unordered_map<Key, T, Hash, Predicate, Allocator>& lhs, const std::unordered_map<Key, T, Hash, Predicate, Allocator>& rhs).
+/// Forwarded to swap(const std::unordered_map<Key, T, Hash, Predicate, Allocator>& lhs, const std::unordered_map<Key, T, Hash,
+/// Predicate, Allocator>& rhs).
 template<typename Key, typename T, typename Hash, typename Predicate, typename Allocator>
 void swap(const UnorderedMap<Key, T, Hash, Predicate, Allocator>& lhs, const UnorderedMap<Key, T, Hash, Predicate, Allocator>& rhs)
 {

@@ -51,9 +51,9 @@ public:
 	typedef value_type& reference;
 	typedef const value_type& const_reference;
 	typedef typename DelegateType::pointer pointer;
-	typedef typename DelegateType::const_pointer const_pointer ;
+	typedef typename DelegateType::const_pointer const_pointer;
 	typedef typename DelegateType::iterator iterator;
-	typedef typename DelegateType::const_iterator const_iterator ;
+	typedef typename DelegateType::const_iterator const_iterator;
 	typedef typename DelegateType::reverse_iterator reverse_iterator;
 	typedef typename DelegateType::const_reverse_iterator const_reverse_iterator;
 	typedef typename DelegateType::difference_type difference_type;
@@ -74,9 +74,11 @@ public:
 	{
 	}
 
-	/// Forwarded to std::list<T>::list(InputIterator first, InputIterator last, const allocator_type& allocator = allocator_type()).
+	/// Forwarded to std::list<T>::list(InputIterator first, InputIterator last, const allocator_type& allocator =
+	/// allocator_type()).
 	template<typename InputIterator>
-	List(InputIterator first, InputIterator last, const allocator_type& allocator = allocator_type()) : delegate(first, last, allocator)
+	List(InputIterator first, InputIterator last, const allocator_type& allocator = allocator_type()) :
+		delegate(first, last, allocator)
 	{
 	}
 
@@ -100,8 +102,10 @@ public:
 	{
 	}
 
-	/// Forwarded to std::list<T>::list(std::initializer_list<value_type> initializerList, const allocator_type& allocator = allocator_type()).
-	List(std::initializer_list<value_type> initializerList, const allocator_type& allocator = allocator_type()) : delegate(initializerList, allocator)
+	/// Forwarded to std::list<T>::list(std::initializer_list<value_type> initializerList, const allocator_type& allocator =
+	/// allocator_type()).
+	List(std::initializer_list<value_type> initializerList, const allocator_type& allocator = allocator_type()) :
+		delegate(initializerList, allocator)
 	{
 	}
 
@@ -178,7 +182,7 @@ public:
 	}
 
 	/// Explicit type conversion into std::list<T> rvalue reference.
-	explicit operator DelegateType&&()
+	explicit operator DelegateType &&()
 	{
 		return std::move(delegate);
 	}

@@ -51,9 +51,9 @@ public:
 	typedef value_type& reference;
 	typedef const value_type& const_reference;
 	typedef typename DelegateType::pointer pointer;
-	typedef typename DelegateType::const_pointer const_pointer ;
+	typedef typename DelegateType::const_pointer const_pointer;
 	typedef typename DelegateType::iterator iterator;
-	typedef typename DelegateType::const_iterator const_iterator ;
+	typedef typename DelegateType::const_iterator const_iterator;
 	typedef typename DelegateType::reverse_iterator reverse_iterator;
 	typedef typename DelegateType::const_reverse_iterator const_reverse_iterator;
 	typedef typename DelegateType::difference_type difference_type;
@@ -69,14 +69,17 @@ public:
 	{
 	}
 
-	/// Forwarded to std::vector<T>::vector(size_type n, const value_type& value, const allocator_type& allocator = allocator_type()).
+	/// Forwarded to std::vector<T>::vector(size_type n, const value_type& value, const allocator_type& allocator =
+	/// allocator_type()).
 	Vector(size_type n, const value_type& value, const allocator_type& allocator = allocator_type()) : delegate(n, value, allocator)
 	{
 	}
 
-	/// Forwarded to std::vector<T>::vector(InputIterator first, InputIterator last, const allocator_type& allocator = allocator_type()).
+	/// Forwarded to std::vector<T>::vector(InputIterator first, InputIterator last, const allocator_type& allocator =
+	/// allocator_type()).
 	template<typename InputIterator>
-	Vector(InputIterator first, InputIterator last, const allocator_type& allocator = allocator_type()) : delegate(first, last, allocator)
+	Vector(InputIterator first, InputIterator last, const allocator_type& allocator = allocator_type()) :
+		delegate(first, last, allocator)
 	{
 	}
 
@@ -100,8 +103,10 @@ public:
 	{
 	}
 
-	/// Forwarded to std::vector<T>::vector(std::initializer_list<value_type> initializerList, const allocator_type& allocator = allocator_type()).
-	Vector(std::initializer_list<value_type> initializerList, const allocator_type& allocator = allocator_type()) : delegate(initializerList, allocator)
+	/// Forwarded to std::vector<T>::vector(std::initializer_list<value_type> initializerList, const allocator_type& allocator =
+	/// allocator_type()).
+	Vector(std::initializer_list<value_type> initializerList, const allocator_type& allocator = allocator_type()) :
+		delegate(initializerList, allocator)
 	{
 	}
 
@@ -178,7 +183,7 @@ public:
 	}
 
 	/// Explicit type conversion into std::vector<T> rvalue reference.
-	explicit operator DelegateType&&()
+	explicit operator DelegateType &&()
 	{
 		return std::move(delegate);
 	}
@@ -508,9 +513,9 @@ public:
 	typedef typename DelegateType::reference reference;
 	typedef typename DelegateType::const_reference const_reference;
 	typedef typename DelegateType::pointer pointer;
-	typedef typename DelegateType::const_pointer const_pointer ;
+	typedef typename DelegateType::const_pointer const_pointer;
 	typedef typename DelegateType::iterator iterator;
-	typedef typename DelegateType::const_iterator const_iterator ;
+	typedef typename DelegateType::const_iterator const_iterator;
 	typedef typename DelegateType::reverse_iterator reverse_iterator;
 	typedef typename DelegateType::const_reverse_iterator const_reverse_iterator;
 	typedef typename DelegateType::difference_type difference_type;
@@ -526,14 +531,17 @@ public:
 	{
 	}
 
-	/// Forwarded to std::vector<bool>::vector(size_type n, const value_type& value, const allocator_type& allocator = allocator_type()).
+	/// Forwarded to std::vector<bool>::vector(size_type n, const value_type& value, const allocator_type& allocator =
+	/// allocator_type()).
 	Vector(size_type n, const value_type& value, const allocator_type& allocator = allocator_type()) : delegate(n, value, allocator)
 	{
 	}
 
-	/// Forwarded to std::vector<bool>::vector(InputIterator first, InputIterator last, const allocator_type& allocator = allocator_type()).
+	/// Forwarded to std::vector<bool>::vector(InputIterator first, InputIterator last, const allocator_type& allocator =
+	/// allocator_type()).
 	template<typename InputIterator>
-	Vector(InputIterator first, InputIterator last, const allocator_type& allocator = allocator_type()) : delegate(first, last, allocator)
+	Vector(InputIterator first, InputIterator last, const allocator_type& allocator = allocator_type()) :
+		delegate(first, last, allocator)
 	{
 	}
 
@@ -557,8 +565,10 @@ public:
 	{
 	}
 
-	/// Forwarded to std::vector<bool>::vector(std::initializer_list<value_type> initializerList, const allocator_type& allocator = allocator_type()).
-	Vector(std::initializer_list<value_type> initializerList, const allocator_type& allocator = allocator_type()) : delegate(initializerList, allocator)
+	/// Forwarded to std::vector<bool>::vector(std::initializer_list<value_type> initializerList, const allocator_type& allocator =
+	/// allocator_type()).
+	Vector(std::initializer_list<value_type> initializerList, const allocator_type& allocator = allocator_type()) :
+		delegate(initializerList, allocator)
 	{
 	}
 
@@ -635,7 +645,7 @@ public:
 	}
 
 	/// Implicit type conversion into std::vector<bool> rvalue reference.
-	operator DelegateType&&()
+	operator DelegateType &&()
 	{
 		return std::move(delegate);
 	}

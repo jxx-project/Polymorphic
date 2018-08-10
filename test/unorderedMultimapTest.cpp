@@ -11,5 +11,8 @@
 
 int main(int args, char* argv[])
 {
-	return Testee::UnorderedMapTestSuite<Polymorphic::UnorderedMultimap, int, int, true>("Polymorphic::UnorderedMultimap<int, int>").run() ? 0 : 1;
+	return Testee::UnorderedMapTestSuite<Polymorphic::UnorderedMultimap, int, int, true>("Polymorphic::UnorderedMultimap<int, int>")
+				   .run() ?
+			   0 :
+			   1;
 }
