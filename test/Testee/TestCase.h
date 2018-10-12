@@ -16,9 +16,7 @@ namespace Testee {
 class TestCase
 {
 public:
-	TestCase(const std::string& name, const std::function<void(void)>& runner)
-		: name(name)
-		, runner(runner)
+	TestCase(const std::string& name, const std::function<void(void)>& runner) : name(name), runner(runner)
 	{
 	}
 
