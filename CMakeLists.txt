@@ -69,3 +69,8 @@ add_executable(unorderedMultimapTest EXCLUDE_FROM_ALL test/unorderedMultimapTest
 target_link_libraries(unorderedMultimapTest ${PROJECT_NAME}::Containers)
 add_test(NAME UnorderedMultimapTest COMMAND unorderedMultimapTest)
 add_dependencies(check unorderedMultimapTest)
+
+add_executable(setTest EXCLUDE_FROM_ALL test/setTest.cpp)
+target_link_libraries(setTest ${PROJECT_NAME}::Containers)
+add_test(NAME SetTest COMMAND setTest)
+add_dependencies(check setTest)
