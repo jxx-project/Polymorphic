@@ -74,3 +74,8 @@ add_executable(setTest EXCLUDE_FROM_ALL test/setTest.cpp)
 target_link_libraries(setTest ${PROJECT_NAME}::Containers)
 add_test(NAME SetTest COMMAND setTest)
 add_dependencies(check setTest)
+
+add_executable(multisetTest EXCLUDE_FROM_ALL test/multisetTest.cpp)
+target_link_libraries(multisetTest ${PROJECT_NAME}::Containers)
+add_test(NAME MultisetTest COMMAND multisetTest)
+add_dependencies(check multisetTest)
