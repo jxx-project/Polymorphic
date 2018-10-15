@@ -12,42 +12,42 @@
 
 namespace Polymorphic {
 
-template<typename T, typename Compare, typename Allocator>
+template<typename Key, typename Compare, typename Allocator>
 class Multiset;
 
-template<typename T, typename Compare, typename Allocator>
-bool operator==(const Multiset<T, Compare, Allocator>& lhs, const Multiset<T, Compare, Allocator>& rhs);
+template<typename Key, typename Compare, typename Allocator>
+bool operator==(const Multiset<Key, Compare, Allocator>& lhs, const Multiset<Key, Compare, Allocator>& rhs);
 
-template<typename T, typename Compare, typename Allocator>
-bool operator!=(const Multiset<T, Compare, Allocator>& lhs, const Multiset<T, Compare, Allocator>& rhs);
+template<typename Key, typename Compare, typename Allocator>
+bool operator!=(const Multiset<Key, Compare, Allocator>& lhs, const Multiset<Key, Compare, Allocator>& rhs);
 
-template<typename T, typename Compare, typename Allocator>
-bool operator<(const Multiset<T, Compare, Allocator>& lhs, const Multiset<T, Compare, Allocator>& rhs);
+template<typename Key, typename Compare, typename Allocator>
+bool operator<(const Multiset<Key, Compare, Allocator>& lhs, const Multiset<Key, Compare, Allocator>& rhs);
 
-template<typename T, typename Compare, typename Allocator>
-bool operator<=(const Multiset<T, Compare, Allocator>& lhs, const Multiset<T, Compare, Allocator>& rhs);
+template<typename Key, typename Compare, typename Allocator>
+bool operator<=(const Multiset<Key, Compare, Allocator>& lhs, const Multiset<Key, Compare, Allocator>& rhs);
 
-template<typename T, typename Compare, typename Allocator>
-bool operator>(const Multiset<T, Compare, Allocator>& lhs, const Multiset<T, Compare, Allocator>& rhs);
+template<typename Key, typename Compare, typename Allocator>
+bool operator>(const Multiset<Key, Compare, Allocator>& lhs, const Multiset<Key, Compare, Allocator>& rhs);
 
-template<typename T, typename Compare, typename Allocator>
-bool operator>=(const Multiset<T, Compare, Allocator>& lhs, const Multiset<T, Compare, Allocator>& rhs);
+template<typename Key, typename Compare, typename Allocator>
+bool operator>=(const Multiset<Key, Compare, Allocator>& lhs, const Multiset<Key, Compare, Allocator>& rhs);
 
-template<typename T, typename Compare, typename Allocator>
-void swap(const Multiset<T, Compare, Allocator>& lhs, const Multiset<T, Compare, Allocator>& rhs);
+template<typename Key, typename Compare, typename Allocator>
+void swap(const Multiset<Key, Compare, Allocator>& lhs, const Multiset<Key, Compare, Allocator>& rhs);
 
-/// Polymorphic decorator composing std::multiset<T> with the sole purpose of adding a virtual destructor..
+/// Polymorphic decorator composing std::multiset<Key> with the sole purpose of adding a virtual destructor..
 ///
-/// Classes derived from Polymorphic::Multiset<T> can be safely used as targets of smart pointers.
+/// Classes derived from Polymorphic::Multiset<Key> can be safely used as targets of smart pointers.
 /// Note: forwarding member functions are *not* declared virtual! They are not meant to be overriden
 /// in subclasses. Add new behavior using new virtual members instead.
-template<typename T, typename Compare = std::less<T>, typename Allocator = std::allocator<T>>
+template<typename Key, typename Compare = std::less<Key>, typename Allocator = std::allocator<Key>>
 class Multiset
 {
 public:
-	typedef std::multiset<T, Compare, Allocator> DelegateType;
-	typedef T key_type;
-	typedef T value_type;
+	typedef std::multiset<Key, Compare, Allocator> DelegateType;
+	typedef Key key_type;
+	typedef Key value_type;
 	typedef Compare key_compare;
 	typedef Compare value_compare;
 	typedef Allocator allocator_type;
@@ -62,20 +62,20 @@ public:
 	typedef typename DelegateType::difference_type difference_type;
 	typedef typename DelegateType::size_type size_type;
 
-	/// Forwarded to std::multiset<T>::multiset(const key_compare& compare = key_compare(), const allocator_type& allocator =
+	/// Forwarded to std::multiset<Key>::multiset(const key_compare& compare = key_compare(), const allocator_type& allocator =
 	/// allocator_type()).
 	explicit Multiset(const key_compare& compare = key_compare(), const allocator_type& allocator = allocator_type()) :
 		delegate(compare, allocator)
 	{
 	}
 
-	/// Forwarded to std::multiset<T>::multiset(const allocator_type& alloc).
+	/// Forwarded to std::multiset<Key>::multiset(const allocator_type& alloc).
 	explicit Multiset(const allocator_type& allocator) : delegate(allocator)
 	{
 	}
 
-	/// Forwarded to std::multiset<T>::multiset(InputIterator first, InputIterator last, const key_compare& compare = key_compare(),
-	/// const allocator_type& allocator = allocator_type()).
+	/// Forwarded to std::multiset<Key>::multiset(InputIterator first, InputIterator last, const key_compare& compare =
+	/// key_compare(), const allocator_type& allocator = allocator_type()).
 	template<typename InputIterator>
 	Multiset(
 		InputIterator first,
@@ -106,7 +106,7 @@ public:
 	{
 	}
 
-	/// Forwarded to std::multiset<T>::multiset(std::initializer_list<value_type> initializerList, const key_compare& compare =
+	/// Forwarded to std::multiset<Key>::multiset(std::initializer_list<value_type> initializerList, const key_compare& compare =
 	/// key_compare(), const allocator_type& allocator = allocator_type()).
 	Multiset(
 		std::initializer_list<value_type> initializerList,
@@ -116,22 +116,22 @@ public:
 	{
 	}
 
-	/// Copy construct from std::multiset<T>.
+	/// Copy construct from std::multiset<Key>.
 	Multiset(const DelegateType& other) : delegate(other)
 	{
 	}
 
-	/// Copy construct from std::multiset<T> with allocator.
+	/// Copy construct from std::multiset<Key> with allocator.
 	Multiset(const DelegateType& other, const allocator_type& allocator) : delegate(other, allocator)
 	{
 	}
 
-	/// Move construct from std::multiset<T>.
+	/// Move construct from std::multiset<Key>.
 	Multiset(DelegateType&& other) : delegate(std::move(other))
 	{
 	}
 
-	/// Move construct from std::multiset<T> with allocator.
+	/// Move construct from std::multiset<Key> with allocator.
 	Multiset(DelegateType&& other, const allocator_type& allocator) : delegate(std::move(other), allocator)
 	{
 	}
@@ -162,276 +162,276 @@ public:
 		return *this;
 	}
 
-	/// Copy assignment from std::multiset<T>.
+	/// Copy assignment from std::multiset<Key>.
 	Multiset& operator=(const DelegateType& other)
 	{
 		delegate = other;
 		return *this;
 	}
 
-	/// Move assignment from std::multiset<T>.
+	/// Move assignment from std::multiset<Key>.
 	Multiset& operator=(DelegateType&& other)
 	{
 		delegate = std::move(other);
 		return *this;
 	}
 
-	/// Implicit type conversion into std::multiset<T> reference.
+	/// Implicit type conversion into std::multiset<Key> reference.
 	operator DelegateType&()
 	{
 		return delegate;
 	}
 
-	/// Implicit type conversion into const std::multiset<T> reference.
+	/// Implicit type conversion into const std::multiset<Key> reference.
 	operator const DelegateType&() const
 	{
 		return delegate;
 	}
 
-	/// Explicit type conversion into std::multiset<T> rvalue reference.
+	/// Explicit type conversion into std::multiset<Key> rvalue reference.
 	explicit operator DelegateType &&()
 	{
 		return std::move(delegate);
 	}
 
-	/// Forwarded to std::multiset<T>::begin() noexcept.
+	/// Forwarded to std::multiset<Key>::begin() noexcept.
 	iterator begin() noexcept
 	{
 		return delegate.begin();
 	}
 
-	/// Forwarded to std::multiset<T>::begin() const noexcept.
+	/// Forwarded to std::multiset<Key>::begin() const noexcept.
 	const_iterator begin() const noexcept
 	{
 		return delegate.begin();
 	}
 
-	/// Forwarded to std::multiset<T>::end() noexcept.
+	/// Forwarded to std::multiset<Key>::end() noexcept.
 	iterator end() noexcept
 	{
 		return delegate.end();
 	}
 
-	/// Forwarded to std::multiset<T>::end() const noexcept.
+	/// Forwarded to std::multiset<Key>::end() const noexcept.
 	const_iterator end() const noexcept
 	{
 		return delegate.end();
 	}
 
-	/// Forwarded to std::multiset<T>::rbegin() noexcept.
+	/// Forwarded to std::multiset<Key>::rbegin() noexcept.
 	reverse_iterator rbegin() noexcept
 	{
 		return delegate.rbegin();
 	}
 
-	/// Forwarded to std::multiset<T>::rbegin() const noexcept.
+	/// Forwarded to std::multiset<Key>::rbegin() const noexcept.
 	const_reverse_iterator rbegin() const noexcept
 	{
 		return delegate.rbegin();
 	}
 
-	/// Forwarded to std::multiset<T>::rend() noexcept.
+	/// Forwarded to std::multiset<Key>::rend() noexcept.
 	reverse_iterator rend() noexcept
 	{
 		return delegate.rend();
 	}
 
-	/// Forwarded to std::multiset<T>::rend() const noexcept.
+	/// Forwarded to std::multiset<Key>::rend() const noexcept.
 	const_reverse_iterator rend() const noexcept
 	{
 		return delegate.rend();
 	}
 
-	/// Forwarded to std::multiset<T>::cbegin() const noexcept.
+	/// Forwarded to std::multiset<Key>::cbegin() const noexcept.
 	const_iterator cbegin() const noexcept
 	{
 		return delegate.cbegin();
 	}
 
-	/// Forwarded to std::multiset<T>::cend() const noexcept.
+	/// Forwarded to std::multiset<Key>::cend() const noexcept.
 	const_iterator cend() const noexcept
 	{
 		return delegate.cend();
 	}
 
-	/// Forwarded to std::multiset<T>::crbegin() const noexcept.
+	/// Forwarded to std::multiset<Key>::crbegin() const noexcept.
 	const_reverse_iterator crbegin() const noexcept
 	{
 		return delegate.crbegin();
 	}
 
-	/// Forwarded to std::multiset<T>::crend() const noexcept.
+	/// Forwarded to std::multiset<Key>::crend() const noexcept.
 	const_reverse_iterator crend() const noexcept
 	{
 		return delegate.crend();
 	}
 
-	/// Forwarded to std::multiset<T>::empty() const noexcept.
+	/// Forwarded to std::multiset<Key>::empty() const noexcept.
 	bool empty() const noexcept
 	{
 		return delegate.empty();
 	}
 
-	/// Forwarded to std::multiset<T>::size() const noexcept.
+	/// Forwarded to std::multiset<Key>::size() const noexcept.
 	size_type size() const noexcept
 	{
 		return delegate.size();
 	}
 
-	/// Forwarded to std::multiset<T>::max_size() const noexcept.
+	/// Forwarded to std::multiset<Key>::max_size() const noexcept.
 	size_type max_size() const noexcept
 	{
 		return delegate.max_size();
 	}
 
-	/// Forwarded to std::multiset<T>::insert(const value_type& value).
+	/// Forwarded to std::multiset<Key>::insert(const value_type& value).
 	iterator insert(const value_type& value)
 	{
 		return delegate.insert(value);
 	}
 
-	/// Forwarded to std::multiset<T>::insert(value_type&& value).
+	/// Forwarded to std::multiset<Key>::insert(value_type&& value).
 	iterator insert(value_type&& value)
 	{
 		return delegate.insert(std::move(value));
 	}
 
-	/// Forwarded to std::multiset<T>::insert(const_iterator position, const value_type& value).
+	/// Forwarded to std::multiset<Key>::insert(const_iterator position, const value_type& value).
 	iterator insert(const_iterator position, const value_type& value)
 	{
 		return delegate.insert(position, value);
 	}
 
-	/// Forwarded to std::multiset<T>::insert(const_iterator position, value_type&& value).
+	/// Forwarded to std::multiset<Key>::insert(const_iterator position, value_type&& value).
 	iterator insert(const_iterator position, value_type&& value)
 	{
 		return delegate.insert(position, std::move(value));
 	}
 
-	/// Forwarded to std::multiset<T>::insert(InputIterator first, InputIterator last).
+	/// Forwarded to std::multiset<Key>::insert(InputIterator first, InputIterator last).
 	template<typename InputIterator>
 	void insert(InputIterator first, InputIterator last)
 	{
 		delegate.insert(first, last);
 	}
 
-	/// Forwarded to std::multiset<T>::insert(std::initializer_list<value_type> initializerList).
+	/// Forwarded to std::multiset<Key>::insert(std::initializer_list<value_type> initializerList).
 	void insert(std::initializer_list<value_type> initializerList)
 	{
 		delegate.insert(initializerList);
 	}
 
-	/// Forwarded to std::multiset<T>::erase(const_iterator position).
+	/// Forwarded to std::multiset<Key>::erase(const_iterator position).
 	iterator erase(const_iterator position)
 	{
 		return delegate.erase(position);
 	}
 
-	/// Forwarded to std::multiset<T>::erase(const value_type& value).
-	size_type erase(const value_type& value)
+	/// Forwarded to std::multiset<Key>::erase(const key_type& key).
+	size_type erase(const key_type& key)
 	{
-		return delegate.erase(value);
+		return delegate.erase(key);
 	}
 
-	/// Forwarded to std::multiset<T>::erase(const_iterator first, const_iterator last).
+	/// Forwarded to std::multiset<Key>::erase(const_iterator first, const_iterator last).
 	iterator erase(const_iterator first, const_iterator last)
 	{
 		return delegate.erase(first, last);
 	}
 
-	/// Forwarded to std::multiset<T>::swap(std::multiset<bool>& other).
+	/// Forwarded to std::multiset<Key>::swap(std::multiset<bool>& other).
 	void swap(Multiset& other)
 	{
 		delegate.swap(other.delegate);
 	}
 
-	/// Forwarded to std::multiset<T>::clear() noexcept.
+	/// Forwarded to std::multiset<Key>::clear() noexcept.
 	void clear() noexcept
 	{
 		delegate.clear();
 	}
 
-	/// Forwarded to std::multiset<T>::emplace(const_iterator position, Args&&... args).
+	/// Forwarded to std::multiset<Key>::emplace(const_iterator position, Args&&... args).
 	template<typename... Args>
 	iterator emplace(Args&&... args)
 	{
 		return delegate.emplace(std::forward<Args>(args)...);
 	}
 
-	/// Forwarded to std::multiset<T>::emplace_hint(const_iterator position, Args&&... args).
+	/// Forwarded to std::multiset<Key>::emplace_hint(const_iterator position, Args&&... args).
 	template<typename... Args>
 	iterator emplace_hint(const_iterator position, Args&&... args)
 	{
 		return delegate.emplace_hint(position, std::forward<Args>(args)...);
 	}
 
-	/// Forwarded to std::multiset<T>::find(const value_type& value).
-	iterator find(const value_type& value)
+	/// Forwarded to std::multiset<Key>::find(const key_type& key).
+	iterator find(const key_type& key)
 	{
-		return delegate.find(value);
+		return delegate.find(key);
 	}
 
-	/// Forwarded to std::multiset<T>::find(const value_type& value) const.
-	const_iterator find(const value_type& value) const
+	/// Forwarded to std::multiset<Key>::find(const key_type& key) const.
+	const_iterator find(const key_type& key) const
 	{
-		return delegate.find(value);
+		return delegate.find(key);
 	}
 
-	/// Forwarded to std::multiset<T>::count(const value_type& value) const.
-	size_type count(const value_type& value) const
+	/// Forwarded to std::multiset<Key>::count(const key_type& key) const.
+	size_type count(const key_type& key) const
 	{
-		return delegate.count(value);
+		return delegate.count(key);
 	}
 
-	/// Forwarded to std::multiset<T>::lower_bound(const value_type& value).
-	iterator lower_bound(const value_type& value)
+	/// Forwarded to std::multiset<Key>::lower_bound(const key_type& key).
+	iterator lower_bound(const key_type& key)
 	{
-		return delegate.lower_bound(value);
+		return delegate.lower_bound(key);
 	}
 
-	/// Forwarded to std::multiset<T>::lower_bound(const value_type& value) const.
-	const_iterator lower_bound(const value_type& value) const
+	/// Forwarded to std::multiset<Key>::lower_bound(const key_type& key) const.
+	const_iterator lower_bound(const key_type& key) const
 	{
-		return delegate.lower_bound(value);
+		return delegate.lower_bound(key);
 	}
 
-	/// Forwarded to std::multiset<T>::upper_bound(const value_type& value).
-	iterator upper_bound(const value_type& value)
+	/// Forwarded to std::multiset<Key>::upper_bound(const key_type& key).
+	iterator upper_bound(const key_type& key)
 	{
-		return delegate.upper_bound(value);
+		return delegate.upper_bound(key);
 	}
 
-	/// Forwarded to std::multiset<T>::upper_bound(const value_type& value) const.
-	const_iterator upper_bound(const value_type& value) const
+	/// Forwarded to std::multiset<Key>::upper_bound(const key_type& key) const.
+	const_iterator upper_bound(const key_type& key) const
 	{
-		return delegate.upper_bound(value);
+		return delegate.upper_bound(key);
 	}
 
-	/// Forwarded to std::multiset<T>::equal_range(const value_type& value).
-	std::pair<iterator, iterator> equal_range(const value_type& value)
+	/// Forwarded to std::multiset<Key>::equal_range(const key_type& key).
+	std::pair<iterator, iterator> equal_range(const key_type& key)
 	{
-		return delegate.equal_range(value);
+		return delegate.equal_range(key);
 	}
 
-	/// Forwarded to std::multiset<T>::equal_range(const value_type& value) const.
-	std::pair<const_iterator, const_iterator> equal_range(const value_type& value) const
+	/// Forwarded to std::multiset<Key>::equal_range(const key_type& key) const.
+	std::pair<const_iterator, const_iterator> equal_range(const key_type& key) const
 	{
-		return delegate.equal_range(value);
+		return delegate.equal_range(key);
 	}
 
-	/// Forwarded to std::multiset<T>::key_comp() const.
+	/// Forwarded to std::multiset<Key>::key_comp() const.
 	key_compare key_comp() const
 	{
 		return delegate.key_comp();
 	}
 
-	/// Forwarded to std::multiset<T>::value_comp() const.
+	/// Forwarded to std::multiset<Key>::value_comp() const.
 	value_compare value_comp() const
 	{
 		return delegate.value_comp();
 	}
 
-	/// Forwarded to std::multiset<T>::get_allocator() const noexcept.
+	/// Forwarded to std::multiset<Key>::get_allocator() const noexcept.
 	allocator_type get_allocator() const noexcept
 	{
 		return delegate.get_allocator();
@@ -441,63 +441,63 @@ private:
 	DelegateType delegate;
 
 	// clang-format off
-	friend bool operator== <T, Compare, Allocator>(const Multiset& lhs, const Multiset& rhs);
-	friend bool operator!= <T, Compare, Allocator>(const Multiset& lhs, const Multiset& rhs);
-	friend bool operator< <T, Compare, Allocator>(const Multiset& lhs, const Multiset& rhs);
-	friend bool operator<= <T, Compare, Allocator>(const Multiset& lhs, const Multiset& rhs);
-	friend bool operator> <T, Compare, Allocator>(const Multiset& lhs, const Multiset& rhs);
-	friend bool operator>= <T, Compare, Allocator>(const Multiset& lhs, const Multiset& rhs);
+	friend bool operator== <Key, Compare, Allocator>(const Multiset& lhs, const Multiset& rhs);
+	friend bool operator!= <Key, Compare, Allocator>(const Multiset& lhs, const Multiset& rhs);
+	friend bool operator< <Key, Compare, Allocator>(const Multiset& lhs, const Multiset& rhs);
+	friend bool operator<= <Key, Compare, Allocator>(const Multiset& lhs, const Multiset& rhs);
+	friend bool operator> <Key, Compare, Allocator>(const Multiset& lhs, const Multiset& rhs);
+	friend bool operator>= <Key, Compare, Allocator>(const Multiset& lhs, const Multiset& rhs);
 	// clang-format on
-	friend void Polymorphic::swap<T, Compare, Allocator>(
-		const Multiset<T, Compare, Allocator>& lhs,
-		const Multiset<T, Compare, Allocator>& rhs);
+	friend void Polymorphic::swap<Key, Compare, Allocator>(
+		const Multiset<Key, Compare, Allocator>& lhs,
+		const Multiset<Key, Compare, Allocator>& rhs);
 };
 
-/// Forwarded to operator==(const std::multiset<T, Compare, Allocator>& lhs, const std::multiset<T, Compare, Allocator>& rhs).
-template<typename T, typename Compare, typename Allocator>
-bool operator==(const Multiset<T, Compare, Allocator>& lhs, const Multiset<T, Compare, Allocator>& rhs)
+/// Forwarded to operator==(const std::multiset<Key, Compare, Allocator>& lhs, const std::multiset<Key, Compare, Allocator>& rhs).
+template<typename Key, typename Compare, typename Allocator>
+bool operator==(const Multiset<Key, Compare, Allocator>& lhs, const Multiset<Key, Compare, Allocator>& rhs)
 {
 	return lhs.delegate == rhs.delegate;
 }
 
-/// Forwarded to operator!=(const std::multiset<T, Compare, Allocator>& lhs, const std::multiset<T, Compare, Allocator>& rhs).
-template<typename T, typename Compare, typename Allocator>
-bool operator!=(const Multiset<T, Compare, Allocator>& lhs, const Multiset<T, Compare, Allocator>& rhs)
+/// Forwarded to operator!=(const std::multiset<Key, Compare, Allocator>& lhs, const std::multiset<Key, Compare, Allocator>& rhs).
+template<typename Key, typename Compare, typename Allocator>
+bool operator!=(const Multiset<Key, Compare, Allocator>& lhs, const Multiset<Key, Compare, Allocator>& rhs)
 {
 	return lhs.delegate != rhs.delegate;
 }
 
-/// Forwarded to operator<(const std::multiset<T, Compare, Allocator>& lhs, const std::multiset<T, Compare, Allocator>& rhs).
-template<typename T, typename Compare, typename Allocator>
-bool operator<(const Multiset<T, Compare, Allocator>& lhs, const Multiset<T, Compare, Allocator>& rhs)
+/// Forwarded to operator<(const std::multiset<Key, Compare, Allocator>& lhs, const std::multiset<Key, Compare, Allocator>& rhs).
+template<typename Key, typename Compare, typename Allocator>
+bool operator<(const Multiset<Key, Compare, Allocator>& lhs, const Multiset<Key, Compare, Allocator>& rhs)
 {
 	return lhs.delegate < rhs.delegate;
 }
 
-/// Forwarded to operator<=(const std::multiset<T, Compare, Allocator>& lhs, const std::multiset<T, Compare, Allocator>& rhs).
-template<typename T, typename Compare, typename Allocator>
-bool operator<=(const Multiset<T, Compare, Allocator>& lhs, const Multiset<T, Compare, Allocator>& rhs)
+/// Forwarded to operator<=(const std::multiset<Key, Compare, Allocator>& lhs, const std::multiset<Key, Compare, Allocator>& rhs).
+template<typename Key, typename Compare, typename Allocator>
+bool operator<=(const Multiset<Key, Compare, Allocator>& lhs, const Multiset<Key, Compare, Allocator>& rhs)
 {
 	return lhs.delegate <= rhs.delegate;
 }
 
-/// Forwarded to operator>(const std::multiset<T, Compare, Allocator>& lhs, const std::multiset<T, Compare, Allocator>& rhs).
-template<typename T, typename Compare, typename Allocator>
-bool operator>(const Multiset<T, Compare, Allocator>& lhs, const Multiset<T, Compare, Allocator>& rhs)
+/// Forwarded to operator>(const std::multiset<Key, Compare, Allocator>& lhs, const std::multiset<Key, Compare, Allocator>& rhs).
+template<typename Key, typename Compare, typename Allocator>
+bool operator>(const Multiset<Key, Compare, Allocator>& lhs, const Multiset<Key, Compare, Allocator>& rhs)
 {
 	return lhs.delegate > rhs.delegate;
 }
 
-/// Forwarded to operator>=(const std::multiset<T, Compare, Allocator>& lhs, const std::multiset<T, Compare, Allocator>& rhs).
-template<typename T, typename Compare, typename Allocator>
-bool operator>=(const Multiset<T, Compare, Allocator>& lhs, const Multiset<T, Compare, Allocator>& rhs)
+/// Forwarded to operator>=(const std::multiset<Key, Compare, Allocator>& lhs, const std::multiset<Key, Compare, Allocator>& rhs).
+template<typename Key, typename Compare, typename Allocator>
+bool operator>=(const Multiset<Key, Compare, Allocator>& lhs, const Multiset<Key, Compare, Allocator>& rhs)
 {
 	return lhs.delegate >= rhs.delegate;
 }
 
-/// Forwarded to swap(const std::multiset<T, Compare, Allocator>& lhs, const std::multiset<T, Compare, Allocator>& rhs).
-template<typename T, typename Compare, typename Allocator>
-void swap(const Multiset<T, Compare, Allocator>& lhs, const Multiset<T, Compare, Allocator>& rhs)
+/// Forwarded to swap(const std::multiset<Key, Compare, Allocator>& lhs, const std::multiset<Key, Compare, Allocator>& rhs).
+template<typename Key, typename Compare, typename Allocator>
+void swap(const Multiset<Key, Compare, Allocator>& lhs, const Multiset<Key, Compare, Allocator>& rhs)
 {
 	swap(lhs.delegate, rhs.delegate);
 }
