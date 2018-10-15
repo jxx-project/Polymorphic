@@ -79,3 +79,13 @@ add_executable(multisetTest EXCLUDE_FROM_ALL test/multisetTest.cpp)
 target_link_libraries(multisetTest ${PROJECT_NAME}::Containers)
 add_test(NAME MultisetTest COMMAND multisetTest)
 add_dependencies(check multisetTest)
+
+add_executable(unorderedSetTest EXCLUDE_FROM_ALL test/unorderedSetTest.cpp)
+target_link_libraries(unorderedSetTest ${PROJECT_NAME}::Containers)
+add_test(NAME UnorderedSetTest COMMAND unorderedSetTest)
+add_dependencies(check unorderedSetTest)
+
+add_executable(unorderedMultisetTest EXCLUDE_FROM_ALL test/unorderedMultisetTest.cpp)
+target_link_libraries(unorderedMultisetTest ${PROJECT_NAME}::Containers)
+add_test(NAME UnorderedMultisetTest COMMAND unorderedMultisetTest)
+add_dependencies(check unorderedMultisetTest)

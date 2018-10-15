@@ -153,13 +153,14 @@ public:
 						TestCase::assert(testee.size() == INITIALIZER_LIST.size(), "testee");
 					}),
 
-				// TestCase("ctor move with allocator", []
-				//		 {
-				//			 UnorderedMapType<Key, T, Hash, Predicate, Allocator> other(INITIALIZER_LIST);
-				//			 UnorderedMapType<Key, T, Hash, Predicate, Allocator> testee(std::move(other),
-				// std::allocator<T>()); 			 TestCase::assert(other.size() == 0, "other"); 			 TestCase::assert(testee.size()
-				// == INITIALIZER_LIST.size(), "testee");
-				//		 }),
+				// TestCase(
+				//	"ctor move with allocator",
+				//	[] {
+				//		UnorderedMapType<Key, T, Hash, Predicate, Allocator> other(INITIALIZER_LIST);
+				//		UnorderedMapType<Key, T, Hash, Predicate, Allocator> testee(std::move(other), std::allocator<T>());
+				//		TestCase::assert(other.size() == 0, "other");
+				//		TestCase::assert(testee.size() == INITIALIZER_LIST.size(), "testee");
+				//	}),
 
 				TestCase(
 					"ctor range",
