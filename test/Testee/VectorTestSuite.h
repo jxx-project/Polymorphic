@@ -90,6 +90,14 @@ public:
 					}),
 
 				TestCase(
+					"ctor default with allocator",
+					[] {
+						const Allocator allocator;
+						VectorType<T, Allocator> testee(allocator);
+						TestCase::assert(testee.size() == 0);
+					}),
+
+				TestCase(
 					"ctor fill",
 					[] {
 						VectorType<T, Allocator> testee(3);
@@ -115,7 +123,8 @@ public:
 					"ctor copy with allocator",
 					[] {
 						const VectorType<T, Allocator> other(3);
-						VectorType<T, Allocator> testee(other, std::allocator<T>());
+						const Allocator allocator;
+						VectorType<T, Allocator> testee(other, allocator);
 						TestCase::assert(testee.size() == 3);
 					}),
 
@@ -132,7 +141,8 @@ public:
 					"ctor move with allocator",
 					[] {
 						VectorType<T, Allocator> other(3);
-						VectorType<T, Allocator> testee(std::move(other), std::allocator<T>());
+						const Allocator allocator;
+						VectorType<T, Allocator> testee(std::move(other), allocator);
 						TestCase::assert(other.size() == 0, "other");
 						TestCase::assert(testee.size() == 3, "testee");
 					}),

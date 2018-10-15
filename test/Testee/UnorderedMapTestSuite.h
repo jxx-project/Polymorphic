@@ -123,11 +123,13 @@ public:
 						TestCase::assert(testee.size() == 0);
 					}),
 
-				// TestCase("ctor default with allocator", []
-				//		 {
-				//			 UnorderedMapType<Key, T, Hash, Predicate, Allocator> testee(std::allocator<T>());
-				//			 TestCase::assert(testee.size() == 0);
-				//		 }),
+				TestCase(
+					"ctor default with allocator",
+					[] {
+						const Allocator allocator;
+						UnorderedMapType<Key, T, Hash, Predicate, Allocator> testee(allocator);
+						TestCase::assert(testee.size() == 0);
+					}),
 
 				TestCase(
 					"ctor copy",
@@ -137,12 +139,14 @@ public:
 						TestCase::assert(testee.size() == INITIALIZER_LIST.size());
 					}),
 
-				// TestCase("ctor copy with allocator", []
-				//		 {
-				//			 const UnorderedMapType<Key, T, Hash, Predicate, Allocator> other(INITIALIZER_LIST);
-				//			 UnorderedMapType<Key, T, Hash, Predicate, Allocator> testee(other, std::allocator<T>());
-				//			 TestCase::assert(testee.size() == INITIALIZER_LIST.size());
-				//		 }),
+				TestCase(
+					"ctor copy with allocator",
+					[] {
+						const UnorderedMapType<Key, T, Hash, Predicate, Allocator> other(INITIALIZER_LIST);
+						const Allocator allocator;
+						UnorderedMapType<Key, T, Hash, Predicate, Allocator> testee(other, allocator);
+						TestCase::assert(testee.size() == INITIALIZER_LIST.size());
+					}),
 
 				TestCase(
 					"ctor move",
@@ -153,14 +157,15 @@ public:
 						TestCase::assert(testee.size() == INITIALIZER_LIST.size(), "testee");
 					}),
 
-				// TestCase(
-				//	"ctor move with allocator",
-				//	[] {
-				//		UnorderedMapType<Key, T, Hash, Predicate, Allocator> other(INITIALIZER_LIST);
-				//		UnorderedMapType<Key, T, Hash, Predicate, Allocator> testee(std::move(other), std::allocator<T>());
-				//		TestCase::assert(other.size() == 0, "other");
-				//		TestCase::assert(testee.size() == INITIALIZER_LIST.size(), "testee");
-				//	}),
+				TestCase(
+					"ctor move with allocator",
+					[] {
+						UnorderedMapType<Key, T, Hash, Predicate, Allocator> other(INITIALIZER_LIST);
+						const Allocator allocator;
+						UnorderedMapType<Key, T, Hash, Predicate, Allocator> testee(std::move(other), allocator);
+						TestCase::assert(other.size() == 0, "other");
+						TestCase::assert(testee.size() == INITIALIZER_LIST.size(), "testee");
+					}),
 
 				TestCase(
 					"ctor range",

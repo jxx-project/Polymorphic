@@ -105,11 +105,13 @@ public:
 						TestCase::assert(testee.size() == 0);
 					}),
 
-				// TestCase("ctor default with allocator", []
-				//		 {
-				//			 MapType<Key, T, Compare, Allocator> testee(std::allocator<T>());
-				//			 TestCase::assert(testee.size() == 0);
-				//		 }),
+				TestCase(
+					"ctor default with allocator",
+					[] {
+						const Allocator allocator;
+						MapType<Key, T, Compare, Allocator> testee(allocator);
+						TestCase::assert(testee.size() == 0);
+					}),
 
 				TestCase(
 					"ctor copy",
@@ -119,12 +121,14 @@ public:
 						TestCase::assert(testee.size() == INITIALIZER_LIST.size());
 					}),
 
-				// TestCase("ctor copy with allocator", []
-				//		 {
-				//			 const MapType<Key, T, Compare, Allocator> other(INITIALIZER_LIST);
-				//			 MapType<Key, T, Compare, Allocator> testee(other, std::allocator<T>());
-				//			 TestCase::assert(testee.size() == INITIALIZER_LIST.size());
-				//		 }),
+				TestCase(
+					"ctor copy with allocator",
+					[] {
+						const MapType<Key, T, Compare, Allocator> other(INITIALIZER_LIST);
+						const Allocator allocator;
+						MapType<Key, T, Compare, Allocator> testee(other, allocator);
+						TestCase::assert(testee.size() == INITIALIZER_LIST.size());
+					}),
 
 				TestCase(
 					"ctor move",
@@ -135,13 +139,15 @@ public:
 						TestCase::assert(testee.size() == INITIALIZER_LIST.size(), "testee");
 					}),
 
-				// TestCase("ctor move with allocator", []
-				//		 {
-				//			 MapType<Key, T, Compare, Allocator> other(INITIALIZER_LIST);
-				//			 MapType<Key, T, Compare, Allocator> testee(std::move(other), std::allocator<T>());
-				//			 TestCase::assert(other.size() == 0, "other");
-				//			 TestCase::assert(testee.size() == INITIALIZER_LIST.size(), "testee");
-				//		 }),
+				TestCase(
+					"ctor move with allocator",
+					[] {
+						MapType<Key, T, Compare, Allocator> other(INITIALIZER_LIST);
+						const Allocator allocator;
+						MapType<Key, T, Compare, Allocator> testee(std::move(other), allocator);
+						TestCase::assert(other.size() == 0, "other");
+						TestCase::assert(testee.size() == INITIALIZER_LIST.size(), "testee");
+					}),
 
 				TestCase(
 					"ctor range",

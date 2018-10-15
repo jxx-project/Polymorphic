@@ -44,6 +44,14 @@ public:
 					}),
 
 				TestCase(
+					"ctor default with allocator",
+					[] {
+						const Allocator allocator;
+						ListType<T, Allocator> testee(allocator);
+						TestCase::assert(testee.size() == 0);
+					}),
+
+				TestCase(
 					"ctor fill",
 					[] {
 						ListType<T, Allocator> testee(3);
@@ -65,12 +73,14 @@ public:
 						TestCase::assert(testee.size() == 3);
 					}),
 
-				// TestCase("ctor copy with allocator", []
-				//		 {
-				//			 const ListType<T, Allocator> other(3);
-				//			 ListType<T, Allocator> testee(other, std::allocator<T>());
-				//			 TestCase::assert(testee.size() == 3);
-				//		 }),
+				TestCase(
+					"ctor copy with allocator",
+					[] {
+						const ListType<T, Allocator> other(3);
+						const Allocator allocator;
+						ListType<T, Allocator> testee(other, allocator);
+						TestCase::assert(testee.size() == 3);
+					}),
 
 				TestCase(
 					"ctor move",
@@ -81,13 +91,15 @@ public:
 						TestCase::assert(testee.size() == 3, "testee");
 					}),
 
-				// TestCase("ctor move with allocator", []
-				//		 {
-				//			 ListType<T, Allocator> other(3);
-				//			 ListType<T, Allocator> testee(std::move(other), std::allocator<T>());
-				//			 TestCase::assert(other.size() == 0, "other");
-				//			 TestCase::assert(testee.size() == 3, "testee");
-				//		 }),
+				TestCase(
+					"ctor move with allocator",
+					[] {
+						ListType<T, Allocator> other(3);
+						const Allocator allocator;
+						ListType<T, Allocator> testee(std::move(other), allocator);
+						TestCase::assert(other.size() == 0, "other");
+						TestCase::assert(testee.size() == 3, "testee");
+					}),
 
 				TestCase(
 					"ctor range",
