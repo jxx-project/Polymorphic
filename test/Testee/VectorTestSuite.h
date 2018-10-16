@@ -391,7 +391,7 @@ public:
 
 				TestCase("operator[]", TestSubscriptOperator<VectorType, T, Allocator>()),
 
-				TestCase("operator[]", TestSubscriptOperatorConst<VectorType, T, Allocator>()),
+				TestCase("operator[] const", TestSubscriptOperatorConst<VectorType, T, Allocator>()),
 
 				TestCase("at", TestAt<VectorType, T, Allocator>()),
 
