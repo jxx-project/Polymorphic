@@ -55,6 +55,11 @@ target_link_libraries(listTest ${PROJECT_NAME}::Containers)
 add_test(NAME ListTest COMMAND listTest)
 add_dependencies(check listTest)
 
+add_executable(forwardListTest EXCLUDE_FROM_ALL test/forwardListTest.cpp)
+target_link_libraries(forwardListTest ${PROJECT_NAME}::Containers)
+add_test(NAME ForwardListTest COMMAND forwardListTest)
+add_dependencies(check forwardListTest)
+
 add_executable(mapTest EXCLUDE_FROM_ALL test/mapTest.cpp)
 target_link_libraries(mapTest ${PROJECT_NAME}::Containers)
 add_test(NAME MapTest COMMAND mapTest)
