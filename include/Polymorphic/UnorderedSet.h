@@ -16,34 +16,22 @@ template<typename Key, typename Hash, typename Predicate, typename Allocator>
 class UnorderedSet;
 
 template<typename Key, typename Hash, typename Predicate, typename Allocator>
-bool operator==(
-	const UnorderedSet<Key, Hash, Predicate, Allocator>& lhs,
-	const UnorderedSet<Key, Hash, Predicate, Allocator>& rhs);
+bool operator==(const UnorderedSet<Key, Hash, Predicate, Allocator>& lhs, const UnorderedSet<Key, Hash, Predicate, Allocator>& rhs);
 
 template<typename Key, typename Hash, typename Predicate, typename Allocator>
-bool operator!=(
-	const UnorderedSet<Key, Hash, Predicate, Allocator>& lhs,
-	const UnorderedSet<Key, Hash, Predicate, Allocator>& rhs);
+bool operator!=(const UnorderedSet<Key, Hash, Predicate, Allocator>& lhs, const UnorderedSet<Key, Hash, Predicate, Allocator>& rhs);
 
 template<typename Key, typename Hash, typename Predicate, typename Allocator>
-bool operator<(
-	const UnorderedSet<Key, Hash, Predicate, Allocator>& lhs,
-	const UnorderedSet<Key, Hash, Predicate, Allocator>& rhs);
+bool operator<(const UnorderedSet<Key, Hash, Predicate, Allocator>& lhs, const UnorderedSet<Key, Hash, Predicate, Allocator>& rhs);
 
 template<typename Key, typename Hash, typename Predicate, typename Allocator>
-bool operator<=(
-	const UnorderedSet<Key, Hash, Predicate, Allocator>& lhs,
-	const UnorderedSet<Key, Hash, Predicate, Allocator>& rhs);
+bool operator<=(const UnorderedSet<Key, Hash, Predicate, Allocator>& lhs, const UnorderedSet<Key, Hash, Predicate, Allocator>& rhs);
 
 template<typename Key, typename Hash, typename Predicate, typename Allocator>
-bool operator>(
-	const UnorderedSet<Key, Hash, Predicate, Allocator>& lhs,
-	const UnorderedSet<Key, Hash, Predicate, Allocator>& rhs);
+bool operator>(const UnorderedSet<Key, Hash, Predicate, Allocator>& lhs, const UnorderedSet<Key, Hash, Predicate, Allocator>& rhs);
 
 template<typename Key, typename Hash, typename Predicate, typename Allocator>
-bool operator>=(
-	const UnorderedSet<Key, Hash, Predicate, Allocator>& lhs,
-	const UnorderedSet<Key, Hash, Predicate, Allocator>& rhs);
+bool operator>=(const UnorderedSet<Key, Hash, Predicate, Allocator>& lhs, const UnorderedSet<Key, Hash, Predicate, Allocator>& rhs);
 
 template<typename Key, typename Hash, typename Predicate, typename Allocator>
 void swap(const UnorderedSet<Key, Hash, Predicate, Allocator>& lhs, const UnorderedSet<Key, Hash, Predicate, Allocator>& rhs);
@@ -494,9 +482,7 @@ private:
 /// Forwarded to operator==(const std::unordered_set<Key, Hash, Predicate, Allocator>& lhs, const std::unordered_set<Key,
 /// Hash, Predicate, Allocator>& rhs).
 template<typename Key, typename Hash, typename Predicate, typename Allocator>
-bool operator==(
-	const UnorderedSet<Key, Hash, Predicate, Allocator>& lhs,
-	const UnorderedSet<Key, Hash, Predicate, Allocator>& rhs)
+bool operator==(const UnorderedSet<Key, Hash, Predicate, Allocator>& lhs, const UnorderedSet<Key, Hash, Predicate, Allocator>& rhs)
 {
 	return lhs.delegate == rhs.delegate;
 }
@@ -504,9 +490,7 @@ bool operator==(
 /// Forwarded to operator!=(const std::unordered_set<Key, Hash, Predicate, Allocator>& lhs, const std::unordered_set<Key,
 /// Hash, Predicate, Allocator>& rhs).
 template<typename Key, typename Hash, typename Predicate, typename Allocator>
-bool operator!=(
-	const UnorderedSet<Key, Hash, Predicate, Allocator>& lhs,
-	const UnorderedSet<Key, Hash, Predicate, Allocator>& rhs)
+bool operator!=(const UnorderedSet<Key, Hash, Predicate, Allocator>& lhs, const UnorderedSet<Key, Hash, Predicate, Allocator>& rhs)
 {
 	return lhs.delegate != rhs.delegate;
 }
@@ -514,9 +498,7 @@ bool operator!=(
 /// Forwarded to operator<(const std::unordered_set<Key, Hash, Predicate, Allocator>& lhs, const std::unordered_set<Key, Hash,
 /// Predicate, Allocator>& rhs).
 template<typename Key, typename Hash, typename Predicate, typename Allocator>
-bool operator<(
-	const UnorderedSet<Key, Hash, Predicate, Allocator>& lhs,
-	const UnorderedSet<Key, Hash, Predicate, Allocator>& rhs)
+bool operator<(const UnorderedSet<Key, Hash, Predicate, Allocator>& lhs, const UnorderedSet<Key, Hash, Predicate, Allocator>& rhs)
 {
 	return lhs.delegate < rhs.delegate;
 }
@@ -524,9 +506,7 @@ bool operator<(
 /// Forwarded to operator<=(const std::unordered_set<Key, Hash, Predicate, Allocator>& lhs, const std::unordered_set<Key,
 /// Hash, Predicate, Allocator>& rhs).
 template<typename Key, typename Hash, typename Predicate, typename Allocator>
-bool operator<=(
-	const UnorderedSet<Key, Hash, Predicate, Allocator>& lhs,
-	const UnorderedSet<Key, Hash, Predicate, Allocator>& rhs)
+bool operator<=(const UnorderedSet<Key, Hash, Predicate, Allocator>& lhs, const UnorderedSet<Key, Hash, Predicate, Allocator>& rhs)
 {
 	return lhs.delegate <= rhs.delegate;
 }
@@ -534,9 +514,7 @@ bool operator<=(
 /// Forwarded to operator>(const std::unordered_set<Key, Hash, Predicate, Allocator>& lhs, const std::unordered_set<Key, Hash,
 /// Predicate, Allocator>& rhs).
 template<typename Key, typename Hash, typename Predicate, typename Allocator>
-bool operator>(
-	const UnorderedSet<Key, Hash, Predicate, Allocator>& lhs,
-	const UnorderedSet<Key, Hash, Predicate, Allocator>& rhs)
+bool operator>(const UnorderedSet<Key, Hash, Predicate, Allocator>& lhs, const UnorderedSet<Key, Hash, Predicate, Allocator>& rhs)
 {
 	return lhs.delegate > rhs.delegate;
 }
@@ -544,9 +522,7 @@ bool operator>(
 /// Forwarded to operator>=(const std::unordered_set<Key, Hash, Predicate, Allocator>& lhs, const std::unordered_set<Key,
 /// Hash, Predicate, Allocator>& rhs).
 template<typename Key, typename Hash, typename Predicate, typename Allocator>
-bool operator>=(
-	const UnorderedSet<Key, Hash, Predicate, Allocator>& lhs,
-	const UnorderedSet<Key, Hash, Predicate, Allocator>& rhs)
+bool operator>=(const UnorderedSet<Key, Hash, Predicate, Allocator>& lhs, const UnorderedSet<Key, Hash, Predicate, Allocator>& rhs)
 {
 	return lhs.delegate >= rhs.delegate;
 }

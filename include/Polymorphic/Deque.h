@@ -511,49 +511,49 @@ private:
 template<typename T, typename Allocator>
 bool operator==(const Deque<T, Allocator>& lhs, const Deque<T, Allocator>& rhs)
 {
-        return lhs.delegate == rhs.delegate;
+	return lhs.delegate == rhs.delegate;
 }
 
 /// Forwarded to operator!=(const std::deque<T, Allocator>& lhs, const std::deque<T, Allocator>& rhs).
 template<typename T, typename Allocator>
 bool operator!=(const Deque<T, Allocator>& lhs, const Deque<T, Allocator>& rhs)
 {
-        return lhs.delegate != rhs.delegate;
+	return lhs.delegate != rhs.delegate;
 }
 
 /// Forwarded to operator<(const std::deque<T, Allocator>& lhs, const std::deque<T, Allocator>& rhs).
 template<typename T, typename Allocator>
 bool operator<(const Deque<T, Allocator>& lhs, const Deque<T, Allocator>& rhs)
 {
-        return lhs.delegate < rhs.delegate;
+	return lhs.delegate < rhs.delegate;
 }
 
 /// Forwarded to operator<=(const std::deque<T, Allocator>& lhs, const std::deque<T, Allocator>& rhs).
 template<typename T, typename Allocator>
 bool operator<=(const Deque<T, Allocator>& lhs, const Deque<T, Allocator>& rhs)
 {
-        return lhs.delegate <= rhs.delegate;
+	return lhs.delegate <= rhs.delegate;
 }
 
 /// Forwarded to operator>(const std::deque<T, Allocator>& lhs, const std::deque<T, Allocator>& rhs).
 template<typename T, typename Allocator>
 bool operator>(const Deque<T, Allocator>& lhs, const Deque<T, Allocator>& rhs)
 {
-        return lhs.delegate > rhs.delegate;
+	return lhs.delegate > rhs.delegate;
 }
 
 /// Forwarded to operator>=(const std::deque<T, Allocator>& lhs, const std::deque<T, Allocator>& rhs).
 template<typename T, typename Allocator>
 bool operator>=(const Deque<T, Allocator>& lhs, const Deque<T, Allocator>& rhs)
 {
-        return lhs.delegate >= rhs.delegate;
+	return lhs.delegate >= rhs.delegate;
 }
 
 /// Forwarded to swap(const std::deque<T, Allocator>& lhs, const std::deque<T, Allocator>& rhs).
 template<typename T, typename Allocator>
 void swap(const Deque<T, Allocator>& lhs, const Deque<T, Allocator>& rhs)
 {
-        swap(lhs.delegate, rhs.delegate);
+	swap(lhs.delegate, rhs.delegate);
 }
 
 } // namespace Polymorphic

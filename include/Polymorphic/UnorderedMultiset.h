@@ -46,7 +46,9 @@ bool operator>=(
 	const UnorderedMultiset<Key, Hash, Predicate, Allocator>& rhs);
 
 template<typename Key, typename Hash, typename Predicate, typename Allocator>
-void swap(const UnorderedMultiset<Key, Hash, Predicate, Allocator>& lhs, const UnorderedMultiset<Key, Hash, Predicate, Allocator>& rhs);
+void swap(
+	const UnorderedMultiset<Key, Hash, Predicate, Allocator>& lhs,
+	const UnorderedMultiset<Key, Hash, Predicate, Allocator>& rhs);
 
 /// Polymorphic decorator composing std::unordered_multiset<Key> with the sole purpose of adding a virtual destructor..
 ///
@@ -83,8 +85,8 @@ public:
 	{
 	}
 
-	/// Forwarded to std::unordered_multiset<Key>::unordered_multiset(size_type minInitialBuckets, const hasher& hash = hasher(), const
-	/// key_equal& predicate = key_equal(), const allocator_type& allocator = allocator_type()).
+	/// Forwarded to std::unordered_multiset<Key>::unordered_multiset(size_type minInitialBuckets, const hasher& hash = hasher(),
+	/// const key_equal& predicate = key_equal(), const allocator_type& allocator = allocator_type()).
 	explicit UnorderedMultiset(
 		size_type minInitialBuckets,
 		const hasher& hash = hasher(),
@@ -106,9 +108,9 @@ public:
 	{
 	}
 
-	/// Forwarded to std::unordered_multiset<Key>::unordered_multiset(InputIterator first, InputIterator last, size_type minInitialBuckets,
-	/// const hasher& hash = hasher(), const key_equal& predicate = key_equal(), const allocator_type& allocator =
-	/// allocator_type()).
+	/// Forwarded to std::unordered_multiset<Key>::unordered_multiset(InputIterator first, InputIterator last, size_type
+	/// minInitialBuckets, const hasher& hash = hasher(), const key_equal& predicate = key_equal(), const allocator_type& allocator
+	/// = allocator_type()).
 	template<typename InputIterator>
 	UnorderedMultiset(
 		InputIterator first,
@@ -141,8 +143,8 @@ public:
 	{
 	}
 
-	/// Forwarded to std::unordered_multiset<Key>::unordered_multiset(std::initializer_list<value_type> initializerList) using default
-	/// minInitialBuckets.
+	/// Forwarded to std::unordered_multiset<Key>::unordered_multiset(std::initializer_list<value_type> initializerList) using
+	/// default minInitialBuckets.
 	UnorderedMultiset(std::initializer_list<value_type> initializerList) : delegate(initializerList)
 	{
 	}
@@ -511,8 +513,8 @@ bool operator!=(
 	return lhs.delegate != rhs.delegate;
 }
 
-/// Forwarded to operator<(const std::unordered_multiset<Key, Hash, Predicate, Allocator>& lhs, const std::unordered_multiset<Key, Hash,
-/// Predicate, Allocator>& rhs).
+/// Forwarded to operator<(const std::unordered_multiset<Key, Hash, Predicate, Allocator>& lhs, const std::unordered_multiset<Key,
+/// Hash, Predicate, Allocator>& rhs).
 template<typename Key, typename Hash, typename Predicate, typename Allocator>
 bool operator<(
 	const UnorderedMultiset<Key, Hash, Predicate, Allocator>& lhs,
@@ -531,8 +533,8 @@ bool operator<=(
 	return lhs.delegate <= rhs.delegate;
 }
 
-/// Forwarded to operator>(const std::unordered_multiset<Key, Hash, Predicate, Allocator>& lhs, const std::unordered_multiset<Key, Hash,
-/// Predicate, Allocator>& rhs).
+/// Forwarded to operator>(const std::unordered_multiset<Key, Hash, Predicate, Allocator>& lhs, const std::unordered_multiset<Key,
+/// Hash, Predicate, Allocator>& rhs).
 template<typename Key, typename Hash, typename Predicate, typename Allocator>
 bool operator>(
 	const UnorderedMultiset<Key, Hash, Predicate, Allocator>& lhs,
@@ -554,7 +556,9 @@ bool operator>=(
 /// Forwarded to swap(const std::unordered_multiset<Key, Hash, Predicate, Allocator>& lhs, const std::unordered_multiset<Key, Hash,
 /// Predicate, Allocator>& rhs).
 template<typename Key, typename Hash, typename Predicate, typename Allocator>
-void swap(const UnorderedMultiset<Key, Hash, Predicate, Allocator>& lhs, const UnorderedMultiset<Key, Hash, Predicate, Allocator>& rhs)
+void swap(
+	const UnorderedMultiset<Key, Hash, Predicate, Allocator>& lhs,
+	const UnorderedMultiset<Key, Hash, Predicate, Allocator>& rhs)
 {
 	swap(lhs.delegate, rhs.delegate);
 }

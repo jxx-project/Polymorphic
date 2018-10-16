@@ -337,8 +337,8 @@ public:
 					}),
 
 				TestCase(
-					"operator[] const", []
-					{
+					"operator[] const",
+					[] {
 						const DequeType<T, Allocator> testee(1);
 						auto& result = testee[0];
 						TestCase::assert(
