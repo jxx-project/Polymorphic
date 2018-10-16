@@ -21,9 +21,9 @@ public:
 	typedef std::initializer_list<T> InitializerListType;
 	typedef std::array<T, 1> ArrayType;
 
-	DequeTestSuite(const std::string& vectorType) :
+	DequeTestSuite(const std::string& dequeType) :
 		TestSuite(
-			vectorType + " C++11 standard interface",
+			dequeType + " C++11 standard interface",
 			{
 
 				TestCase(
