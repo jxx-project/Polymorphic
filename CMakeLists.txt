@@ -45,6 +45,11 @@ target_link_libraries(vectorTest ${PROJECT_NAME}::Containers)
 add_test(NAME VectorTest COMMAND vectorTest)
 add_dependencies(check vectorTest)
 
+add_executable(dequeTest EXCLUDE_FROM_ALL test/dequeTest.cpp)
+target_link_libraries(dequeTest ${PROJECT_NAME}::Containers)
+add_test(NAME DequeTest COMMAND dequeTest)
+add_dependencies(check dequeTest)
+
 add_executable(listTest EXCLUDE_FROM_ALL test/listTest.cpp)
 target_link_libraries(listTest ${PROJECT_NAME}::Containers)
 add_test(NAME ListTest COMMAND listTest)

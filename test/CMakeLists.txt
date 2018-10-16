@@ -7,6 +7,7 @@
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 
 add_executable (vectorTest vectorTest.cpp)
+add_executable (dequeTest dequeTest.cpp)
 add_executable (listTest listTest.cpp)
 add_executable (mapTest mapTest.cpp)
 add_executable (multimapTest multimapTest.cpp)
