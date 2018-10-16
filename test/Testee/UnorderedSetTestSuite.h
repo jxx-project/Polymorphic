@@ -28,9 +28,9 @@ public:
 	typedef std::array<Key, 1> ArrayType;
 	typedef typename UnorderedSetType<Key, Hash, Predicate, Allocator>::value_type ValueType;
 
-	UnorderedSetTestSuite(const std::string& unorderedMapType) :
+	UnorderedSetTestSuite(const std::string& unorderedSetType) :
 		TestSuite(
-			unorderedMapType + " C++11 standard interface",
+			unorderedSetType + " C++11 standard interface",
 			{
 
 				TestCase(
