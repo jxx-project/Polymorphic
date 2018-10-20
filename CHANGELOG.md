@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+## 1.2.0 — 2018-10-20
+### Added
+- Container types Deque, ForwardList, Set, Multiset, UnorderedSet, UnorderedMultiset.
+
 ## 1.1.0 — 2018-04-19
 ### Added
 - CMake target version.
