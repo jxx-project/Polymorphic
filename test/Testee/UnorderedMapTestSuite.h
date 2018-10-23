@@ -333,7 +333,6 @@ public:
 					"insert single element",
 					[] {
 						UnorderedMapType<Key, T, Hash, Predicate, Allocator> testee;
-						auto position = testee.begin();
 						auto value = std::make_pair(Key(), T());
 						auto result = testee.insert(value);
 						if (!isMultimap) {
@@ -356,7 +355,6 @@ public:
 					"insert move",
 					[] {
 						UnorderedMapType<Key, T, Hash, Predicate, Allocator> testee;
-						auto position = testee.begin();
 						auto value = std::make_pair(Key(), T());
 						auto result = testee.insert(std::move(value));
 						if (!isMultimap) {

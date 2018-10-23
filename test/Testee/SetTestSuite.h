@@ -310,7 +310,6 @@ public:
 					"insert single element",
 					[] {
 						SetType<Key, Compare, Allocator> testee;
-						auto position = testee.begin();
 						auto value = Key();
 						auto result = testee.insert(value);
 						if (!isMultiset) {
@@ -330,7 +329,6 @@ public:
 					"insert move",
 					[] {
 						SetType<Key, Compare, Allocator> testee;
-						auto position = testee.begin();
 						auto value = Key();
 						auto result = testee.insert(std::move(value));
 						if (!isMultiset) {

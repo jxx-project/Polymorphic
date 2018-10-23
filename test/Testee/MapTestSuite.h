@@ -369,7 +369,6 @@ public:
 					"insert single element",
 					[] {
 						MapType<Key, T, Compare, Allocator> testee;
-						auto position = testee.begin();
 						auto value = std::make_pair(Key(), T());
 						auto result = testee.insert(value);
 						if (!isMultimap) {
@@ -390,7 +389,6 @@ public:
 					"insert move",
 					[] {
 						MapType<Key, T, Compare, Allocator> testee;
-						auto position = testee.begin();
 						auto value = std::make_pair(Key(), T());
 						auto result = testee.insert(std::move(value));
 						if (!isMultimap) {

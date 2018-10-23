@@ -266,7 +266,6 @@ public:
 					"insert single element",
 					[] {
 						UnorderedSetType<Key, Hash, Predicate, Allocator> testee;
-						auto position = testee.begin();
 						auto value = Key();
 						auto result = testee.insert(value);
 						if (!isMultiset) {
@@ -289,7 +288,6 @@ public:
 					"insert move",
 					[] {
 						UnorderedSetType<Key, Hash, Predicate, Allocator> testee;
-						auto position = testee.begin();
 						auto value = Key();
 						auto result = testee.insert(std::move(value));
 						if (!isMultiset) {
